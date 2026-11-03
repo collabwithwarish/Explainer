@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#070404">
+<meta name="theme-color" content="#0b0c0f">
 <title>Explainer Studio</title>
 <style>
 @font-face {
@@ -807,56 +807,54 @@
    ========================================================= */
 
 :root {
-  /* palette taken from the "Red Silky Smoke" reference: black, deep-to-bright crimson, pink-white highlights */
-  --bg: #080505;
-  --panel: #110b0b;
-  --panel-elevated: #181010;
-  --field: #1f1414;
-  --field-hover: #2a1a1a;
-  --line: #2c1c1c;
-  --line2: #432828;
-  --line-focus: #ff3b41;
+  /* calm and neutral: cool greys everywhere, one blue for the few things that should stand out */
+  --bg: #0b0c0f;
+  --panel: #121317;
+  --panel-elevated: #17181d;
+  --field: #1d1f25;
+  --field-hover: #25272e;
+  --line: #2a2d35;
+  --line2: #3a3e48;
+  --line-focus: #3b82f6;
 
-  --fg: #f6eeee;
-  --fg-secondary: #dccbcb;
-  --muted: #ab9797;
-  --muted-dim: #957f80;
+  --fg: #eceef2;
+  --fg-secondary: #c4c8d0;
+  --muted: #9ba0ab;
+  --muted-dim: #8a8f9b;
 
-  --accent: #d61f26;
-  --accent-hover: #b8121a;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
   --accent-ink: #ffffff;
-  --accent-text: #ff5a60; /* red used as text or icons: brighter than the fill so it reads on black */
-  --accent-soft: #ff8a8f;
-  --glow: #ffb3b0;
+  --accent-text: #6ea8fe;
+  --accent-soft: #93c5fd;
+  --glow: #93c5fd;
 
   --ok: #22c55e;
   --warn: #f59e0b;
-  --danger: #ff5c7c;
+  --danger: #f87171;
 
-  --t-text: #ff8a8f;
+  --t-text: #7aa7ff;
   --t-shape: #f59e0b;
   --t-chart: #10b981;
   --t-icon: #a855f7;
   --t-line: #94a3b8;
 
-  --checker-a: #1d1313;
-  --checker-b: #140d0d;
+  --checker-a: #1c1e23;
+  --checker-b: #15161a;
 
   --ui: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
-  /* numbers, timecodes and keys use DM Sans too. Its built-in copy has no equal-width digits,
-     so readouts that change while playing get a fixed width (see .tc) and never push their neighbours */
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --display: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
 
-  /* glass surfaces float over a soft crimson backdrop */
-  --backdrop: radial-gradient(1100px 620px at 8% -8%, rgba(214, 31, 38, 0.30), transparent 60%), radial-gradient(900px 560px at 100% 105%, rgba(150, 12, 20, 0.28), transparent 62%), radial-gradient(700px 420px at 70% 30%, rgba(255, 120, 125, 0.07), transparent 70%), #070404;
-  --glass: rgba(22, 12, 12, 0.52);
-  --glass-strong: rgba(24, 13, 13, 0.78);
-  --glass-solid: rgba(26, 14, 14, 0.94);
-  --glass-line: rgba(255, 255, 255, 0.075);
-  --glass-hi: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  /* glass surfaces over an almost plain backdrop with the faintest blue */
+  --backdrop: radial-gradient(1000px 600px at 10% -10%, rgba(37, 99, 235, 0.10), transparent 60%), radial-gradient(900px 560px at 100% 110%, rgba(148, 163, 184, 0.06), transparent 62%), #0b0c0f;
+  --glass: rgba(20, 21, 25, 0.6);
+  --glass-strong: rgba(22, 23, 28, 0.82);
+  --glass-solid: rgba(24, 25, 30, 0.95);
+  --glass-line: rgba(255, 255, 255, 0.07);
+  --glass-hi: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --glass-shadow: 0 10px 32px rgba(0, 0, 0, 0.38);
-  --blur: blur(22px) saturate(160%);
+  --blur: blur(22px) saturate(140%);
   --veil-a: rgba(0, 0, 0, 0.5); --veil-b: rgba(0, 0, 0, 0.12); --veil-c: rgba(0, 0, 0, 0.75);
   --radius: 14px;
 
@@ -865,34 +863,34 @@
 }
 /* bright theme: warm white paper, the same crimson, dark ink */
 :root[data-theme="light"] {
-  --bg: #fbf7f6;
+  --bg: #f6f7f9;
   --panel: #ffffff;
   --panel-elevated: #ffffff;
-  --field: #f3ecea;
-  --field-hover: #ebe2e0;
-  --line: rgba(90, 30, 30, 0.10);
-  --line2: rgba(90, 30, 30, 0.18);
-  --line-focus: #d61f26;
-  --fg: #1d1314;
-  --fg-secondary: #4b3b3c;
-  --muted: #6f5c5d;
-  --muted-dim: #7a6869;
-  --accent: #d61f26;
-  --accent-hover: #b8121a;
-  --accent-text: #b3141b;
-  --accent-soft: #c92a31;
-  --glow: #d6474d;
-  --danger: #c22650;
-  --checker-a: #ede5e4;
-  --checker-b: #f8f3f2;
-  --backdrop: radial-gradient(1100px 620px at 8% -8%, rgba(214, 31, 38, 0.14), transparent 60%), radial-gradient(900px 560px at 100% 105%, rgba(255, 120, 125, 0.18), transparent 62%), #fbf6f5;
-  --glass: rgba(255, 255, 255, 0.58);
-  --glass-strong: rgba(255, 255, 255, 0.82);
-  --glass-solid: rgba(255, 255, 255, 0.96);
-  --glass-line: rgba(90, 30, 30, 0.10);
+  --field: #f0f2f5;
+  --field-hover: #e7eaef;
+  --line: rgba(15, 23, 42, 0.08);
+  --line2: rgba(15, 23, 42, 0.16);
+  --line-focus: #2563eb;
+  --fg: #12151a;
+  --fg-secondary: #3c4350;
+  --muted: #5d6573;
+  --muted-dim: #6b7280;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-text: #1d4ed8;
+  --accent-soft: #2563eb;
+  --glow: #3b82f6;
+  --danger: #dc2626;
+  --checker-a: #e8eaee;
+  --checker-b: #f5f6f8;
+  --backdrop: radial-gradient(1000px 600px at 10% -10%, rgba(37, 99, 235, 0.06), transparent 60%), #f6f7f9;
+  --glass: rgba(255, 255, 255, 0.62);
+  --glass-strong: rgba(255, 255, 255, 0.85);
+  --glass-solid: rgba(255, 255, 255, 0.97);
+  --glass-line: rgba(15, 23, 42, 0.08);
   --glass-hi: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --glass-shadow: 0 10px 30px rgba(90, 20, 20, 0.10);
-  --veil-a: rgba(251, 247, 246, 0.72); --veil-b: rgba(251, 247, 246, 0.2); --veil-c: rgba(251, 247, 246, 0.88);
+  --glass-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --veil-a: rgba(246, 247, 249, 0.72); --veil-b: rgba(246, 247, 249, 0.2); --veil-c: rgba(246, 247, 249, 0.88);
   color-scheme: light;
 }
 
@@ -1011,7 +1009,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .btn.sm { padding: 3px 8px; font-size: 11px; border-radius: 4px; }
 .btn.danger { color: var(--danger); }
 .btn.danger:hover { background: rgba(239, 68, 68, 0.12); border-color: var(--danger); }
-.btn.on { background: rgba(232, 38, 45, 0.15); border-color: var(--accent-text); color: var(--accent-text); }
+.btn.on { background: rgba(37, 99, 235, 0.15); border-color: var(--accent-text); color: var(--accent-text); }
 
 .icon-btn { width: 28px; height: 28px; padding: 0; }
 .icon-btn svg { width: 14px; height: 14px; fill: currentColor; }
@@ -1249,7 +1247,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .elcard:hover .elpreview {
   background: #0d0f15;
-  border-bottom-color: rgba(232, 38, 45, 0.35);
+  border-bottom-color: rgba(37, 99, 235, 0.35);
 }
 
 .elcard-info {
@@ -1305,15 +1303,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .el-p-pill-up { font-size: 8.5px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 1px 5px; border-radius: 999px; }
 
 .el-prev-pill { display: flex; align-items: center; justify-content: center; }
-.el-pill-tag { display: inline-flex; align-items: center; gap: 4px; background: rgba(232, 38, 45,0.18); border: 1px solid rgba(232, 38, 45,0.4); color: #93c5fd; font-size: 9.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; letter-spacing: 0.04em; }
-.el-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: #e8262d; box-shadow: 0 0 5px #e8262d; }
+.el-pill-tag { display: inline-flex; align-items: center; gap: 4px; background: rgba(37, 99, 235,0.18); border: 1px solid rgba(37, 99, 235,0.4); color: #93c5fd; font-size: 9.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; letter-spacing: 0.04em; }
+.el-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: #2563eb; box-shadow: 0 0 5px #2563eb; }
 
 .el-prev-card { width: 50px; height: 34px; background: #140d0d; border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 4px; display: flex; flex-direction: column; gap: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
 .el-card-hdr { height: 4px; width: 55%; background: var(--accent); border-radius: 2px; }
 .el-card-skel { height: 3px; background: rgba(255,255,255,0.15); border-radius: 1px; }
 .el-card-skel.s1 { width: 85%; }
 .el-card-skel.s2 { width: 50%; }
-.elcard:hover .el-prev-card { border-color: rgba(232, 38, 45,0.5); transform: scale(1.04); transition: transform 0.2s; }
+.elcard:hover .el-prev-card { border-color: rgba(37, 99, 235,0.5); transform: scale(1.04); transition: transform 0.2s; }
 
 .el-prev-hl { position: relative; }
 .el-hl-sample { font-size: 12.5px; font-weight: 700; color: #fff; position: relative; z-index: 1; padding: 1px 4px; }
@@ -1326,7 +1324,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .elcard:hover .el-chart-bars rect.b3 { transform: scaleY(1.15); }
 
 .el-line-path { transition: stroke 0.2s; }
-.elcard:hover .el-line-path { stroke: #ff8a8f; stroke-width: 2.2; }
+.elcard:hover .el-line-path { stroke: #93c5fd; stroke-width: 2.2; }
 
 .el-donut-svg { transition: transform 0.5s ease; transform-origin: center; }
 .elcard:hover .el-donut-svg { transform: rotate(45deg); }
@@ -1387,7 +1385,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-weight: 500;
 }
 .chip:hover { border-color: var(--line2); color: var(--fg); }
-.chip.on { color: var(--fg); border-color: var(--accent-text); background: rgba(232, 38, 45, 0.15); }
+.chip.on { color: var(--fg); border-color: var(--accent-text); background: rgba(37, 99, 235, 0.15); }
 
 .agrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
 .acard { display: grid; gap: 3px; min-width: 0; position: relative; }
@@ -1650,7 +1648,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-text); ou
   cursor: grab;
   font-size: 11.5px;
 }
-.tl-name.sel { background: rgba(232, 38, 45, 0.12); }
+.tl-name.sel { background: rgba(37, 99, 235, 0.12); }
 .tl-name .tb {
   width: 18px; height: 18px; padding: 0;
   border: 0; background: none; color: var(--muted);
@@ -1669,7 +1667,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent-text); ou
   height: 28px;
   border-bottom: 1px solid var(--line);
 }
-.tl-track.sel { background: rgba(232, 38, 45, 0.05); }
+.tl-track.sel { background: rgba(37, 99, 235, 0.05); }
 
 /* Clip Bar */
 .tbar {
@@ -1799,7 +1797,7 @@ kbd {
 .mmeta { font-size: 10.5px; color: var(--muted); }
 .mcard-btns { display: flex; gap: 4px; margin-top: 2px; }
 /* drop targets */
-.tl-drop-active { outline: 2px dashed var(--accent); outline-offset: -2px; background: rgba(232, 38, 45,.06); }
+.tl-drop-active { outline: 2px dashed var(--accent); outline-offset: -2px; background: rgba(37, 99, 235,.06); }
 .stage-drop-active { outline: 2px dashed var(--accent); outline-offset: 4px; }
 /* web icon search */
 .api-status-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 10.5px; color: var(--muted); }
@@ -1842,7 +1840,7 @@ kbd {
 .elcard:hover .el-c-ring { animation: elRipple .6s .5s ease-out; }
 @keyframes elRipple { from { opacity: .9; transform: scale(.3); } to { opacity: 0; transform: scale(1.6); } }
 .el-prev-callout { position: relative; width: 70px; height: 34px; }
-.el-co-dot { position: absolute; left: 4px; bottom: 4px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(232, 38, 45,.25); }
+.el-co-dot { position: absolute; left: 4px; bottom: 4px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235,.25); }
 .el-co-line { position: absolute; left: 9px; bottom: 9px; width: 16px; height: 1.5px; background: var(--accent); transform-origin: left; transform: rotate(-38deg); }
 .el-co-card { position: absolute; right: 0; top: 2px; font-size: 8.5px; font-weight: 700; padding: 3px 5px; border-radius: 4px; background: var(--field); border: 1px solid var(--accent); color: var(--fg); }
 .el-prev-progress { width: 86%; display: grid; gap: 4px; font-size: 8.5px; color: var(--muted); }
@@ -1859,7 +1857,7 @@ kbd {
 .el-t-lines { display: grid; font-size: 8px; line-height: 1.25; min-width: 0; } .el-t-lines b { color: var(--fg); } .el-t-lines i { font-style: normal; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .el-prev-chat { display: grid; gap: 4px; width: 86%; font-size: 8.5px; }
 .el-ch-b1 { justify-self: start; padding: 3px 6px; border-radius: 7px; background: var(--field); color: var(--fg); }
-.el-ch-b2 { justify-self: end; display: flex; gap: 2px; padding: 4px 6px; border-radius: 7px; background: #e8262d; }
+.el-ch-b2 { justify-self: end; display: flex; gap: 2px; padding: 4px 6px; border-radius: 7px; background: #2563eb; }
 .el-ch-b2 i { width: 3px; height: 3px; border-radius: 50%; background: #fff; animation: elDot 1s infinite; } .el-ch-b2 i:nth-child(2) { animation-delay: .15s; } .el-ch-b2 i:nth-child(3) { animation-delay: .3s; }
 @keyframes elDot { 0%, 100% { transform: translateY(0); opacity: .5; } 40% { transform: translateY(-2px); opacity: 1; } }
 
@@ -1876,13 +1874,13 @@ kbd {
 }
 .toolbar .tool svg { width: 16px; height: 16px; pointer-events: none; }
 .toolbar .tool:hover { color: var(--fg); background: rgba(255, 255, 255, 0.06); }
-.toolbar .tool.on { color: #fff; background: rgba(255, 59, 65, 0.24); box-shadow: inset 0 0 0 1px rgba(255, 59, 65, 0.55); }
+.toolbar .tool.on { color: #fff; background: rgba(59, 130, 246, 0.24); box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.55); }
 .toolbar .tool:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .toolbar .fly-tri { position: absolute; right: 1px; bottom: 1px; width: 9px; height: 9px; cursor: context-menu; }
 .toolbar .fly-tri::after { content: ''; position: absolute; right: 1px; bottom: 1px; border: 3px solid transparent; border-right-color: currentColor; border-bottom-color: currentColor; opacity: 0.8; }
 .toolbar .tool { flex: none; }
-.toolbar .tool + .tool[data-group="trackFwd"], .toolbar .tool[data-group="pen"], .toolbar .tool[data-group="hand"] { margin-left: 9px; }
-.toolbar .tool[data-group="pen"]::before, .toolbar .tool[data-group="hand"]::before, .toolbar .tool[data-group="trackFwd"]::before {
+.toolbar .tool + .tool[data-group="group"], .toolbar .tool[data-group="pen"], .toolbar .tool[data-group="hand"] { margin-left: 9px; }
+.toolbar .tool[data-group="pen"]::before, .toolbar .tool[data-group="hand"]::before, .toolbar .tool[data-group="group"]::before {
   content: ''; position: absolute; top: 6px; bottom: 6px; left: -5px; width: 1px; background: var(--line2);
 }
 .toolhint {
@@ -1907,7 +1905,7 @@ kbd {
 .toolfly .fly-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border: 0; border-radius: 5px; background: none; color: var(--fg); font-size: 11.5px; cursor: pointer; text-align: left; }
 .toolfly .fly-item svg { width: 15px; height: 15px; color: var(--muted); }
 .toolfly .fly-item kbd { margin-left: auto; }
-.toolfly .fly-item:hover, .toolfly .fly-item:focus-visible, .toolfly .fly-item.on { background: rgba(255, 59, 65, 0.2); outline: none; }
+.toolfly .fly-item:hover, .toolfly .fly-item:focus-visible, .toolfly .fly-item.on { background: rgba(59, 130, 246, 0.2); outline: none; }
 .zoomctl { display: inline-flex; gap: 2px; align-items: center; }
 .zoomctl .btn { min-width: 26px; padding: 2px 7px; font: 11px var(--mono); }
 .stagewrap.zoomed .stage { box-shadow: 0 0 0 1px var(--line2); }
@@ -1915,16 +1913,23 @@ kbd {
 /* timeline cursors and feedback per tool */
 .tl-grid.tool-razor .tbar, .tl-grid.tool-razor .tbar .h, .tl-grid.tool-razor .tl-track { cursor: crosshair; }
 .tl-grid.tool-transition .tbar, .tl-grid.tool-transition .tbar .h { cursor: pointer; }
-.tl-grid.tool-trackFwd .tbar, .tl-grid.tool-trackFwd .tbar .h, .tl-grid.tool-trackFwd .tl-track { cursor: e-resize; }
-.tl-grid.tool-trackBack .tbar, .tl-grid.tool-trackBack .tbar .h, .tl-grid.tool-trackBack .tl-track { cursor: w-resize; }
+.tl-grid.tool-group .tbar, .tl-grid.tool-group .tbar .h { cursor: copy; }
+.tbar.pick { box-shadow: 0 0 0 2px #3b82f6; }
+.tl-name .gtag { flex: none; font-size: 10px; line-height: 1; padding: 2px 5px; border-radius: 4px; background: var(--field); color: var(--muted); max-width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.grp-box { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 10px; margin: 8px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--field); }
+.grp-box input { flex: 1; min-width: 90px; }
+.grp-box .grp-k { font-size: 11px; color: var(--muted); }
+.grp-list { display: grid; gap: 4px; margin: 6px 0 10px; }
+.grp-list .gi { display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 5px 8px; border-radius: 8px; background: var(--field); }
+.grp-list .gi span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tl-grid.tool-hand .tbar, .tl-grid.tool-hand .tbar .h, .tl-grid.tool-hand .tl-track { cursor: grab; }
 .tl-grid.tool-hand.panning, .tl-grid.tool-hand.panning * { cursor: grabbing !important; }
 .tl-grid:not(.tool-select) .tbar .h { opacity: 0; }
-.tl-cutline { position: absolute; width: 0; border-left: 1.5px solid #ff5a5a; z-index: 7; pointer-events: none; }
+.tl-cutline { position: absolute; width: 0; border-left: 1.5px solid #60a5fa; z-index: 7; pointer-events: none; }
 .tl-cutline.all { border-left-style: dashed; }
-.tl-cutline::after { content: attr(data-t); position: absolute; top: -15px; left: 3px; font: 10px var(--mono); color: #ff8a8a; white-space: nowrap; }
-.tl-trackline { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed #ff3b41; z-index: 7; pointer-events: none; }
-.tbar.grp { box-shadow: 0 0 0 1.5px #ff3b41, 0 0 10px rgba(255, 59, 65, 0.45); }
+.tl-cutline::after { content: attr(data-t); position: absolute; top: -15px; left: 3px; font: 10px var(--mono); color: #93c5fd; white-space: nowrap; }
+.tl-trackline { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed #3b82f6; z-index: 7; pointer-events: none; }
+.tbar.grp { box-shadow: 0 0 0 1.5px #3b82f6, 0 0 10px rgba(59, 130, 246, 0.45); }
 .trpop { position: fixed; z-index: 62; width: 220px; padding: 8px; display: grid; gap: 8px; border-radius: 8px; background: var(--panel-elevated, #1f1515); border: 1px solid var(--line2); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); font-size: 12px; }
 .trpop-head { display: grid; gap: 1px; padding: 0 2px; }
 .trpop-head span { color: var(--muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1934,7 +1939,7 @@ kbd {
 .trpop-note { color: var(--muted); font-size: 11px; padding: 0 2px; }
 .trpop-list { display: grid; gap: 1px; }
 .trpop-item { text-align: left; border: 0; background: none; color: var(--fg); padding: 6px 8px; border-radius: 5px; cursor: pointer; }
-.trpop-item:hover, .trpop-item:focus-visible { background: rgba(255, 59, 65, 0.2); outline: none; }
+.trpop-item:hover, .trpop-item:focus-visible { background: rgba(59, 130, 246, 0.2); outline: none; }
 
 /* ---------- editor workspace ----------
    top bar / [icon rail + side panel] [tools, stage, playback] [inspector] / timeline */
@@ -1963,10 +1968,11 @@ kbd {
 .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 8px 4px 14px; font-size: 13px; font-weight: 600; }
 .panel .pane { padding: 6px 14px 16px; }
 #libToggle { display: none !important; }
-.btn.primary { box-shadow: 0 0 0 1px rgba(255, 80, 85, 0.25), 0 6px 18px rgba(232, 38, 45, 0.28); }
-.btn.primary:hover { box-shadow: 0 0 0 1px rgba(255, 120, 125, 0.4), 0 8px 22px rgba(232, 38, 45, 0.4); }
+.btn.primary, .btn.primary:hover, :root[data-theme="light"] .btn.primary { box-shadow: none; }
+.btn.primary { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 6px 18px rgba(37, 99, 235, 0.28); }
+.btn.primary:hover { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4), 0 8px 22px rgba(37, 99, 235, 0.4); }
 .tbar .kfs { position: absolute; inset: 0; pointer-events: none; }
-.tbar .kf { position: absolute; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; transform: rotate(45deg); background: #ffb3b0; border: 1px solid rgba(0, 0, 0, 0.55); border-radius: 1px; pointer-events: auto; cursor: ew-resize; z-index: 3; }
+.tbar .kf { position: absolute; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; transform: rotate(45deg); background: #fcd34d; border: 1px solid rgba(0, 0, 0, 0.55); border-radius: 1px; pointer-events: auto; cursor: ew-resize; z-index: 3; }
 .tbar .kf:hover { background: #fff; }
 .kf-nav { display: flex; gap: 4px; flex-wrap: wrap; }
 .kf-row { display: grid; grid-template-columns: 22px 1fr 84px; gap: 6px; align-items: center; }
@@ -1974,8 +1980,8 @@ kbd {
 .kf-lbl { font-size: 12px; color: var(--fg); }
 .kf-dia { width: 20px; height: 20px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
 .kf-dia::before { content: ''; width: 9px; height: 9px; transform: rotate(45deg); border: 1.5px solid var(--muted); border-radius: 1px; }
-.kf-dia.has::before { border-color: #ffb3b0; }
-.kf-dia.on::before { border-color: #ffb3b0; background: #ffb3b0; }
+.kf-dia.has::before { border-color: #fcd34d; }
+.kf-dia.on::before { border-color: #fcd34d; background: #fcd34d; }
 .kf-dia:hover::before { border-color: var(--fg); }
 .kf-curve { display: grid; gap: 8px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--field); }
 .kf-curve-head { font-size: 11px; color: var(--muted); }
@@ -1984,11 +1990,11 @@ kbd {
 .kf-graph .unit { fill: rgba(255, 255, 255, 0.03); stroke: var(--line2); stroke-width: 1; }
 .kf-graph .grid { stroke: var(--line); stroke-width: 1; }
 .kf-graph .arm { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
-.kf-graph .curve { fill: none; stroke: #ffb3b0; stroke-width: 2.5; }
+.kf-graph .curve { fill: none; stroke: #fcd34d; stroke-width: 2.5; }
 .kf-graph .handle { fill: var(--accent); stroke: #fff; stroke-width: 1.5; cursor: grab; }
-.kf-graph .handle:focus-visible { outline: none; stroke: #ffb3b0; stroke-width: 3; }
+.kf-graph .handle:focus-visible { outline: none; stroke: #fcd34d; stroke-width: 3; }
 .kf-preview { position: relative; height: 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); }
-.kf-preview i { position: absolute; top: 1px; width: 10px; height: 10px; border-radius: 50%; background: #ffb3b0; }
+.kf-preview i { position: absolute; top: 1px; width: 10px; height: 10px; border-radius: 50%; background: #fcd34d; }
 .kf-bez { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
 .kf-bez .f { font-size: 10px; }
 .kf-bez input { width: 100%; font: 11px var(--mono); }
@@ -2015,13 +2021,13 @@ kbd {
 /* keeps text readable where the ribbons are brightest: darker on the left behind the greeting and at the bottom behind the grids */
 .hm-veil { position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(90deg, var(--veil-a), var(--veil-b) 46%, transparent 72%), linear-gradient(180deg, transparent 45%, var(--veil-a) 80%, var(--veil-c)); }
-.hm-top { position: relative; z-index: 10; display: grid; grid-template-columns: auto minmax(0, 640px) auto; justify-content: space-between; align-items: center; gap: 18px; padding: 12px 22px; border-bottom: 1px solid rgba(255, 90, 95, 0.14); background: rgba(6, 2, 2, 0.55); backdrop-filter: blur(10px); }
+.hm-top { position: relative; z-index: 10; display: grid; grid-template-columns: auto minmax(0, 640px) auto; justify-content: space-between; align-items: center; gap: 18px; padding: 12px 22px; border-bottom: 1px solid rgba(255, 255, 255, 0.14); background: rgba(6, 2, 2, 0.55); backdrop-filter: blur(10px); }
 .hm-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; white-space: nowrap; }
 .hm-logo { display: grid; grid-template-columns: repeat(3, 4px); align-items: end; gap: 2px; height: 16px; }
-.hm-logo i { display: block; border-radius: 1px; background: #7a0d12; }
-.hm-logo i:nth-child(1) { height: 8px; } .hm-logo i:nth-child(2) { height: 16px; background: var(--accent); box-shadow: 0 0 8px rgba(255, 59, 65, 0.7); } .hm-logo i:nth-child(3) { height: 11px; background: var(--glow); }
-.hm-cmd { position: relative; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-radius: 10px; background: rgba(20, 10, 10, 0.72); border: 1px solid rgba(255, 110, 115, 0.22); }
-.hm-cmd:focus-within { border-color: var(--accent-text); box-shadow: 0 0 0 3px rgba(255, 59, 65, 0.18); }
+.hm-logo i { display: block; border-radius: 1px; background: #334155; }
+.hm-logo i:nth-child(1) { height: 8px; } .hm-logo i:nth-child(2) { height: 16px; background: var(--accent); box-shadow: 0 0 8px rgba(59, 130, 246, 0.7); } .hm-logo i:nth-child(3) { height: 11px; background: var(--glow); }
+.hm-cmd { position: relative; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-radius: 10px; background: rgba(20, 10, 10, 0.72); border: 1px solid rgba(255, 255, 255, 0.22); }
+.hm-cmd:focus-within { border-color: var(--accent-text); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18); }
 .hm-cmd > svg { width: 17px; height: 17px; flex: none; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
 .hm-cmd input { flex: 1; min-width: 0; height: 100%; background: none; border: 0; outline: none; color: var(--fg); font-size: 13px; }
 .hm-cmd kbd { flex: none; }
@@ -2029,7 +2035,7 @@ kbd {
 .hm-pal-g { padding: 8px 10px 4px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .hm-pal-i { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 7px 10px; border-radius: 6px; cursor: pointer; font-size: 13px; }
 .hm-pal-i small { color: var(--muted); font-size: 11px; white-space: nowrap; }
-.hm-pal-i.on { background: rgba(255, 59, 65, 0.2); }
+.hm-pal-i.on { background: rgba(59, 130, 246, 0.2); }
 .hm-pal-empty { padding: 12px; color: var(--muted); font-size: 12.5px; }
 .hm-actions { display: flex; align-items: center; gap: 6px; }
 .hm-acct { display: inline-flex; align-items: center; gap: 7px; padding: 3px 10px 3px 3px; border-radius: 999px; border: 1px solid var(--line2); background: var(--field); color: var(--fg); font-size: 12px; cursor: pointer; max-width: 160px; }
@@ -2041,8 +2047,8 @@ kbd {
 .hm-start h1 { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6); margin: 6px 0 4px; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.05; font-weight: 800; letter-spacing: -0.025em; }
 .hm-sub { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
 .hm-formats { display: flex; flex-wrap: wrap; gap: 10px; }
-.hm-frame { display: grid; justify-items: center; gap: 4px; width: 104px; padding: 12px 6px 10px; border-radius: 12px; border: 1px solid rgba(255, 110, 115, 0.14); background: rgba(14, 8, 8, 0.7); backdrop-filter: blur(6px); color: var(--fg); cursor: pointer; transition: border-color .15s, transform .15s, background .15s; }
-.hm-frame:hover, .hm-frame:focus-visible { border-color: var(--accent-text); background: rgba(255, 59, 65, 0.08); transform: translateY(-2px); outline: none; }
+.hm-frame { display: grid; justify-items: center; gap: 4px; width: 104px; padding: 12px 6px 10px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(14, 8, 8, 0.7); backdrop-filter: blur(6px); color: var(--fg); cursor: pointer; transition: border-color .15s, transform .15s, background .15s; }
+.hm-frame:hover, .hm-frame:focus-visible { border-color: var(--accent-text); background: rgba(59, 130, 246, 0.08); transform: translateY(-2px); outline: none; }
 .hm-shape-box { height: 70px; display: grid; place-items: center; }
 .hm-shape-box svg { width: 34px; height: 34px; fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; }
 .hm-frame.custom .hm-shape-box { border: 1.5px dashed var(--line2); border-radius: 6px; width: 64px; height: 64px; margin: 3px 0; }
@@ -2051,14 +2057,14 @@ kbd {
 .hm-bar { position: absolute; left: 12%; bottom: 22%; height: 3px; width: 46%; border-radius: 2px; background: var(--line2); transition: width .35s ease, background .35s; }
 .hm-bar.s { bottom: 36%; width: 28%; }
 .hm-frame:hover .hm-bar { width: 76%; background: var(--accent); }
-.hm-frame:hover .hm-bar.s { width: 52%; background: #ffb3b0; transition-delay: .06s; }
+.hm-frame:hover .hm-bar.s { width: 52%; background: #fcd34d; transition-delay: .06s; }
 .hm-fl { font-size: 12.5px; font-weight: 600; text-align: center; }
 .hm-fr { font: 10.5px var(--mono); color: var(--muted); }
 .hm-quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.hm-q { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(255, 110, 115, 0.16); background: rgba(14, 8, 8, 0.6); backdrop-filter: blur(6px); color: var(--fg); font-size: 12.5px; cursor: pointer; }
+.hm-q { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(14, 8, 8, 0.6); backdrop-filter: blur(6px); color: var(--fg); font-size: 12.5px; cursor: pointer; }
 .hm-q:hover { border-color: var(--line2); background: var(--field); }
 .hm-q svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; color: var(--accent-text); }
-.hm-resume { display: grid; grid-template-rows: auto auto auto; align-content: start; align-self: start; gap: 0; min-width: 0; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 110, 115, 0.2); background: rgba(12, 6, 6, 0.78); backdrop-filter: blur(10px); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.4); }
+.hm-resume { display: grid; grid-template-rows: auto auto auto; align-content: start; align-self: start; gap: 0; min-width: 0; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(12, 6, 6, 0.78); backdrop-filter: blur(10px); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.4); }
 .hm-resume.empty { grid-template-rows: none; align-content: center; justify-items: center; gap: 8px; padding: 28px; text-align: center; color: var(--fg-secondary); border-style: dashed; box-shadow: none; }
 .hm-resume.empty p { margin: 0; max-width: 300px; font-size: 13px; }
 .hm-rstage { display: grid; place-items: center; aspect-ratio: 16 / 9; min-height: 0; padding: 14px; overflow: hidden; cursor: pointer; background-image: linear-gradient(45deg, rgba(255,255,255,.03) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.03) 75%), linear-gradient(45deg, rgba(255,255,255,.03) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.03) 75%); background-size: 18px 18px; background-position: 0 0, 9px 9px; }
@@ -2066,8 +2072,8 @@ kbd {
 .hm-ruler { position: relative; height: 22px; margin: 0 14px; border-top: 1px solid var(--line); }
 .hm-ruler .tk { position: absolute; top: 0; height: 5px; width: 1px; background: var(--line2); }
 .hm-ruler .tk.big { height: 9px; background: var(--muted); }
-.hm-head { position: absolute; top: -7px; bottom: 0; width: 2px; margin-left: -1px; background: #ff5a5a; border-radius: 1px; }
-.hm-head::before { content: ''; position: absolute; top: -4px; left: -4px; border: 5px solid transparent; border-top-color: #ff5a5a; }
+.hm-head { position: absolute; top: -7px; bottom: 0; width: 2px; margin-left: -1px; background: #60a5fa; border-radius: 1px; }
+.hm-head::before { content: ''; position: absolute; top: -4px; left: -4px; border: 5px solid transparent; border-top-color: #60a5fa; }
 .hm-rinfo { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 6px 16px 16px; }
 .hm-rinfo > div { display: grid; gap: 2px; min-width: 0; }
 .hm-rinfo b { font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -2077,18 +2083,18 @@ kbd {
 .hm-sec-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 16px; margin-bottom: 14px; }
 .hm-sec-head h2 { margin: 0; font-size: 20px; font-weight: 750; letter-spacing: -0.015em; }
 .hm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.hm-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(255, 110, 115, 0.16); background: rgba(14, 8, 8, 0.6); color: var(--muted); font-size: 12px; cursor: pointer; }
+.hm-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(14, 8, 8, 0.6); color: var(--muted); font-size: 12px; cursor: pointer; }
 .hm-chip span { font: 10.5px var(--mono); opacity: .8; }
 .hm-chip:hover { color: var(--fg); border-color: var(--line2); }
 .hm-chip.on { color: var(--fg); background: var(--field); border-color: var(--accent-text); }
 .hm-tip { margin: -6px 0 14px; color: var(--muted); font-size: 12px; }
 .hm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 22px 18px; }
 .hm-card { display: grid; gap: 3px; min-width: 0; cursor: pointer; outline: none; }
-.hm-thumb { position: relative; aspect-ratio: 16 / 10; border-radius: 10px; display: grid; place-items: center; overflow: hidden; background: rgba(14, 8, 8, 0.82); border: 1px solid rgba(255, 110, 115, 0.12); backdrop-filter: blur(6px); transition: border-color .12s; }
+.hm-thumb { position: relative; aspect-ratio: 16 / 10; border-radius: 10px; display: grid; place-items: center; overflow: hidden; background: rgba(14, 8, 8, 0.82); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(6px); transition: border-color .12s; }
 .hm-thumb canvas { display: block; border-radius: 3px; }
 .hm-thumb > svg { width: 38px; height: 38px; fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linejoin: round; }
 .hm-card:hover .hm-thumb, .hm-card:focus-visible .hm-thumb { border-color: var(--accent-text); }
-.hm-scrub { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #ff5a5a; opacity: 0; pointer-events: none; }
+.hm-scrub { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #60a5fa; opacity: 0; pointer-events: none; }
 .hm-time { position: absolute; right: 6px; bottom: 6px; padding: 1px 6px; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: #fff; font: 10.5px var(--mono); opacity: 0; pointer-events: none; }
 .hm-thumb.scrubbing .hm-scrub, .hm-thumb.scrubbing .hm-time { opacity: 1; }
 .hm-badge { position: absolute; top: 7px; left: 7px; padding: 2px 7px; border-radius: 4px; font: 600 10px var(--mono); letter-spacing: 0.03em; background: rgba(0, 0, 0, 0.7); color: #cfd3df; }
@@ -2230,7 +2236,7 @@ input[type=text], input[type=number], input[type=search], input[type=password], 
 :root[data-theme="light"] .hm-eyebrow, :root[data-theme="light"] .hm-sub, :root[data-theme="light"] .hm-sec-head h2, :root[data-theme="light"] .hm-tip, :root[data-theme="light"] .hm-fl, :root[data-theme="light"] .hm-fr { text-shadow: none; }
 :root[data-theme="light"] .hm-badge { background: rgba(255, 255, 255, 0.85); color: var(--fg); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); }
 :root[data-theme="light"] .hm-thumb canvas, :root[data-theme="light"] .hm-rstage canvas { box-shadow: 0 6px 18px rgba(90, 20, 20, 0.16); }
-:root[data-theme="light"] .btn.primary { box-shadow: 0 6px 16px rgba(214, 31, 38, 0.25); }
+:root[data-theme="light"] .btn.primary { box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25); }
 :root[data-theme="light"] .tl-playhead, :root[data-theme="light"] .hm-head { filter: none; }
 :root[data-theme="light"] .tbar .lbl { color: #fff; }
 /* library previews show video content made for dark backgrounds, so their tiles stay dark in the bright theme */
@@ -2367,6 +2373,20 @@ input[type=text], input[type=number], input[type=search], input[type=password], 
 .au-vol-top { display: flex; justify-content: space-between; }
 .au-vol-top b { font: 500 11px var(--mono); }
 .au-vol input[type=range] { width: 100%; accent-color: #2fae7a; }
+
+/* stock media */
+.stk-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.stk-grid .full { grid-column: 1 / -1; }
+.stk-h { margin: 6px 0 0; }
+.stk-note { margin: 0; }
+.stk-card { display: grid; gap: 3px; padding: 6px; border-radius: 10px; border: 1px solid var(--glass-line); background: var(--glass); min-width: 0; }
+.stk-thumb { aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden; background: var(--field); display: grid; place-items: center; }
+.stk-thumb:empty::before { content: '♪'; font-size: 20px; color: var(--muted); }
+.stk-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.stk-title { font-size: 11.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stk-meta { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stk-acts { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 2px; }
+.stk-acts .btn { padding: 3px 8px; }
 </style>
 </head>
 <body>
@@ -2737,7 +2757,13 @@ const store = {
 <script>
 /* Drawing library shared by every template. */
 "use strict";
+const THEME_NAMES = { graphite: 'Graphite', ledger: 'Ledger', archive: 'Archive', arcade: 'Arcade', studio: 'Studio', sunlit: 'Sunlit', navy: 'Navy ledger', paper: 'Paper', mint: 'Mint', silk: 'Crimson silk' };
 const THEMES = {
+  ledger:   { bg: '#0E1726', surface: '#16223A', fg: '#F2F5FA', muted: '#93A4BF', accent: '#34D399', accent2: '#60A5FA', accent3: '#FBBF24', good: '#34D399', bad: '#F87171' },
+  archive:  { bg: '#15120F', surface: '#211C17', fg: '#F3EDE4', muted: '#A99D8D', accent: '#D9A65B', accent2: '#8FB3A8', accent3: '#C97B5A', good: '#9CC08A', bad: '#D27A6A' },
+  arcade:   { bg: '#07070F', surface: '#13132B', fg: '#F5F7FF', muted: '#9094BE', accent: '#22D3EE', accent2: '#F472B6', accent3: '#A3E635', good: '#4ADE80', bad: '#FB7185' },
+  studio:   { bg: '#100C1C', surface: '#1C1630', fg: '#F6F3FF', muted: '#A79FC6', accent: '#A78BFA', accent2: '#2DD4BF', accent3: '#FB923C', good: '#34D399', bad: '#F43F5E' },
+  sunlit:   { bg: '#FBF6EE', surface: '#FFFFFF', fg: '#2A211A', muted: '#6F6357', accent: '#C9442A', accent2: '#2B8CC4', accent3: '#D99A1E', good: '#2F9A62', bad: '#D93F43' },
   silk:     { bg: '#050202', surface: '#170C0D', fg: '#FBF3F3', muted: '#B39A9B', accent: '#EE2A31', accent2: '#FF9A9E', accent3: '#F2B45A', good: '#4ADE80', bad: '#FF5C7C' },
   graphite: { bg: '#101318', surface: '#1B2029', fg: '#F2F4F7', muted: '#8E98AA', accent: '#F5B53F', accent2: '#5AB4FF', accent3: '#A895FF', good: '#3DD68C', bad: '#FF6B6B' },
   navy:     { bg: '#0B1C33', surface: '#132A4A', fg: '#F4F7FB', muted: '#94A6C2', accent: '#FFC857', accent2: '#4CC9F0', accent3: '#F497DA', good: '#2EC4B6', bad: '#FF5A5F' },
@@ -8736,12 +8762,16 @@ const Timeline = (() => {
     const chip = el('i', 'chip'); chip.style.background = (BAR_COL[L.type] || BAR_COL.text)[1];
     const nm = el('span', 'nm', L.name); nm.title = `${L.name} · ${LAYER_TYPES[L.type].label}. Double-click to rename, drag to reorder.`;
     name.append(eye, lock, chip, nm);
+    if (L.group) { const gt = el('span', 'gtag', groupName(L.group)); gt.title = `In ${groupName(L.group)}`; name.append(gt); }
     name.addEventListener('pointerdown', (e) => onNameDown(e, L));
     name.addEventListener('dblclick', () => rename(name, L));
     const track = el('div', 'tl-track' + (L.id === S.sel ? ' sel' : '')); track.dataset.id = L.id;
     track.addEventListener('pointerdown', (e) => { if (e.target !== track) return; if (Tools.timelineDown(e, L, 'track')) return; select(L.id, { scroll: false }); onRuler(e); });
     const bar = el('div', 'tbar' + (L.id === S.sel ? ' sel' : '') + (L.visible === false ? ' hidden' : '')); bar.dataset.id = L.id;
     const [bg, bd] = BAR_COL[L.type] || BAR_COL.text; bar.style.background = bg; bar.style.borderColor = L.id === S.sel ? '' : bd;
+    const selL = selLayer();
+    if (L.id !== S.sel && L.group && selL && selL.group === L.group) bar.classList.add('grp');
+    if (Tools.isPicked(L.id)) bar.classList.add('pick');
     bar.setAttribute('aria-label', `${L.name} timing`);
     bar.append(el('i', 'seg in'), el('i', 'seg out'), el('i', 'cnt'), el('span', 'lbl', L.name), el('div', 'kfs'));
     ['l', 'r', 'ie', 'os'].forEach((k) => { const h = el('i', 'h ' + k); h.dataset.h = k; h.title = { l: 'Drag to change when it starts', r: 'Drag to change when it ends', ie: 'Drag to change the entrance length', os: 'Drag to change the exit length' }[k]; bar.append(h); });
@@ -8829,18 +8859,22 @@ const Timeline = (() => {
     grid.setPointerCapture(e.pointerId);
     const mode = e.target.dataset && e.target.dataset.h ? e.target.dataset.h : 'move';
     const a0 = clone(L.anim), x0 = e.clientX, list = snapTimes(L.id), dur = S.comp.duration, k0 = L.keys ? clone(L.keys) : null;
+    // a grouped bar takes the rest of its group along, as far as the whole group fits
+    const mates = mode === 'move' ? groupMembers(L.group).filter((m) => m.id !== L.id && !m.locked).map((m) => [m, clone(m.anim)]) : [];
+    const lo = -Math.min(a0.start, ...mates.map(([, a]) => a.start)), hi = dur - Math.max(a0.end, ...mates.map(([, a]) => a.end));
     let moved = false;
     barNow.style.cursor = mode === 'move' ? 'grabbing' : '';
     const mv = (ev) => {
       const dt = (ev.clientX - x0) / pps(); if (Math.abs(ev.clientX - x0) > 2) moved = true;
       const a = L.anim, ns = ev.shiftKey;
       if (mode === 'move') {
-        let sh = Math.max(-a0.start, Math.min(dur - a0.end, dt));
+        let sh = Math.max(lo, Math.min(hi, dt));
         const sStart = snap(a0.start + sh, list, ns), sEnd = snap(a0.end + sh, list, ns);
         const dS = sStart - (a0.start + sh), dE = sEnd - (a0.end + sh);
         sh += Math.abs(dS) <= Math.abs(dE) ? dS : dE;
-        sh = Math.max(-a0.start, Math.min(dur - a0.end, sh));
+        sh = Math.max(lo, Math.min(hi, sh));
         a.start = a0.start + sh; a.end = a0.end + sh; if (a0.count) a.count.start = a0.count.start + sh;
+        mates.forEach(([m, ma]) => { m.anim.start = ma.start + sh; m.anim.end = ma.end + sh; if (ma.count) m.anim.count.start = ma.count.start + sh; });
       } else if (mode === 'l') {
         const ns0 = Math.max(0, Math.min(a0.end - MIN_LEN, snap(a0.start + dt, list, ns)));
         a.start = ns0; a.inDur = Math.min(a0.inDur, a.end - a.start); a.outDur = Math.min(a0.outDur, a.end - a.start - a.inDur);
@@ -9550,6 +9584,13 @@ const Inspector = (() => {
     );
     const wrap = el('div', 'pane'); wrap.style.padding = '0';
     wrap.append(head, tools);
+    if (L.group) {
+      const gb = el('div', 'grp-box'), gid = L.group;
+      const gn = el('input'); gn.type = 'text'; gn.value = groupName(gid); gn.setAttribute('aria-label', 'Group name');
+      gn.addEventListener('input', () => renameGroup(gid, gn.value)); gn.addEventListener('change', commit);
+      gb.append(el('span', 'grp-k', `Group · ${groupMembers(gid).length} layers`), gn, btn('Ungroup', () => ungroup(gid), 'btn sm'), btn('Delete group', () => deleteGroup(gid), 'btn sm danger'));
+      wrap.append(gb);
+    }
     if (L.locked) wrap.append(el('p', 'hint warn', 'This layer is locked. Unlock it to move it on the stage.'));
     if (L.type === 'audio') { wrap.append(audioSection(L)); return wrap; }
     wrap.append(...[L.type === 'video' ? videoSection(L) : L.type === 'tplClip' ? clipSection(L) : contentSection(L), placeSection(L), keySection(L), pipSection(L), compositingSection(L), animSection(L)].filter(Boolean));
@@ -9578,7 +9619,7 @@ const Inspector = (() => {
     const out = [sec('Composition', kids)];
     out.push(sec('Background and colours',
       bool('Transparent background', () => C.look.transparent, (v) => { C.look.transparent = v; refreshAll(); renderTemplates(); }),
-      sel('Palette', [['silk', 'Crimson silk (dark)'], ['graphite', 'Graphite (dark)'], ['navy', 'Navy ledger (dark)'], ['paper', 'Paper (light)'], ['mint', 'Mint (light)']], () => C.look.theme, (v) => { C.look.theme = v; C.look.colors = {}; refreshAll(); renderTemplates(); }, { full: true }),
+      sel('Palette', [['graphite', 'Graphite (dark)'], ['ledger', 'Ledger · finance (dark)'], ['archive', 'Archive · documentary (dark)'], ['arcade', 'Arcade · gaming (dark)'], ['studio', 'Studio · live streams (dark)'], ['sunlit', 'Sunlit · vlog (light)'], ['silk', 'Crimson silk (dark)'], ['navy', 'Navy ledger (dark)'], ['paper', 'Paper (light)'], ['mint', 'Mint (light)']], () => C.look.theme, (v) => { C.look.theme = v; C.look.colors = {}; refreshAll(); renderTemplates(); }, { full: true }),
       brandColours(),
       bool('Fade everything out at the end', () => C.fadeOut, (v) => (C.fadeOut = v)),
     ));
@@ -9643,9 +9684,11 @@ const Inspector = (() => {
     head.append(el('b', null, t.name), el('p', 'hint', t.use));
     const g = el('div', 'fgrid');
     t.fields.forEach((fd) => g.append(fieldControl(fd, st.fields, 'tf', () => draw(), false)));
-    const len = num('Length (s)', () => st.dur, (v) => { st.dur = Math.max(1, v); setupAnim = tplRenderer(st.id, st.fields, S.comp.look, cv.width, cv.height, st.dur); }, { step: 0.5, dp: 1 });
+    const len = num('Length (s)', () => st.dur, (v) => { st.dur = Math.max(1, v); setupAnim = tplRenderer(st.id, st.fields, templateLook(t, st.own), cv.width, cv.height, st.dur); }, { step: 0.5, dp: 1 });
+    const look = sel('Colours', [['own', `Made for this template (${THEME_NAMES[templateTheme(t)] || templateTheme(t)})`], ['project', "My project's palette"]], () => (st.own ? 'own' : 'project'), (v) => { st.own = v === 'own'; rebuild(); draw(); });
     const acts = el('div', 'row');
     const hasLayers = S.comp.layers.length > 0;
+    g.append(look);
     acts.append(btn(hasLayers ? 'Use as new animation' : 'Use this template', () => applySetup('replace'), 'btn primary'));
     if (hasLayers) acts.append(btn('Add to this animation', () => applySetup('add')));
     acts.append(btn('Cancel', closeSetup, 'btn ghost'));
@@ -9654,10 +9697,37 @@ const Inspector = (() => {
   }
 
   /* ---------- public ---------- */
+  function groupPanel() {
+    const ids = Tools.pickedIds(), box = el('div', 'pane'); box.style.padding = '0';
+    box.append(el('p', 'hint', 'Click layers on the stage or in the timeline to pick them. Drag across empty stage space to pick several at once.'));
+    const list = el('div', 'grp-list');
+    S.comp.layers.filter((l) => ids.includes(l.id)).reverse().forEach((l) => {
+      const it = el('div', 'gi'); it.append(el('span', null, l.name), btn('Drop', () => Tools.pickToggle(l), 'btn sm ghost')); list.append(it);
+    });
+    if (!ids.length) list.append(el('p', 'hint', 'Nothing picked yet.'));
+    const acts = el('div', 'row');
+    const go = btn(`Group ${ids.length || ''} layers`.replace('  ', ' '), () => Tools.groupPicks(), 'btn primary'); go.disabled = ids.length < 2;
+    acts.append(go, btn('Clear', () => Tools.clearPicks(), 'btn ghost'));
+    box.append(list, acts);
+    tidyGroups();
+    const gs = Object.entries(S.comp.groups || {});
+    if (gs.length) {
+      box.append(el('b', null, 'Groups in this animation'));
+      const gl = el('div', 'grp-list');
+      gs.forEach(([gid, g]) => {
+        const it = el('div', 'gi');
+        it.append(el('span', null, `${g.name} · ${groupMembers(gid).length} layers`), btn('Select', () => { Tools.set('select', { quiet: true }); select(groupMembers(gid).pop().id); }, 'btn sm ghost'), btn('Ungroup', () => ungroup(gid), 'btn sm'));
+        gl.append(it);
+      });
+      box.append(gl);
+    }
+    return box;
+  }
   function render() {
     binds = [];
     const b = body(); b.innerHTML = '';
     const L = selLayer();
+    if (S.mode === 'edit' && typeof Tools !== 'undefined' && Tools.current() === 'group') { $('#inspTitle').textContent = 'Group layers'; b.append(groupPanel()); return; }
     if (S.mode === 'template' && S.setup) { $('#inspTitle').textContent = 'Fill in the template'; setupPanel().forEach((x) => b.append(x)); return; }
     if (L) { $('#inspTitle').textContent = `${LAYER_TYPES[L.type].label} layer`; b.append(layerPanel(L)); return; }
     $('#inspTitle').textContent = 'Composition';
@@ -9681,8 +9751,7 @@ const Tools = (() => {
   const I = (d, extra = '') => `<svg viewBox="0 0 16 16" aria-hidden="true" ${extra}>${d}</svg>`;
   const ICONS = {
     select: I('<path d="M3.2 1.6v11.6l3-2.9 1.9 4.3 2-0.9-1.9-4.2h4.2z" fill="currentColor"/>'),
-    trackFwd: I('<rect x="1.5" y="3.5" width="5" height="9" fill="none" stroke="currentColor" stroke-dasharray="1.6 1.2"/><path d="M8 5l3 3-3 3M11 5l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'),
-    trackBack: I('<rect x="9.5" y="3.5" width="5" height="9" fill="none" stroke="currentColor" stroke-dasharray="1.6 1.2"/><path d="M8 5L5 8l3 3M5 5L2 8l3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'),
+    group: I('<rect x="1.5" y="1.5" width="13" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 1.6"/><rect x="3.8" y="3.8" width="5" height="5" rx=".8" fill="currentColor"/><rect x="7.2" y="7.2" width="5" height="5" rx=".8" fill="none" stroke="currentColor" stroke-width="1.3"/>'),
     razor: I('<g transform="rotate(-45 8 8)"><path d="M1.6 5.2h12.8v5.6H1.6z" fill="currentColor"/><path d="M1.6 10.8h12.8" stroke="currentColor" stroke-width="1.1" opacity=".55" transform="translate(0 .9)"/><rect x="4.6" y="7.3" width="6.8" height="1.4" rx=".7" fill="var(--panel, #1a1b20)"/><circle cx="3.3" cy="8" r=".9" fill="var(--panel, #1a1b20)"/><circle cx="12.7" cy="8" r=".9" fill="var(--panel, #1a1b20)"/></g>'),
     transition: I('<rect x="1.5" y="3.5" width="6" height="9" rx="1" fill="currentColor" opacity=".45"/><rect x="8.5" y="3.5" width="6" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5.5 8h5M8.8 6.2 10.6 8l-1.8 1.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'),
     pen: I('<path d="M8 1.5l4.6 6.2L10 14.5H6L3.4 7.7z" fill="currentColor"/><circle cx="8" cy="8.6" r="1.2" fill="var(--panel, #1a1b20)"/><path d="M8 1.5v5.9" stroke="var(--panel, #1a1b20)" stroke-width=".9"/>'),
@@ -9695,8 +9764,7 @@ const Tools = (() => {
   // name, key label, keyboard matcher, where it works, and how to use it (first line is the stage hint)
   const DEFS = {
     select: { name: 'Selection tool', key: 'V', where: 'Stage and timeline', usage: ['Click a layer to select it, drag to move it, drag a corner to resize.', 'In the timeline, drag a bar to move it in time and drag its ends to trim it.', 'Hold Shift while dragging to turn snapping off.'] },
-    trackFwd: { name: 'Track select forward tool', key: 'A', where: 'Timeline', usage: ['Press on a time in the timeline and drag: every layer that starts at or after it moves together.', 'Use it to open a gap for a new scene, or to close one. Moving past the end makes the animation longer.'] },
-    trackBack: { name: 'Track select backward tool', key: 'Shift+A', where: 'Timeline', usage: ['Press on a time in the timeline and drag: every layer that ends at or before it moves together.', 'Handy for sliding the whole opening along without touching what comes later.'] },
+    group: { name: 'Group tool', key: 'G', where: 'Stage and timeline', usage: ['Click layers on the stage or in the timeline to pick them, then press Enter or Ctrl+G to group them.', 'Drag across an empty part of the stage to pick every layer the box touches. Click a picked layer again to drop it, Esc clears the picks.', 'A group moves on the stage and in time as one. To split it, select any of its layers and press Ctrl+Shift+G, or use Ungroup on the right.'] },
     razor: { name: 'Razor tool', key: 'C', where: 'Timeline', usage: ['Click a bar in the timeline to cut it in two at that point.', 'Shift+click cuts every layer under that time. Cuts land on whole frames and snap to the playhead.', 'The cut is invisible on playback: the second part carries on exactly where the first stops.'] },
     transition: { name: 'Transition tool', key: 'X', where: 'Timeline', usage: ['Click a clip in the timeline and pick a transition: Fade, Wipe, Pop, Dissolve or Pixelate.', 'Click near the start of a clip for its way in, near the end for its way out, or the middle for both.', 'Where two clips meet, clicking that edge puts the transition on both sides of the cut.'] },
     pen: { name: 'Pen tool', key: 'P', where: 'Stage', usage: ['Click on the stage to place points. Double-click or press Enter to finish the line.', 'Click the first point again to close and fill the shape. Shift keeps lines at 45°. Backspace removes the last point, Esc cancels.', 'The line draws itself on during the entrance.'] },
@@ -9706,15 +9774,16 @@ const Tools = (() => {
     zoom: { name: 'Zoom tool', key: 'Z', where: 'Stage', usage: ['Click the stage to zoom in on that spot. Alt+click zooms out.', 'Ctrl + mouse wheel zooms with any tool. Press Fit above the stage to see the whole frame again.'] },
     type: { name: 'Type tool', key: 'T', where: 'Stage', usage: ['Click on the stage to add text there, then type it in the box on the right.', 'Drag to make a text box that wraps at that width. Click an existing text to edit it.'] },
   };
-  const GROUPS = [['select'], ['trackFwd', 'trackBack'], ['razor'], ['transition'], ['pen'], ['rect', 'ellipse'], ['hand', 'zoom'], ['type']];
-  const KEYS = { v: 'select', a: 'trackFwd', A: 'trackBack', c: 'razor', x: 'transition', p: 'pen', r: 'rect', e: 'ellipse', h: 'hand', z: 'zoom', t: 'type' };
-  const TIMELINE_TOOLS = new Set(['trackFwd', 'trackBack', 'razor', 'transition', 'hand']);
+  const GROUPS = [['select'], ['group'], ['razor'], ['transition'], ['pen'], ['rect', 'ellipse'], ['hand', 'zoom'], ['type']];
+  const KEYS = { v: 'select', g: 'group', c: 'razor', x: 'transition', p: 'pen', r: 'rect', e: 'ellipse', h: 'hand', z: 'zoom', t: 'type' };
+  const TIMELINE_TOOLS = new Set(['group', 'razor', 'transition', 'hand']);
   const groupOf = (id) => GROUPS.find((g) => g.includes(id));
   const front = {}; GROUPS.forEach((g) => (front[g[0]] = g[0]));
   let tool = 'select', bar = null, tip = null, fly = null, hint = null, tipTimer = 0, holdTimer = 0;
   let st = null;            // in-progress stage gesture
   let pen = null;           // { pts: [[x,y]...] in units, hover: [x,y] }
   let cutLine = null;
+  const picks = new Set();  // layers picked with the Group tool
 
   const current = () => tool;
   const u = () => R.lib.u;
@@ -9760,7 +9829,8 @@ const Tools = (() => {
     });
     const d = DEFS[tool];
     hint.hidden = tool === 'select';
-    hint.innerHTML = `${ICONS[tool]}<b>${d.name.replace(' tool', '')}</b><kbd>${d.key}</kbd><span>${d.usage[0]}</span>`;
+    const line = tool === 'group' && picks.size ? `${picks.size} picked. ${picks.size > 1 ? 'Press Enter to group them.' : 'Pick at least one more.'}` : d.usage[0];
+    hint.innerHTML = `${ICONS[tool]}<b>${d.name.replace(' tool', '')}</b><kbd>${d.key}</kbd><span>${line}</span>`;
     const grid = $('#tlGrid');
     if (grid) { [...grid.classList].filter((c) => c.startsWith('tool-')).forEach((c) => grid.classList.remove(c)); grid.classList.add('tool-' + tool); }
     ov.dataset.tool = tool;
@@ -9794,8 +9864,12 @@ const Tools = (() => {
   function set(id, { quiet = false } = {}) {
     if (!DEFS[id]) return;
     if (pen && id !== 'pen') cancelPen();
+    const was = tool;
     tool = id; front[groupOf(id)[0]] = id;
+    if (id === 'group' && was !== 'group') { picks.clear(); const L = selLayer(); if (L) pickToggle(L); }
+    if (id !== 'group') picks.clear();
     paint(); hideTip();
+    if (was !== id && (was === 'group' || id === 'group')) { Inspector.render(); Timeline.render(); }
     if (!quiet && id !== 'select') say(`${DEFS[id].name}: ${DEFS[id].usage[0]}`, 'ok', 5000);
     drawOverlay();
   }
@@ -9808,9 +9882,13 @@ const Tools = (() => {
       if (e.key === 'Escape') { e.preventDefault(); cancelPen(); say('Pen line cancelled.'); return true; }
       if (e.key === 'Backspace' || e.key === 'Delete') { e.preventDefault(); pen.pts.pop(); if (!pen.pts.length) cancelPen(); drawOverlay(); return true; }
     }
+    if (tool === 'group' && S.mode === 'edit' && !mod) {
+      if (e.key === 'Enter') { e.preventDefault(); groupPicks(); return true; }
+      if (e.key === 'Escape' && picks.size) { e.preventDefault(); picks.clear(); pickChanged(); return true; }
+    }
     if (mod || e.altKey) return false;
     const k = e.key.length === 1 ? (e.shiftKey ? e.key.toUpperCase() : e.key.toLowerCase()) : '';
-    if (e.shiftKey && k !== 'A') return false;
+    if (e.shiftKey) return false;
     const id = KEYS[k];
     if (!id) return false;
     e.preventDefault(); set(id); return true;
@@ -9841,10 +9919,11 @@ const Tools = (() => {
       case 'type': return 'text';
       case 'hand': return st && st.kind === 'pan' ? 'grabbing' : 'grab';
       case 'zoom': return e && e.altKey ? 'zoom-out' : 'zoom-in';
+      case 'group': return 'copy';
       default: return 'default';
     }
   }
-  const stageTool = () => ['pen', 'rect', 'ellipse', 'type', 'hand', 'zoom'].includes(tool);
+  const stageTool = () => ['pen', 'rect', 'ellipse', 'type', 'hand', 'zoom', 'group'].includes(tool);
   function stageDown(e) {
     if (e.button !== 0 || !stageTool()) return false;
     if (tool === 'hand') { ov.setPointerCapture(e.pointerId); st = { kind: 'pan', x0: e.clientX, y0: e.clientY, px: S.view.px, py: S.view.py }; ov.style.cursor = 'grabbing'; return true; }
@@ -9853,6 +9932,12 @@ const Tools = (() => {
     ov.setPointerCapture(e.pointerId);
     const [x, y] = evPx(e);
     if (tool === 'pen') { penClick(x, y, e); return true; }
+    if (tool === 'group') {
+      const h = hit(x, y);
+      if (h) { pickToggle(h); pickChanged(); return true; }
+      st = { kind: 'marquee', x0: x, y0: y, x, y };
+      return true;
+    }
     if (tool === 'type') {
       const h = hit(x, y);
       if (h && (h.type === 'text' || h.type === 'pill')) { select(h.id); setTimeout(() => Inspector.focusText(), 0); return true; }
@@ -9884,6 +9969,15 @@ const Tools = (() => {
     if (!st) return stageTool();
     const g = st; st = null;
     if (g.kind === 'pan') { ov.style.cursor = stageCursor(); return true; }
+    if (g.kind === 'marquee') {
+      const b = dragBox(g);
+      if (b.w > 3 && b.h > 3) S.comp.layers.forEach((L) => {
+        if (L.visible === false || L.locked || L.type === 'audio' || !layerState(L, S.t)) return;
+        const q = layerBox(L);
+        if (q.x < b.x + b.w && q.x + q.w > b.x && q.y < b.y + b.h && q.y + q.h > b.y) picks.add(L.id);
+      });
+      pickChanged(); return true;
+    }
     const box = dragBox(g), small = Math.hypot(g.x - g.x0, g.y - g.y0) < 6 * (cv.width / ov.getBoundingClientRect().width || 1);
     const at = Math.min(S.t, Math.max(0, S.comp.duration - 0.5));
     let L = null;
@@ -9960,21 +10054,30 @@ const Tools = (() => {
     if (!c || !R || S.mode !== 'edit') return;
     const dpr = cv.width / ov.getBoundingClientRect().width || 1;
     if (pen) {
-      c.save(); c.lineWidth = 1.5 * dpr; c.strokeStyle = '#ff3b41'; c.fillStyle = '#fff';
+      c.save(); c.lineWidth = 1.5 * dpr; c.strokeStyle = '#3b82f6'; c.fillStyle = '#fff';
       const pts = pen.pts.map(([x, y]) => [x * u(), y * u()]);
       c.beginPath(); pts.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y)));
       c.stroke();
       if (pen.hover) { c.setLineDash([4 * dpr, 3 * dpr]); c.beginPath(); const [lx, ly] = pts[pts.length - 1]; c.moveTo(lx, ly); c.lineTo(pen.hover[0], pen.hover[1]); c.stroke(); c.setLineDash([]); }
-      pts.forEach(([x, y], i) => { const s = (i === 0 ? 4.5 : 3.5) * dpr; c.fillStyle = i === 0 && pen.hover && nearFirst(pen.hover[0], pen.hover[1]) ? '#ff3b41' : '#fff'; c.fillRect(x - s, y - s, s * 2, s * 2); c.strokeRect(x - s, y - s, s * 2, s * 2); });
+      pts.forEach(([x, y], i) => { const s = (i === 0 ? 4.5 : 3.5) * dpr; c.fillStyle = i === 0 && pen.hover && nearFirst(pen.hover[0], pen.hover[1]) ? '#3b82f6' : '#fff'; c.fillRect(x - s, y - s, s * 2, s * 2); c.strokeRect(x - s, y - s, s * 2, s * 2); });
       c.restore();
+    }
+    if (tool === 'group') {
+      S.comp.layers.forEach((L) => {
+        if (!picks.has(L.id) || L.visible === false) return;
+        const b = layerBox(L);
+        c.save(); c.fillStyle = 'rgba(59,130,246,0.12)'; c.fillRect(b.x, b.y, b.w, b.h);
+        c.lineWidth = 2 * dpr; c.strokeStyle = '#3b82f6'; c.strokeRect(b.x, b.y, b.w, b.h); c.restore();
+      });
+      if (st && st.kind === 'marquee') { const b = dragBox(st); c.save(); c.lineWidth = 1 * dpr; c.strokeStyle = '#3b82f6'; c.setLineDash([4 * dpr, 3 * dpr]); c.fillStyle = 'rgba(59,130,246,0.06)'; c.fillRect(b.x, b.y, b.w, b.h); c.strokeRect(b.x, b.y, b.w, b.h); c.restore(); }
     }
     if (st && ['rect', 'ellipse', 'type'].includes(st.kind)) {
       const b = dragBox(st);
-      c.save(); c.lineWidth = 1.5 * dpr; c.strokeStyle = '#ff3b41'; c.setLineDash([5 * dpr, 4 * dpr]); c.fillStyle = 'rgba(255,59,65,0.08)';
+      c.save(); c.lineWidth = 1.5 * dpr; c.strokeStyle = '#3b82f6'; c.setLineDash([5 * dpr, 4 * dpr]); c.fillStyle = 'rgba(59,130,246,0.08)';
       c.beginPath();
       if (st.kind === 'ellipse') { const r = Math.min(b.w, b.h) / 2; c.arc(b.x + b.w / 2, b.y + b.h / 2, r, 0, Math.PI * 2); } else c.rect(b.x, b.y, b.w, b.h);
       c.fill(); c.stroke(); c.restore();
-      if (st.kind !== 'type') { c.save(); c.fillStyle = '#ff3b41'; c.font = `${11 * dpr}px ${getComputedStyle(document.body).fontFamily}`; c.fillText(`${Math.round(b.w / u() * uOut())} × ${Math.round(b.h / u() * uOut())} px`, b.x, b.y - 6 * dpr); c.restore(); }
+      if (st.kind !== 'type') { c.save(); c.fillStyle = '#3b82f6'; c.font = `${11 * dpr}px ${getComputedStyle(document.body).fontFamily}`; c.fillText(`${Math.round(b.w / u() * uOut())} × ${Math.round(b.h / u() * uOut())} px`, b.x, b.y - 6 * dpr); c.restore(); }
     }
   }
 
@@ -9987,7 +10090,7 @@ const Tools = (() => {
     const t = Timeline.timeAt(e.clientX);
     if (tool === 'razor') { if (kind === 'bar' || e.shiftKey) razor(L, frameSnap(t), e.shiftKey); return true; }
     if (tool === 'transition') { if (kind === 'bar') transitionMenu(e, L, t); return true; }
-    if (tool === 'trackFwd' || tool === 'trackBack') { trackSelect(e, t, tool === 'trackFwd'); return true; }
+    if (tool === 'group') { if (kind === 'bar') { pickToggle(L); pickChanged(); } return true; }
     return false;
   }
   function razor(L, t, all) {
@@ -10066,44 +10169,20 @@ const Tools = (() => {
     });
     pop.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') { ev.stopPropagation(); closeTransitionMenu(); } });
   }
-  function trackSelect(e, t, forward) {
-    const eps = 0.02;
-    const group = S.comp.layers.filter((l) => !l.locked && (forward ? l.anim.start >= t - eps : l.anim.end <= t + eps));
-    if (!group.length) { say(forward ? `No layers start after ${t.toFixed(2)} s.` : `No layers end before ${t.toFixed(2)} s.`, 'err'); return; }
-    const grid = $('#tlGrid'); grid.setPointerCapture(e.pointerId);
-    const ids = new Set(group.map((l) => l.id));
-    const mark = () => $$('.tbar', grid).forEach((b) => b.classList.toggle('grp', ids.has(b.dataset.id)));
-    mark();
-    const line = el('div', 'tl-trackline' + (forward ? '' : ' back')); line.style.left = Timeline.xOf(t) + 'px'; grid.append(line);
-    const a0 = new Map(group.map((l) => [l.id, clone(l.anim)]));
-    const minStart = Math.min(...group.map((l) => l.anim.start)), maxEnd = Math.max(...group.map((l) => l.anim.end));
-    const dur0 = S.comp.duration, fps = S.comp.fps || 30, x0 = e.clientX;
-    const fullLen = S.comp.layers.filter((l) => !ids.has(l.id) && Math.abs(l.anim.end - dur0) < 1e-3);
-    let moved = false, sh = 0;
-    say(`${group.length} layer${group.length === 1 ? '' : 's'} ${forward ? 'from' : 'up to'} ${t.toFixed(2)} s selected. Drag left or right to move them together.`, 'ok');
-    const mv = (ev) => {
-      if (Math.abs(ev.clientX - x0) > 2) moved = true;
-      sh = (ev.clientX - x0) / Timeline.pps();
-      if (!ev.shiftKey) sh = Math.round(sh * fps) / fps;
-      sh = Math.max(-minStart, sh);
-      if (!forward) sh = Math.min(dur0 - maxEnd + 600, sh);
-      group.forEach((l) => { const a = a0.get(l.id); l.anim.start = a.start + sh; l.anim.end = a.end + sh; if (a.count) l.anim.count.start = a.count.start + sh; });
-      const need = Math.max(dur0, Math.round((maxEnd + sh) * 100) / 100);
-      S.comp.duration = need;
-      fullLen.forEach((l) => (l.anim.end = need));
-      line.style.left = Timeline.xOf(t + sh) + 'px';
-      live(); mark(); Inspector.refreshValues();
-    };
-    const up = () => {
-      grid.removeEventListener('pointermove', mv); grid.removeEventListener('pointerup', up); line.remove();
-      $$('.tbar.grp', grid).forEach((b) => b.classList.remove('grp'));
-      if (moved && Math.abs(sh) > 1e-6) {
-        commit(); refreshAll();
-        say(`Moved ${group.length} layer${group.length === 1 ? '' : 's'} by ${sh > 0 ? '+' : ''}${sh.toFixed(2)} s${S.comp.duration > dur0 + 1e-6 ? `; the animation is now ${S.comp.duration.toFixed(2)} s long` : ''}.`, 'ok');
-      }
-    };
-    grid.addEventListener('pointermove', mv); grid.addEventListener('pointerup', up);
+  // a click on a grouped layer picks or drops its whole group
+  function pickToggle(L) {
+    const ids = L.group ? groupMembers(L.group).map((m) => m.id) : [L.id];
+    const on = ids.every((id) => picks.has(id));
+    ids.forEach((id) => (on ? picks.delete(id) : picks.add(id)));
   }
+  function pickChanged() { paint(); drawOverlay(); Timeline.render(); Inspector.render(); }
+  function groupPicks() {
+    const ids = [...picks].filter((id) => S.comp.layers.some((l) => l.id === id));
+    if (ids.length < 2) { say('Pick at least two layers to make a group.', 'err'); return; }
+    if (makeGroup(ids)) { picks.clear(); set('select', { quiet: true }); }
+  }
+  const pickedIds = () => [...picks];
+  const clearPicks = () => { picks.clear(); pickChanged(); };
   function panTimeline(e) {
     const body = $('#tlBody'), grid = $('#tlGrid'); grid.setPointerCapture(e.pointerId);
     e.stopPropagation(); e.preventDefault();
@@ -10144,7 +10223,7 @@ const Tools = (() => {
     window.addEventListener('keyup', (e) => { if (e.key === 'Alt' && tool === 'zoom') ov.style.cursor = 'zoom-in'; });
     window.addEventListener('keydown', (e) => { if (e.key === 'Alt' && tool === 'zoom') ov.style.cursor = 'zoom-out'; });
   }
-  return { init, set, current, onKey, stageDown, stageMove, stageUp, drawOverlay: paintTools, timelineDown, fitView, zoomAt, DEFS, GROUPS };
+  return { init, set, current, onKey, stageDown, stageMove, stageUp, drawOverlay: paintTools, timelineDown, fitView, zoomAt, DEFS, GROUPS, pickedIds, isPicked: (id) => picks.has(id), clearPicks, groupPicks, pickToggle: (L) => { pickToggle(L); pickChanged(); } };
 })();
 
 </script>
@@ -10169,7 +10248,7 @@ const TYPE_COLOR = { video: '#2563eb', audio: '#2fae7a', text: 'var(--t-text)', 
 /* ---------- composition helpers ---------- */
 function blankComp(size = '1920x1080') {
   const [w, h] = size.split('x').map(Number);
-  return { version: 3, name: 'Untitled animation', width: w, height: h, fps: 30, duration: 5, fadeOut: false, look: { theme: 'silk', colors: {}, transparent: true, fonts: { ...DEFAULT_FONTS } }, layers: [], source: null };
+  return { version: 3, name: 'Untitled animation', width: w, height: h, fps: 30, duration: 5, fadeOut: false, look: { theme: 'graphite', colors: {}, transparent: true, fonts: { ...DEFAULT_FONTS } }, layers: [], source: null };
 }
 const selLayer = () => (S.comp ? S.comp.layers.find((l) => l.id === S.sel) || null : null);
 function uOut() { return Math.min(S.comp.width, S.comp.height) / 100; }
@@ -10230,7 +10309,7 @@ function fitStage() {
 function rebuild() {
   fitStage();
   R = makeComp(S.comp, cv.width, cv.height);
-  if (S.mode === 'template' && S.setup) setupAnim = tplRenderer(S.setup.id, S.setup.fields, S.comp.look, cv.width, cv.height, S.setup.dur);
+  if (S.mode === 'template' && S.setup) setupAnim = tplRenderer(S.setup.id, S.setup.fields, templateLook(TEMPLATES[S.setup.id], S.setup.own), cv.width, cv.height, S.setup.dur);
   setFormSwatch((tok) => resolveColor(tok, R.theme) || '');
 }
 // timecode: "4.25 s" for short projects, "1:04.25" past a minute, "1:02:04.25" past an hour
@@ -10290,19 +10369,27 @@ function drawOverlay() {
   const dpr = cv.width / ov.getBoundingClientRect().width || 1;
   octx.lineWidth = 1 * dpr;
   const hv = S.comp.layers.find((l) => l.id === S.hover);
-  if (hv && hv.id !== S.sel && hv.visible !== false) { const b = layerBox(hv); octx.strokeStyle = 'rgba(255,59,65,0.6)'; octx.setLineDash([4 * dpr, 3 * dpr]); octx.strokeRect(b.x, b.y, b.w, b.h); octx.setLineDash([]); }
+  if (hv && hv.id !== S.sel && hv.visible !== false) { const b = layerBox(hv); octx.strokeStyle = 'rgba(59,130,246,0.6)'; octx.setLineDash([4 * dpr, 3 * dpr]); octx.strokeRect(b.x, b.y, b.w, b.h); octx.setLineDash([]); }
   const L = selLayer();
+  if (L && L.group) {
+    const bs = groupMembers(L.group).filter((m) => m.visible !== false && m.type !== 'audio' && layerState(m, S.t)).map(layerBox);
+    if (bs.length) {
+      const x0 = Math.min(...bs.map((b) => b.x)), y0 = Math.min(...bs.map((b) => b.y)), x1 = Math.max(...bs.map((b) => b.x + b.w)), y1 = Math.max(...bs.map((b) => b.y + b.h)), pad = 4 * dpr;
+      octx.save(); octx.strokeStyle = 'rgba(59,130,246,0.75)'; octx.setLineDash([6 * dpr, 4 * dpr]); octx.strokeRect(x0 - pad, y0 - pad, x1 - x0 + pad * 2, y1 - y0 + pad * 2);
+      octx.setLineDash([]); octx.fillStyle = 'rgba(59,130,246,0.95)'; octx.font = `${11 * dpr}px ${getComputedStyle(document.body).fontFamily}`; octx.fillText(groupName(L.group), x0 - pad, y0 - pad - 5 * dpr); octx.restore();
+    }
+  }
   if (L && L.visible !== false && L.type !== 'audio') {
     const b = layerBox(L);
     const shown = !!layerState(L, S.t);
-    octx.strokeStyle = shown ? '#ff3b41' : 'rgba(255,59,65,0.5)';
+    octx.strokeStyle = shown ? '#3b82f6' : 'rgba(59,130,246,0.5)';
     if (!shown) octx.setLineDash([6 * dpr, 4 * dpr]);
     octx.strokeRect(b.x, b.y, b.w, b.h); octx.setLineDash([]);
     if (!L.locked) {
       const hs = 7 * dpr;
-      handlesOf(b).forEach(([x, y]) => { octx.fillStyle = '#fff'; octx.fillRect(x - hs / 2, y - hs / 2, hs, hs); octx.strokeStyle = '#ff3b41'; octx.strokeRect(x - hs / 2, y - hs / 2, hs, hs); });
+      handlesOf(b).forEach(([x, y]) => { octx.fillStyle = '#fff'; octx.fillRect(x - hs / 2, y - hs / 2, hs, hs); octx.strokeStyle = '#3b82f6'; octx.strokeRect(x - hs / 2, y - hs / 2, hs, hs); });
     }
-    if (!shown) { octx.fillStyle = 'rgba(255,59,65,0.9)'; octx.font = `${11 * dpr}px ${getComputedStyle(document.body).fontFamily}`; octx.fillText('Not on screen at this time', b.x, b.y - 6 * dpr); }
+    if (!shown) { octx.fillStyle = 'rgba(59,130,246,0.9)'; octx.font = `${11 * dpr}px ${getComputedStyle(document.body).fontFamily}`; octx.fillText('Not on screen at this time', b.x, b.y - 6 * dpr); }
   }
   octx.strokeStyle = '#ff4fa3'; octx.lineWidth = 1 * dpr;
   S.guides.forEach((g) => { octx.beginPath(); if (g.x != null) { octx.moveTo(g.x, 0); octx.lineTo(g.x, ov.height); } else { octx.moveTo(0, g.y); octx.lineTo(ov.width, g.y); } octx.stroke(); });
@@ -10329,14 +10416,14 @@ function select(id, { scroll = true } = {}) {
   if (id && window.innerWidth <= 760) $('#insp').classList.add('open');
 }
 let drag = null;
-function snapMove(L, start, dx, dy, noSnap) {
+function snapMove(L, start, dx, dy, noSnap, skip) {
   L.props = clone(start); moveLayer(L, dx, dy);
   S.guides = [];
   if (noSnap) return;
   const b = layerBox(L), W = cv.width, H = cv.height, m = 6 * R.lib.u;
   const tol = 6 * (cv.width / ov.getBoundingClientRect().width || 1);
   const xs = [0, W / 2, W, m, W - m], ys = [0, H / 2, H, m, H - m];
-  S.comp.layers.forEach((o) => { if (o.id === L.id || o.visible === false || !layerState(o, S.t)) return; const q = layerBox(o); xs.push(q.x, q.x + q.w / 2, q.x + q.w); ys.push(q.y, q.y + q.h / 2, q.y + q.h); });
+  S.comp.layers.forEach((o) => { if (o.id === L.id || (skip && skip.has(o.id)) || o.visible === false || !layerState(o, S.t)) return; const q = layerBox(o); xs.push(q.x, q.x + q.w / 2, q.x + q.w); ys.push(q.y, q.y + q.h / 2, q.y + q.h); });
   let bx = null, by = null;
   [b.x, b.x + b.w / 2, b.x + b.w].forEach((e) => xs.forEach((c) => { const d = c - e; if (Math.abs(d) < tol && (bx == null || Math.abs(d) < Math.abs(bx.d))) bx = { d, c }; }));
   [b.y, b.y + b.h / 2, b.y + b.h].forEach((e) => ys.forEach((c) => { const d = c - e; if (Math.abs(d) < tol && (by == null || Math.abs(d) < Math.abs(by.d))) by = { d, c }; }));
@@ -10364,6 +10451,20 @@ function onStageDown(e) {
   if (target.id !== S.sel) select(target.id, { scroll: true });
   const tl0 = S.t - target.anim.start, kx = !!(target.keys && target.keys.x), ky = !!(target.keys && target.keys.y);
   drag = { kind: 'move', L: target, start: clone(target.props), x0: x, y0: y, moved: false, kx, ky, kx0: keyValue(target, 'x', tl0), ky0: keyValue(target, 'y', tl0) };
+  const mates = groupMembers(target.group).filter((m) => m.id !== target.id && !m.locked);
+  if (mates.length) {
+    drag.b0 = layerBox(target); drag.skip = new Set(mates.map((m) => m.id));
+    drag.mates = mates.map((m) => { const tl = S.t - m.anim.start; return { L: m, start: clone(m.props), tl, kx: !!(m.keys && m.keys.x), ky: !!(m.keys && m.keys.y), kx0: keyValue(m, 'x', tl), ky0: keyValue(m, 'y', tl) }; });
+  }
+}
+// the rest of a group follows the layer being dragged by the same amount
+function moveMates(d) {
+  if (!d.mates) return;
+  const u = R.lib.u, b = layerBox(d.L), dx = (b.x - d.b0.x) / u, dy = (b.y - d.b0.y) / u;
+  d.mates.forEach((m) => {
+    m.L.props = clone(m.start); moveLayer(m.L, m.kx ? 0 : dx, m.ky ? 0 : dy);
+    if (m.kx) setKey(m.L, 'x', m.tl, m.kx0 + dx); if (m.ky) setKey(m.L, 'y', m.tl, m.ky0 + dy);
+  });
 }
 function onStageMove(e) {
   if (Tools.stageMove(e)) return;
@@ -10384,7 +10485,8 @@ function onStageMove(e) {
     L.props = clone(drag.start); moveLayer(L, drag.kx ? 0 : dxU, drag.ky ? 0 : dyU);
     if (drag.kx) setKey(L, 'x', tl, drag.kx0 + dxU); if (drag.ky) setKey(L, 'y', tl, drag.ky0 + dyU);
     S.guides = []; Timeline.update();
-  } else if (drag.kind === 'move') snapMove(drag.L, drag.start, (x - drag.x0) / u, (y - drag.y0) / u, e.shiftKey);
+  } else if (drag.kind === 'move') snapMove(drag.L, drag.start, (x - drag.x0) / u, (y - drag.y0) / u, e.shiftKey, drag.skip);
+  if (drag.kind === 'move') moveMates(drag);
   else { const s = Math.max(0.05, Math.hypot(x - drag.ax * u, y - drag.ay * u) / drag.d0); drag.L.props = clone(drag.start); scaleLayer(drag.L, s, drag.ax, drag.ay); }
   draw(); Inspector.refreshValues();
 }
@@ -10405,6 +10507,7 @@ function deleteLayer(id) {
   const i = S.comp.layers.findIndex((l) => l.id === id); if (i < 0) return;
   const name = S.comp.layers[i].name;
   S.comp.layers.splice(i, 1); if (S.sel === id) S.sel = null;
+  tidyGroups();
   commit(); refreshAll(); say(`Deleted "${name}". Undo with Ctrl+Z.`);
 }
 
@@ -10471,9 +10574,51 @@ function trimLayerEnd(id, t = S.t) {
 
 function duplicateLayer(id) {
   const i = S.comp.layers.findIndex((l) => l.id === id); if (i < 0) return;
-  const c = clone(S.comp.layers[i]); c.id = newLayerId(); c.name = c.name + ' copy'; moveLayer(c, 2, 2);
+  const c = clone(S.comp.layers[i]); c.id = newLayerId(); c.name = c.name + ' copy'; moveLayer(c, 2, 2); delete c.group;
   addLayer(c, i + 1);
 }
+
+/* ---------- groups: layers that move and retime together ---------- */
+const groupMembers = (gid) => (gid && S.comp ? S.comp.layers.filter((l) => l.group === gid) : []);
+const groupName = (gid) => (S.comp.groups && S.comp.groups[gid] && S.comp.groups[gid].name) || 'Group';
+// a group needs at least two layers; drops what is left over after deletes and undo
+function tidyGroups() {
+  const C = S.comp; if (!C) return;
+  C.groups = C.groups || {};
+  const n = {}; C.layers.forEach((l) => { if (l.group) n[l.group] = (n[l.group] || 0) + 1; });
+  C.layers.forEach((l) => { if (l.group && n[l.group] < 2) delete l.group; else if (l.group && !C.groups[l.group]) C.groups[l.group] = { name: 'Group' }; });
+  Object.keys(C.groups).forEach((g) => { if (!(n[g] >= 2)) delete C.groups[g]; });
+}
+function makeGroup(ids) {
+  const ls = S.comp.layers.filter((l) => ids.includes(l.id));
+  if (ls.length < 2) { say('Pick at least two layers to make a group.', 'err'); return null; }
+  tidyGroups();
+  const used = new Set(Object.values(S.comp.groups).map((g) => g.name));
+  let k = 1; while (used.has(`Group ${k}`)) k++;
+  const gid = 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name = `Group ${k}`;
+  ls.forEach((l) => (l.group = gid));
+  S.comp.groups[gid] = { name };
+  tidyGroups();
+  S.sel = ls[ls.length - 1].id;
+  commit(); refreshAll();
+  say(`Grouped ${ls.length} layers as "${name}". Drag any of them to move the whole group. Ctrl+Shift+G ungroups.`, 'ok');
+  return gid;
+}
+function ungroup(gid) {
+  const ls = groupMembers(gid); if (!ls.length) return;
+  const name = groupName(gid);
+  ls.forEach((l) => delete l.group); delete S.comp.groups[gid];
+  commit(); refreshAll();
+  say(`Ungrouped "${name}". Its ${ls.length} layers move on their own again.`, 'ok');
+}
+function deleteGroup(gid) {
+  const ids = new Set(groupMembers(gid).map((l) => l.id)); if (!ids.size) return;
+  const name = groupName(gid);
+  S.comp.layers = S.comp.layers.filter((l) => !ids.has(l.id)); delete S.comp.groups[gid];
+  if (ids.has(S.sel)) S.sel = null;
+  commit(); refreshAll(); say(`Deleted "${name}" and its ${ids.size} layers. Undo with Ctrl+Z.`);
+}
+function renameGroup(gid, name) { tidyGroups(); if (S.comp.groups[gid]) S.comp.groups[gid].name = (name || '').trim() || 'Group'; Timeline.render(); }
 function restack(id, delta) {
   const a = S.comp.layers, i = a.findIndex((l) => l.id === id), j = i + delta;
   if (i < 0 || j < 0 || j >= a.length) return;
@@ -10675,10 +10820,11 @@ async function imageAsPng(f) {
   const blob = await new Promise((r) => c.toBlob(r, 'image/png'));
   return AssetMgr.addData({ label: f.name.replace(/\.[^.]+$/, ''), name: f.name.replace(/\.[^.]+$/, '') + '.png', type: 'image/png', data: await blob.arrayBuffer() });
 }
-async function importMediaFiles(files) {
+async function importMediaFiles(files, credit) {
   const list = Array.from(files || []), added = [], skipped = [];
   const newId = () => 'media_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   const keep = async (rec, f, url) => {
+    if (credit) rec.credit = credit;
     PROJECT_MEDIA.push({ ...rec, url });
     await MediaStore.put({ ...rec, blob: f });
     // reconnect layers whose media was missing (for example after opening a project file)
@@ -10747,7 +10893,7 @@ function renderProjectMedia() {
     else if (m.kind === 'video') { if (m.thumb) { const img = el('img'); img.src = m.thumb; img.alt = ''; thumb.append(img); } thumb.append(el('span', 'mbadge', (m.duration || 0).toFixed(1) + 's')); }
     else { const c = AssetMgr.thumb(m.id, 64, theme); const cv = el('canvas'); cv.width = c.width; cv.height = c.height; cv.getContext('2d').drawImage(c, 0, 0); thumb.append(cv, el('span', 'mbadge', 'IMG')); }
     const info = el('div', 'minfo');
-    info.append(el('div', 'mname', m.name), el('div', 'mmeta', m.kind === 'video' ? `${m.width}×${m.height}` : m.kind === 'audio' ? `Audio · ${fmtDur(m.duration || 0)}` : 'Image'));
+    info.append(el('div', 'mname', m.name), el('div', 'mmeta', (m.kind === 'video' ? `${m.width}×${m.height}` : m.kind === 'audio' ? `Audio · ${fmtDur(m.duration || 0)}` : 'Image') + (m.credit ? ` · ${m.credit.license}` : '')));
     const btns = el('div', 'mcard-btns');
     const addBtn = el('button', 'btn sm primary', '+ Timeline'); addBtn.type = 'button';
     addBtn.addEventListener('click', () => addMediaToTimeline(m.id, S.t));
@@ -10963,7 +11109,7 @@ function drawTemplateThumbs() {
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     c.width = Math.max(2, Math.round(w * dpr)); c.height = Math.max(2, Math.round(h * dpr));
     c.style.width = Math.round(w) + 'px'; c.style.height = Math.round(h) + 'px';
-    const r = tplRenderer(t.id, coerceFields(t, clone(t.defaults), true), S.comp.look, c.width, c.height, t.duration);
+    const r = tplRenderer(t.id, coerceFields(t, clone(t.defaults), true), templateLook(t), c.width, c.height, t.duration);
     r.frame(c.getContext('2d'), t.duration * (t.hold || 0.9));
   });
 }
@@ -10971,7 +11117,7 @@ function openSetup(id, fields) {
   const t = TEMPLATES[id];
   S.mode = 'template';
   const at = S.mode === 'template' && S.setup ? S.setup.at : S.t;
-  S.setup = { id, fields: fields ? coerceFields(t, fields, false) : coerceFields(t, clone(t.defaults), true), dur: t.duration, at };
+  S.setup = { id, fields: fields ? coerceFields(t, fields, false) : coerceFields(t, clone(t.defaults), true), dur: t.duration, at, own: true };
   S.sel = null; S.t = 0;
   if (window.innerWidth <= 1180) $('#lib').classList.add('collapsed');
   if (window.innerWidth <= 760) $('#insp').classList.add('open');
@@ -10983,8 +11129,10 @@ function applySetup(how) {
   pause();
   const conv = TEMPLATES[st.id].asClip
     ? { name: TEMPLATES[st.id].name, layers: [templateClipLayer(st.id, st.fields, S.comp, 0, st.dur)], source: { tpl: st.id, fields: clone(st.fields) } }
-    : templateToComp(st.id, st.fields, S.comp.look, S.comp.width, S.comp.height, st.dur, 30);
+    : templateToComp(st.id, st.fields, templateLook(TEMPLATES[st.id], st.own), S.comp.width, S.comp.height, st.dur, 30);
+  const tTheme = themeFor({ theme: templateTheme(TEMPLATES[st.id]), colors: {} });
   if (how === 'replace' || !S.comp.layers.length) {
+    if (st.own) S.comp.look = { ...S.comp.look, theme: templateTheme(TEMPLATES[st.id]), colors: {} };
     S.comp = { ...S.comp, name: S.comp.layers.length && S.comp.name !== 'Untitled animation' ? S.comp.name : conv.name, duration: st.dur, layers: conv.layers, source: conv.source };
     S.t = st.dur * (TEMPLATES[st.id].hold || 0.9);
   } else {
@@ -10992,6 +11140,12 @@ function applySetup(how) {
     conv.layers.forEach((L) => { L.anim.start += off; L.anim.end += off; if (L.anim.count) L.anim.count.start += off; });
     const need = off + st.dur;
     if (need > S.comp.duration) { S.comp.layers.forEach((L) => { if (Math.abs(L.anim.end - S.comp.duration) < 1e-3) L.anim.end = need; }); S.comp.duration = need; }
+    // added on top of another palette: pin the template's colours so they do not turn into the project's
+    if (st.own && templateTheme(TEMPLATES[st.id]) !== S.comp.look.theme) conv.layers.forEach((L) => {
+      const keys = (LAYER_TYPES[L.type] && LAYER_TYPES[L.type].col) || [];
+      keys.forEach((k) => { const v = L.props[k]; if (typeof v === 'string' && !/^#/.test(v)) { const hex = resolveColor(v, tTheme); if (hex) L.props[k] = hex; } });
+      if (L.type === 'text' && !L.props.color) L.props.color = tTheme.fg;
+    });
     S.comp.layers.push(...conv.layers);
   }
   const n = conv.layers.length;
@@ -11014,11 +11168,277 @@ const ELEMENTS = [
   ]],
 ];
 // Templates kept for old projects and the Premiere panel, but not listed twice in the library.
+
+/* =========================================================
+   Niche templates: Documentary, Gaming, Live streaming, Vlog.
+   Like every template they draw only with the recordable building blocks, keep each element in place
+   and reveal it with progress, so "Use" turns them into ordinary editable layers.
+   ========================================================= */
+
+/* ---------- Documentary ---------- */
+defTemplate({
+  id: 'docChapter', name: 'Chapter card', group: 'Documentary',
+  use: 'Documentary chapter title: a chapter number, a quiet rule, the title and a line of context.',
+  fields: [fText('number', 'Chapter label'), fArea('title', 'Title', { rows: 2 }), fText('sub', 'Context line'), fColor('color', 'Rule colour')],
+  defaults: { number: 'Chapter three', title: 'The river that moved', sub: 'Assam, 1950 – 2024', color: 'muted' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const maxW = S.w * (lib.portrait ? 0.92 : 0.7), cx = S.cx;
+    const head = H.fit(ctx, f.title || '', { size: lib.portrait ? 9.5 * u : 8.5 * u, weight: 650, font: 'display', maxWidth: maxW, maxLines: 3, lineHeight: 1.08 });
+    const lab = lib.portrait ? 2.8 * u : 2.4 * u, subS = lib.portrait ? 3.6 * u : 3 * u;
+    const total = lab * 1.6 + 4 * u + head.h + 3.5 * u + (H.has(f.sub) ? subS * 1.4 : 0);
+    let y = S.cy - total / 2;
+    if (H.has(f.number)) lib.text(ctx, String(f.number).toUpperCase(), cx, y, { size: lab, weight: 600, color: C.muted, align: 'center', baseline: 'top', tracking: lab * 0.35, p: lib.prog(s.t, 0.2, 0.8), reveal: 'fade' });
+    y += lab * 1.6 + 2 * u;
+    lib.line(ctx, cx - 7 * u, y, cx + 7 * u, y, { color: H.col(f.color), width: 0.3 * u, p: lib.prog(s.t, 0.5, 0.9) });
+    y += 2 * u;
+    lib.text(ctx, f.title, cx, y, { size: head.size, weight: 650, font: 'display', align: 'center', baseline: 'top', maxWidth: maxW, lineHeight: 1.08, p: lib.prog(s.t, 0.8, 1.1), reveal: 'fade' });
+    y += head.h + 3.5 * u;
+    if (H.has(f.sub)) lib.text(ctx, f.sub, cx, y, { size: subS, weight: 500, color: C.muted, align: 'center', baseline: 'top', maxWidth: maxW, p: lib.prog(s.t, 1.4, 0.9), reveal: 'fade' });
+  },
+});
+defTemplate({
+  id: 'docLowerThird', name: 'Interview lower third', group: 'Documentary',
+  use: 'Name and role of the person speaking, low on the frame, for interviews.',
+  fields: [fText('name', 'Name'), fText('role', 'Role or place'), fColor('color', 'Bar colour'), fSel('side', 'Side', [['left', 'Left'], ['right', 'Right']])],
+  defaults: { name: 'Meera Kalita', role: 'Boat builder, Majuli island', color: 'accent', side: 'left' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib;
+    const nS = lib.portrait ? 4.6 * u : 4 * u, rS = lib.portrait ? 3 * u : 2.6 * u;
+    const nW = lib.measure(ctx, f.name || ' ', nS, 700, 'display'), rW = lib.measure(ctx, f.role || ' ', rS, 500);
+    const w = Math.min(S.w * 0.8, Math.max(nW, rW) + 7 * u), h = nS * 1.5 + rS * 1.6 + 2 * u;
+    const right = f.side === 'right', x = right ? S.x + S.w - w : S.x, y = S.y + S.h - h - (lib.portrait ? 8 * u : 2 * u);
+    lib.box(ctx, x, y, w, h, { fill: lib.alpha(C.bg, 0.78), r: 1 * u, p: lib.prog(s.t, 0.2, 0.6), reveal: right ? 'wipe-left' : 'wipe' });
+    lib.box(ctx, right ? x + w - 0.8 * u : x, y, 0.8 * u, h, { fill: H.col(f.color), r: 0, p: lib.prog(s.t, 0.1, 0.5), reveal: 'grow-y' });
+    const tx = right ? x + w - 3.2 * u : x + 3.2 * u, al = right ? 'right' : 'left';
+    lib.text(ctx, f.name, tx, y + 1.4 * u, { size: nS, weight: 700, font: 'display', align: al, baseline: 'top', p: lib.prog(s.t, 0.5, 0.7) });
+    if (H.has(f.role)) lib.text(ctx, f.role, tx, y + 1.4 * u + nS * 1.45, { size: rS, weight: 500, color: C.muted, align: al, baseline: 'top', p: lib.prog(s.t, 0.75, 0.7), reveal: 'fade' });
+  },
+});
+defTemplate({
+  id: 'docTimeline', name: 'Archive timeline', group: 'Documentary',
+  use: 'A thin line with dated moments that appear one after another, for history and context.',
+  fields: [fText('title', 'Heading'), fList('events', 'Moments', [fText('year', 'Date'), fText('label', 'What happened')], { max: 5 })],
+  defaults: { title: 'How the island shrank', events: [{ year: '1950', label: 'Great earthquake shifts the river' }, { year: '1972', label: 'First embankments built' }, { year: '1998', label: 'A third of the land is gone' }, { year: '2024', label: 'Families rebuild upstream' }] },
+  duration: 7,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const ev = (f.events || []).filter((e) => H.has(e.year) || H.has(e.label)).slice(0, 5), n = Math.max(1, ev.length);
+    const top = H.heading(ctx, s, f.title) + 4 * u, q = H.seq(s, n, { start: 0.9, each: 0.8, gap: 0.3 });
+    if (lib.portrait) {
+      const x = S.x + 6 * u, y0 = top + 2 * u, y1 = S.y + S.h - 4 * u, step = (y1 - y0) / n;
+      lib.line(ctx, x, y0, x, y1, { color: lib.alpha(C.fg, 0.25), width: 0.25 * u, p: lib.prog(s.t, 0.4, 1.2, 'inOutCubic') });
+      ev.forEach((e, i) => { const y = y0 + step * (i + 0.5), p = q(i);
+        lib.circle(ctx, x, y, 1.2 * u, { fill: C.fg, p });
+        lib.text(ctx, e.year, x + 4 * u, y - 2.2 * u, { size: 4.2 * u, weight: 700, font: 'display', baseline: 'middle', p });
+        lib.text(ctx, e.label, x + 4 * u, y + 2.6 * u, { size: 3 * u, weight: 500, color: C.muted, baseline: 'middle', maxWidth: S.w - 12 * u, p, reveal: 'fade' }); });
+    } else {
+      const y = top + (S.y + S.h - top) * 0.42, x0 = S.x + 2 * u, x1 = S.x + S.w - 2 * u, step = (x1 - x0) / n;
+      lib.line(ctx, x0, y, x1, y, { color: lib.alpha(C.fg, 0.25), width: 0.25 * u, p: lib.prog(s.t, 0.4, 1.2, 'inOutCubic') });
+      ev.forEach((e, i) => { const x = x0 + step * (i + 0.5), p = q(i);
+        lib.circle(ctx, x, y, 1 * u, { fill: C.fg, p });
+        lib.text(ctx, e.year, x, y - 4.5 * u, { size: 4.6 * u, weight: 700, font: 'display', align: 'center', baseline: 'middle', p });
+        lib.text(ctx, e.label, x, y + 5 * u, { size: 2.6 * u, weight: 500, color: C.muted, align: 'center', baseline: 'top', maxWidth: step * 0.86, lineHeight: 1.3, p, reveal: 'fade' }); });
+    }
+  },
+});
+defTemplate({
+  id: 'docLocation', name: 'Location stamp', group: 'Documentary',
+  use: 'Where and when this scene takes place, typed in the corner like a field note.',
+  fields: [fText('place', 'Place'), fText('detail', 'Date or coordinates'), fSel('corner', 'Corner', [['bl', 'Bottom left'], ['tl', 'Top left'], ['br', 'Bottom right']])],
+  defaults: { place: 'Majuli, Assam', detail: '26.95° N, 94.17° E · Monsoon 2024', corner: 'bl' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib;
+    const pS = lib.portrait ? 4.4 * u : 3.8 * u, dS = lib.portrait ? 2.8 * u : 2.4 * u, right = f.corner === 'br', topC = f.corner === 'tl';
+    const x = right ? S.x + S.w : S.x, y = topC ? S.y : S.y + S.h - pS * 1.4 - dS * 1.6, al = right ? 'right' : 'left';
+    lib.text(ctx, f.place, x, y, { size: pS, weight: 700, font: 'display', align: al, baseline: 'top', p: lib.prog(s.t, 0.2, 1.2, 'linear'), reveal: 'type', shadow: lib.transparent });
+    if (H.has(f.detail)) lib.text(ctx, String(f.detail).toUpperCase(), x, y + pS * 1.4, { size: dS, weight: 500, color: C.muted, align: al, baseline: 'top', tracking: dS * 0.12, p: lib.prog(s.t, 1.3, 1.4, 'linear'), reveal: 'type', shadow: lib.transparent });
+  },
+});
+
+/* ---------- Gaming ---------- */
+defTemplate({
+  id: 'gameVictory', name: 'Victory screen', group: 'Gaming',
+  use: 'Round-win banner with a punchy title, a rank pill and three stats underneath.',
+  fields: [fText('title', 'Title'), fText('rank', 'Rank or mode'), fList('stats', 'Stats', [fText('value', 'Value'), fText('label', 'Label')], { max: 4 }), fColor('color', 'Colour')],
+  defaults: { title: 'VICTORY', rank: 'Ranked · Diamond II', stats: [{ value: '14', label: 'Eliminations' }, { value: '3.2', label: 'K/D' }, { value: '1,920', label: 'Damage' }], color: 'accent' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const col = H.col(f.color), tS = H.fit(ctx, f.title || '', { size: lib.portrait ? 16 * u : 15 * u, weight: 900, font: 'display', maxWidth: S.w * 0.9, maxLines: 1 }).size;
+    const st = (f.stats || []).filter((x) => H.has(x.value)).slice(0, 4), cy = S.cy - (st.length ? 7 * u : 0);
+    if (H.has(f.rank)) lib.pill(ctx, String(f.rank).toUpperCase(), S.cx, cy - tS * 0.85, { size: 2.6 * u, fill: lib.alpha(col, 0.16), color: col, weight: 700, p: lib.prog(s.t, 0.2, 0.5) });
+    lib.text(ctx, f.title, S.cx, cy, { size: tS, weight: 900, font: 'display', align: 'center', tracking: tS * 0.04, p: lib.prog(s.t, 0.35, 0.6, 'outBack'), reveal: 'pop' });
+    lib.line(ctx, S.cx - S.w * 0.25, cy + tS * 0.62, S.cx + S.w * 0.25, cy + tS * 0.62, { color: col, width: 0.5 * u, p: lib.prog(s.t, 0.7, 0.6) });
+    if (st.length) {
+      const n = st.length, w = Math.min(S.w * 0.9, n * 22 * u), cw = w / n, y = cy + tS * 0.62 + 5 * u, q = H.seq(s, n, { start: 1.0, each: 0.5, gap: 0.15 });
+      st.forEach((x, i) => { const cx = S.cx - w / 2 + cw * (i + 0.5), p = q(i);
+        lib.text(ctx, x.value, cx, y, { size: 6.4 * u, weight: 800, font: 'display', align: 'center', baseline: 'top', p });
+        lib.text(ctx, String(x.label || '').toUpperCase(), cx, y + 7.6 * u, { size: 2.2 * u, weight: 600, color: C.muted, align: 'center', baseline: 'top', tracking: 0.4 * u, p, reveal: 'fade' }); });
+    }
+  },
+});
+defTemplate({
+  id: 'gameStats', name: 'Player stats', group: 'Gaming',
+  use: 'Player card with a name, a level and bars that fill for each stat.',
+  fields: [fText('player', 'Player'), fText('level', 'Level'), fList('bars', 'Stats', [fText('label', 'Stat'), fNum('value', 'Value (0–100)', { min: 0, max: 100 })], { max: 5 }), fColor('color', 'Bar colour')],
+  defaults: { player: 'NOVA_07', level: 'Level 42', bars: [{ label: 'Accuracy', value: 78 }, { label: 'Headshots', value: 41 }, { label: 'Win rate', value: 63 }, { label: 'Clutch', value: 55 }], color: 'accent' },
+  duration: 6,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const w = Math.min(S.w, lib.portrait ? S.w : 70 * u), x = S.cx - w / 2, bars = (f.bars || []).filter((b) => H.has(b.label)).slice(0, 5);
+    const h = 16 * u + bars.length * 9 * u, y = S.cy - h / 2, col = H.col(f.color);
+    lib.box(ctx, x, y, w, h, { fill: H.cardFill, r: 2.4 * u, p: lib.prog(s.t, 0.1, 0.5), stroke: lib.alpha(C.fg, 0.08), lineWidth: 0.2 * u });
+    lib.circle(ctx, x + 7 * u, y + 7.5 * u, 4 * u, { fill: lib.alpha(col, 0.2), p: lib.prog(s.t, 0.3, 0.5) });
+    lib.icon(ctx, 'user', x + 7 * u, y + 7.5 * u, 4 * u, { color: col, p: lib.prog(s.t, 0.4, 0.5) });
+    lib.text(ctx, f.player, x + 13.5 * u, y + 5.4 * u, { size: 4.6 * u, weight: 800, font: 'display', baseline: 'middle', p: lib.prog(s.t, 0.4, 0.6) });
+    if (H.has(f.level)) lib.text(ctx, f.level, x + 13.5 * u, y + 10 * u, { size: 2.6 * u, weight: 600, color: C.muted, baseline: 'middle', p: lib.prog(s.t, 0.55, 0.6), reveal: 'fade' });
+    const q = H.seq(s, Math.max(1, bars.length), { start: 0.9, each: 0.9, gap: 0.2 });
+    bars.forEach((b, i) => lib.progressBar(ctx, { x: x + 4 * u, y: y + 19 * u + i * 9 * u, w: w - 8 * u, h: 1.8 * u, value: H.num(b.value), max: 100, label: b.label, color: col, labelSize: 2.5 * u, p: q(i) }));
+  },
+});
+defTemplate({
+  id: 'gameVersus', name: 'Versus screen', group: 'Gaming',
+  use: 'Two players or teams face off, with a big VS in the middle.',
+  fields: [fText('left', 'Left name'), fText('leftSub', 'Left detail'), fText('right', 'Right name'), fText('rightSub', 'Right detail'), fText('event', 'Match label')],
+  defaults: { left: 'TEAM AURA', leftSub: '12 – 3 this season', right: 'NIGHT OWLS', rightSub: '10 – 5 this season', event: 'Grand final · Best of 5' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const half = lib.portrait ? S.h / 2 : S.w / 2, nS = lib.portrait ? 7 * u : 6 * u;
+    const side = (name, sub, k, col) => {
+      const cx = lib.portrait ? S.cx : S.cx + (k ? 1 : -1) * half * 0.5, cy = lib.portrait ? S.cy + (k ? 1 : -1) * half * 0.5 : S.cy;
+      lib.text(ctx, name, cx, cy, { size: H.fit(ctx, name || '', { size: nS, weight: 900, font: 'display', maxWidth: (lib.portrait ? S.w : half) * 0.85, maxLines: 1 }).size, weight: 900, font: 'display', align: 'center', color: col, p: lib.prog(s.t, 0.3 + k * 0.2, 0.6) });
+      if (H.has(sub)) lib.text(ctx, sub, cx, cy + nS * 0.95, { size: 2.6 * u, weight: 600, color: C.muted, align: 'center', p: lib.prog(s.t, 0.6 + k * 0.2, 0.6), reveal: 'fade' });
+    };
+    side(f.left, f.leftSub, 0, C.accent); side(f.right, f.rightSub, 1, C.accent2);
+    lib.circle(ctx, S.cx, S.cy, 6.5 * u, { fill: C.fg, p: lib.prog(s.t, 0.9, 0.5) });
+    lib.text(ctx, 'VS', S.cx, S.cy, { size: 5.4 * u, weight: 900, font: 'display', align: 'center', color: C.bg, p: lib.prog(s.t, 1.0, 0.5, 'outBack'), reveal: 'pop' });
+    if (H.has(f.event)) lib.text(ctx, String(f.event).toUpperCase(), S.cx, S.y + 2 * u, { size: 2.4 * u, weight: 600, color: C.muted, align: 'center', baseline: 'top', tracking: 0.5 * u, p: lib.prog(s.t, 1.2, 0.6), reveal: 'fade' });
+  },
+});
+
+/* ---------- Live streaming ---------- */
+defTemplate({
+  id: 'liveStarting', name: 'Starting soon', group: 'Live streaming',
+  use: 'Pre-stream screen: a big "starting soon", what today is about, and where to follow.',
+  fields: [fText('title', 'Title'), fText('topic', "Today's topic"), fList('handles', 'Handles', [fText('text', 'Handle')], { max: 3 })],
+  defaults: { title: 'Starting soon', topic: 'Late-night ranked grind · road to Diamond', handles: [{ text: '@nova07' }, { text: 'discord.gg/nova' }] },
+  duration: 6,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const tS = H.fit(ctx, f.title || '', { size: lib.portrait ? 12 * u : 11 * u, weight: 800, font: 'display', maxWidth: S.w * 0.9, maxLines: 2 }).size;
+    lib.pill(ctx, '● LIVE SOON', S.cx, S.cy - tS * 1.2, { size: 2.6 * u, fill: lib.alpha(C.bad, 0.18), color: C.bad, weight: 700, p: lib.prog(s.t, 0.2, 0.5) });
+    lib.text(ctx, f.title, S.cx, S.cy, { size: tS, weight: 800, font: 'display', align: 'center', maxWidth: S.w * 0.9, p: lib.prog(s.t, 0.4, 0.8) });
+    if (H.has(f.topic)) lib.text(ctx, f.topic, S.cx, S.cy + tS * 0.95, { size: 3.4 * u, weight: 500, color: C.muted, align: 'center', maxWidth: S.w * 0.85, p: lib.prog(s.t, 0.8, 0.7), reveal: 'fade' });
+    const hs = (f.handles || []).filter((h) => H.has(h.text)).slice(0, 3);
+    hs.forEach((h, i) => lib.pill(ctx, h.text, S.cx + (i - (hs.length - 1) / 2) * (lib.portrait ? 0 : 26 * u), lib.portrait ? S.y + S.h - (hs.length - i) * 7 * u : S.cy + tS * 2, { size: 2.8 * u, fill: lib.alpha(C.fg, 0.08), color: C.fg, p: lib.prog(s.t, 1.2 + i * 0.2, 0.5) }));
+  },
+});
+defTemplate({
+  id: 'liveAlert', name: 'New follower alert', group: 'Live streaming',
+  use: 'Stream alert that pops in for a new follower, subscriber or tip.',
+  fields: [fText('title', 'Alert title'), fText('text', 'Message'), fText('meta', 'Small detail'), fSel('icon', 'Icon', [['star', 'Star'], ['users', 'People'], ['coin', 'Coin'], ['check', 'Tick']]), fColor('color', 'Colour')],
+  defaults: { title: 'New subscriber!', text: 'pixelpanda just subscribed for 6 months', meta: 'Tier 1', icon: 'star', color: 'accent' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, safe: S } = lib, w = lib.portrait ? S.w : Math.min(S.w * 0.46, 70 * u);
+    lib.toast(ctx, { x: lib.portrait ? S.x : S.x + S.w - w, y: S.y + (lib.portrait ? 6 * u : 2 * u), w, title: f.title, text: f.text, meta: f.meta, icon: f.icon || 'star', color: H.col(f.color), from: 'right', p: lib.prog(s.t, 0.3, 0.7) });
+  },
+});
+defTemplate({
+  id: 'liveChat', name: 'Chat overlay', group: 'Live streaming',
+  use: 'Stream chat messages that slide in one after another, with usernames.',
+  fields: [fList('msgs', 'Messages', [fText('name', 'Username'), fText('text', 'Message')], { max: 5 })],
+  defaults: { msgs: [{ name: 'pixelpanda', text: 'that clutch was insane 🔥' }, { name: 'mira.codes', text: 'how many hours today?' }, { name: 'tobi', text: 'GG chat' }, { name: 'luna_live', text: 'first time here, love the vibe' }] },
+  duration: 7,
+  render(lib, H, ctx, s, f) {
+    const { u, safe: S } = lib, ms = (f.msgs || []).filter((m) => H.has(m.text)).slice(0, 5);
+    const w = lib.portrait ? S.w * 0.8 : Math.min(S.w * 0.36, 56 * u), x = S.x, size = lib.portrait ? 3.2 * u : 2.7 * u, step = size * 5.2;
+    const q = H.seq(s, Math.max(1, ms.length), { start: 0.3, each: 0.5, gap: 0.6, end: 0.85 });
+    ms.forEach((m, i) => lib.chatBubble(ctx, { x, y: S.y + S.h - (ms.length - i) * step, w, text: m.text, name: m.name, size, time: Math.max(0, s.t - q.at(i)), typing: 0, p: q(i) }));
+  },
+});
+defTemplate({
+  id: 'liveGoal', name: 'Sub goal bar', group: 'Live streaming',
+  use: 'Stream goal tracker: what the goal is and a bar that fills to the current count.',
+  fields: [fText('label', 'Goal'), fNum('value', 'Current', { min: 0 }), fNum('max', 'Target', { min: 1 }), fColor('color', 'Bar colour')],
+  defaults: { label: 'Sub goal · new emotes', value: 72, max: 100, color: 'good' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib, w = lib.portrait ? S.w : Math.min(S.w * 0.5, 80 * u), x = lib.portrait ? S.x : S.cx - w / 2, y = S.y + S.h - 12 * u;
+    lib.box(ctx, x - 2.5 * u, y - 7.5 * u, w + 5 * u, 13 * u, { fill: lib.alpha(C.bg, 0.8), r: 2 * u, p: lib.prog(s.t, 0.1, 0.5) });
+    lib.progressBar(ctx, { x, y, w, h: 2.4 * u, value: H.num(f.value), max: Math.max(1, H.num(f.max)), label: `${f.label}  ·  ${Math.round(H.num(f.value))} / ${Math.round(H.num(f.max))}`, color: H.col(f.color), labelSize: 2.7 * u, p: lib.prog(s.t, 0.4, 1.6) });
+  },
+});
+
+/* ---------- Vlog ---------- */
+defTemplate({
+  id: 'vlogDay', name: 'Day title', group: 'Vlog',
+  use: 'Vlog opener: a day number pill, a big title and where you are.',
+  fields: [fText('day', 'Day label'), fArea('title', 'Title', { rows: 2 }), fText('place', 'Place and date'), fColor('color', 'Colour')],
+  defaults: { day: 'Day 12', title: 'Lost in the old city', place: 'Lisbon · 14 May', color: 'accent' },
+  duration: 5,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const left = !lib.portrait, x = left ? S.x + 2 * u : S.cx, al = left ? 'left' : 'center', maxW = S.w * (lib.portrait ? 0.95 : 0.7);
+    const head = H.fit(ctx, f.title || '', { size: lib.portrait ? 11 * u : 10 * u, weight: 800, font: 'display', maxWidth: maxW, maxLines: 3, lineHeight: 1.02 });
+    const y = S.cy - head.h / 2, col = H.col(f.color);
+    if (H.has(f.day)) { const str = String(f.day).toUpperCase(), pw = lib.measure(ctx, str, 3 * u, 700) + 4.5 * u; lib.pill(ctx, str, left ? x + pw / 2 : x, y - 5 * u, { size: 3 * u, fill: col, color: '#ffffff', weight: 700, p: lib.prog(s.t, 0.2, 0.5) }); }
+    lib.text(ctx, f.title, x, y, { size: head.size, weight: 800, font: 'display', align: al, baseline: 'top', maxWidth: maxW, lineHeight: 1.02, p: lib.prog(s.t, 0.45, 0.8) });
+    if (H.has(f.place)) lib.text(ctx, f.place, x, y + head.h + 3 * u, { size: 3.4 * u, weight: 500, color: C.muted, align: al, baseline: 'top', p: lib.prog(s.t, 0.9, 0.7), reveal: 'fade' });
+  },
+});
+defTemplate({
+  id: 'vlogPlan', name: "Today's plan", group: 'Vlog',
+  use: 'A friendly checklist of what you are doing today, ticked off one by one.',
+  fields: [fText('title', 'Heading'), fList('items', 'Plan', [fText('text', 'Item')], { max: 6 })],
+  defaults: { title: "Today's plan", items: [{ text: 'Sunrise at the viewpoint' }, { text: 'Pastéis de nata hunt' }, { text: 'Tram 28 across town' }, { text: 'Sunset by the river' }] },
+  duration: 6,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const items = (f.items || []).filter((i) => H.has(i.text)).slice(0, 6), top = H.heading(ctx, s, f.title) + 5 * u;
+    const size = lib.portrait ? 4 * u : 3.6 * u, step = Math.min(size * 2.6, (S.y + S.h - top) / Math.max(1, items.length));
+    const q = H.seq(s, Math.max(1, items.length), { start: 0.8, each: 0.55, gap: 0.2 });
+    items.forEach((it, i) => { const y = top + i * step + size * 0.6, p = q(i);
+      lib.circle(ctx, S.x + size * 0.7, y, size * 0.7, { fill: lib.alpha(C.good, 0.18), p });
+      lib.icon(ctx, 'check', S.x + size * 0.7, y, size * 0.9, { color: C.good, p: lib.prog(s.t, q.at(i) + q.each * 0.5, 0.35, 'outBack') });
+      lib.text(ctx, it.text, S.x + size * 2.2, y, { size, weight: 600, baseline: 'middle', maxWidth: S.w - size * 3, p }); });
+  },
+});
+defTemplate({
+  id: 'vlogEnd', name: 'End screen', group: 'Vlog',
+  use: 'Closing screen: thanks for watching, two spaces for next videos and a subscribe circle.',
+  fields: [fText('title', 'Title'), fText('cta', 'Button text'), fText('handle', 'Channel name')],
+  defaults: { title: 'Thanks for watching', cta: 'Subscribe', handle: '@wanderwithmeera' },
+  duration: 6,
+  render(lib, H, ctx, s, f) {
+    const { u, theme: C, safe: S } = lib; H.panel(ctx, s);
+    const top = H.heading(ctx, s, f.title, { align: 'center' }) + 5 * u;
+    const gap = 3 * u, cols = lib.portrait ? 1 : 2, vw = lib.portrait ? S.w * 0.86 : (S.w * 0.62 - gap) / 2, vh = vw * 9 / 16;
+    const x0 = lib.portrait ? S.cx - vw / 2 : S.x, q = H.seq(s, 2, { start: 0.7, each: 0.5, gap: 0.2 });
+    for (let i = 0; i < 2; i++) { const x = x0 + (cols === 2 ? i * (vw + gap) : 0), y = top + (cols === 1 ? i * (vh + gap) : 0);
+      lib.box(ctx, x, y, vw, vh, { fill: lib.alpha(C.fg, 0.06), r: 1.6 * u, stroke: lib.alpha(C.fg, 0.18), lineWidth: 0.25 * u, p: q(i) });
+      lib.text(ctx, i ? 'Watch next' : 'Latest video', x + vw / 2, y + vh / 2, { size: 2.8 * u, weight: 600, color: C.muted, align: 'center', p: q(i), reveal: 'fade' }); }
+    const cx = lib.portrait ? S.cx : S.x + S.w - 12 * u, cy = lib.portrait ? S.y + S.h - 12 * u : top + vh / 2;
+    lib.circle(ctx, cx, cy, 9 * u, { fill: C.bad, p: lib.prog(s.t, 1.3, 0.5) });
+    lib.text(ctx, f.cta, cx, cy, { size: 2.8 * u, weight: 800, align: 'center', color: '#ffffff', maxWidth: 16 * u, p: lib.prog(s.t, 1.45, 0.4) });
+    if (H.has(f.handle)) lib.text(ctx, f.handle, cx, cy + 12 * u, { size: 2.6 * u, weight: 600, color: C.muted, align: 'center', p: lib.prog(s.t, 1.6, 0.5), reveal: 'fade' });
+  },
+});
+
+const LOOK_BY_GROUP = { Documentary: 'archive', Gaming: 'arcade', 'Live streaming': 'studio', Vlog: 'sunlit', Numbers: 'ledger', Charts: 'ledger', Diagrams: 'ledger' };
+const templateTheme = (t) => (t && (t.look || LOOK_BY_GROUP[t.group])) || 'graphite';
+// the look a template is previewed and used with: its own palette, or the project's when the user chooses so
+function templateLook(t, own = true) { return own ? { ...S.comp.look, theme: templateTheme(t), colors: {} } : S.comp.look; }
 const LIB_HIDDEN_TEMPLATES = new Set(['notifPop']); // same animation as the Notification layer
 // Library order: scene groups and layer groups in one list.
 const LIB_ORDER = [
   ['Trending', 'tpl'], ['UI & callouts', 'el'], ['Text', 'tpl'], ['Numbers', 'tpl'], ['Charts', 'tpl'],
-  ['Diagrams', 'tpl'], ['Overlays', 'tpl'], ['AI & API', 'tpl'],
+  ['Diagrams', 'tpl'], ['Documentary', 'tpl'], ['Gaming', 'tpl'], ['Live streaming', 'tpl'], ['Vlog', 'tpl'], ['Overlays', 'tpl'], ['AI & API', 'tpl'],
 ];
 const ELEMENT_PREVIEWS = {
   searchType: { desc: 'Query types itself, then search', html: '<div class="el-prev-search"><span class="el-s-ico"></span><span class="el-s-txt">best SIP for</span><i class="el-s-caret"></i><span class="el-s-btn">&rsaquo;</span></div>' },
@@ -11069,10 +11489,11 @@ function elementCard(type, label) {
 function renderElements() { renderTemplates(); }
 
 /* ---------- library: assets ---------- */
-const ASSET_CATS = [['mine', 'My uploads'], ['illustrations', 'Illustrations'], ['icons', 'Line icons'], ['shapes', 'Shapes'], ['annotations', 'Hand-drawn'], ['badges', 'Badges'], ['backgrounds', 'Backgrounds'], ['online', 'Web icons (online)']];
+const STOCK_CATS = new Set(['photos', 'videos', 'music', 'sfx']);
+const ASSET_CATS = [['photos', 'Stock photos'], ['videos', 'Stock videos'], ['music', 'Music'], ['sfx', 'Sound effects'], ['mine', 'My uploads'], ['illustrations', 'Illustrations'], ['icons', 'Line icons'], ['shapes', 'Shapes'], ['annotations', 'Hand-drawn'], ['badges', 'Badges'], ['backgrounds', 'Backgrounds'], ['online', 'Web icons (online)']];
 let assetCat = null;
 function assetItems(cat) {
-  if (cat === 'online') return [];
+  if (cat === 'online' || STOCK_CATS.has(cat)) return [];
   if (cat === 'icons') return Object.keys(ICONS).map((n) => ({ name: n, label: AssetMgr.label(n), line: true }));
   if (cat === 'mine') return AssetMgr.mine();
   return AssetMgr.catalog(cat);
@@ -11195,6 +11616,205 @@ async function fetchOnlineIcons(q) {
       </div>`;
   }
 }
+/* ---------- built-in sound effects and music: synthesised in the browser, so they are original and free of any copyright ---------- */
+const SoundGen = (() => {
+  const RATE = 48000;
+  function noise(ctx, secs = 2) { const b = ctx.createBuffer(1, Math.ceil(secs * RATE), RATE), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return b; }
+  const src = (ctx, buf, t, dur) => { const n = ctx.createBufferSource(); n.buffer = buf; n.start(t, Math.random() * Math.max(0, buf.duration - dur - 0.01), dur); return n; };
+  const osc = (ctx, type, f, t, dur) => { const o = ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(f, t); o.start(t); o.stop(t + dur + 0.05); return o; };
+  const gain = (ctx, v = 1) => { const g = ctx.createGain(); g.gain.value = v; return g; };
+  const filt = (ctx, type, f, q = 0.8) => { const x = ctx.createBiquadFilter(); x.type = type; x.frequency.value = f; x.Q.value = q; return x; };
+  const env = (g, t, a, d, peak = 1) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + Math.max(0.002, a)); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
+  const tone = (ctx, out, type, f, t, a, d, peak, f2) => { const o = osc(ctx, type, f, t, a + d), g = gain(ctx, 0); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + a + d * 0.6); env(g, t, a, d, peak); o.connect(g).connect(out); };
+  const FX = {
+    whoosh: { name: 'Whoosh', len: 0.9, make(c, o, N) { const n = src(c, N, 0, 0.9), bp = filt(c, 'bandpass', 300), g = gain(c, 0), pan = c.createStereoPanner(); bp.frequency.exponentialRampToValueAtTime(3500, 0.45); bp.frequency.exponentialRampToValueAtTime(500, 0.88); g.gain.linearRampToValueAtTime(0.9, 0.42); g.gain.linearRampToValueAtTime(0, 0.88); pan.pan.setValueAtTime(-0.7, 0); pan.pan.linearRampToValueAtTime(0.7, 0.88); n.connect(bp).connect(g).connect(pan).connect(o); } },
+    swooshUp: { name: 'Swoosh up', len: 1.1, make(c, o, N) { const n = src(c, N, 0, 1.1), bp = filt(c, 'bandpass', 200, 1.2), g = gain(c, 0); bp.frequency.exponentialRampToValueAtTime(7000, 1.0); g.gain.linearRampToValueAtTime(0.8, 0.95); g.gain.linearRampToValueAtTime(0, 1.08); n.connect(bp).connect(g).connect(o); } },
+    pop: { name: 'Pop', len: 0.3, make(c, o) { tone(c, o, 'sine', 900, 0, 0.004, 0.2, 0.9, 160); } },
+    click: { name: 'Click', len: 0.08, make(c, o, N) { const n = src(c, N, 0, 0.02), hp = filt(c, 'highpass', 2500), g = gain(c, 0); env(g, 0, 0.001, 0.03, 0.9); n.connect(hp).connect(g).connect(o); } },
+    ding: { name: 'Ding', len: 2, make(c, o) { [[1318.5, 0.5], [2637, 0.18], [3951, 0.07]].forEach(([f, v]) => tone(c, o, 'sine', f, 0, 0.004, 1.8, v)); } },
+    chime: { name: 'Notification chime', len: 1.5, make(c, o) { tone(c, o, 'triangle', 880, 0, 0.005, 0.6, 0.4); tone(c, o, 'triangle', 1318.5, 0.16, 0.005, 1.0, 0.4); } },
+    success: { name: 'Success', len: 1.3, make(c, o) { [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(c, o, 'triangle', f, i * 0.09, 0.005, 0.7, 0.32)); } },
+    impact: { name: 'Impact', len: 1.8, make(c, o, N) { tone(c, o, 'sine', 120, 0, 0.004, 1.5, 1, 32); const n = src(c, N, 0, 0.4), lp = filt(c, 'lowpass', 500), g = gain(c, 0); env(g, 0, 0.003, 0.35, 0.8); n.connect(lp).connect(g).connect(o); } },
+    riser: { name: 'Riser', len: 3.2, make(c, o, N) { const s1 = osc(c, 'sawtooth', 180, 0, 3.1), lp = filt(c, 'lowpass', 800), g = gain(c, 0); s1.frequency.exponentialRampToValueAtTime(1500, 3.0); lp.frequency.exponentialRampToValueAtTime(6000, 3.0); g.gain.linearRampToValueAtTime(0.28, 3.0); g.gain.linearRampToValueAtTime(0, 3.12); s1.connect(lp).connect(g).connect(o); const n = src(c, N, 0, 3.1), bp = filt(c, 'bandpass', 400), g2 = gain(c, 0); bp.frequency.exponentialRampToValueAtTime(8000, 3.0); g2.gain.linearRampToValueAtTime(0.35, 3.0); g2.gain.linearRampToValueAtTime(0, 3.12); n.connect(bp).connect(g2).connect(o); } },
+    glitch: { name: 'Glitch', len: 0.7, make(c, o) { for (let i = 0; i < 14; i++) tone(c, o, 'square', 150 + Math.random() * 1800, i * 0.045, 0.002, 0.03, 0.18 + Math.random() * 0.2); } },
+    typing: { name: 'Typing', len: 2.2, make(c, o, N) { for (let i = 0, t = 0.05; t < 2.0; i++, t += 0.07 + Math.random() * 0.12) { const n = src(c, N, t, 0.02), bp = filt(c, 'bandpass', 2500 + Math.random() * 2000, 2), g = gain(c, 0); env(g, t, 0.001, 0.03, 0.4 + Math.random() * 0.4); n.connect(bp).connect(g).connect(o); } } },
+    shutter: { name: 'Camera shutter', len: 0.4, make(c, o, N) { [0, 0.09].forEach((t) => { const n = src(c, N, t, 0.05), bp = filt(c, 'bandpass', 2800, 1.5), g = gain(c, 0); env(g, t, 0.001, 0.06, 0.8); n.connect(bp).connect(g).connect(o); }); } },
+    beeps: { name: 'Countdown beeps', len: 3.4, make(c, o) { [0, 1, 2].forEach((t) => tone(c, o, 'sine', 880, t, 0.005, 0.18, 0.4)); tone(c, o, 'sine', 1760, 3, 0.005, 0.35, 0.45); } },
+  };
+  async function effect(id) {
+    const fx = FX[id], c = new OfflineAudioContext(2, Math.ceil(fx.len * RATE), RATE), out = gain(c, 0.9); out.connect(c.destination);
+    fx.make(c, out, noise(c, Math.max(2, fx.len + 0.5)));
+    return c.startRendering();
+  }
+
+  /* --- music: a tiny sequencer with drums, bass, chords and a soft reverb --- */
+  const midi = (n) => 440 * Math.pow(2, (n - 69) / 12);
+  const STYLES = {
+    calm: { name: 'Calm piano', mood: 'Gentle · 76 BPM', bpm: 76, key: 60, prog: [[0, 4, 7], [7, 11, 14], [9, 12, 16], [5, 9, 12]], drums: false, keys: 'arp', pad: 0.12 },
+    upbeat: { name: 'Upbeat pop', mood: 'Bright · 118 BPM', bpm: 118, key: 62, prog: [[0, 4, 7], [7, 11, 14], [9, 12, 16], [5, 9, 12]], drums: 'four', bass: true, stab: true, pad: 0.06 },
+    lofi: { name: 'Lo-fi chill', mood: 'Relaxed · 82 BPM', bpm: 82, key: 65, prog: [[0, 4, 7, 11], [9, 12, 16, 19], [2, 5, 9, 12], [7, 11, 14, 17]], drums: 'lofi', bass: true, keys: 'chord', pad: 0.05, crackle: true },
+    cinematic: { name: 'Cinematic', mood: 'Epic · 70 BPM', bpm: 70, key: 57, prog: [[0, 3, 7], [8, 12, 15], [3, 7, 10], [10, 14, 17]], drums: 'boom', bass: 'drone', pad: 0.22 },
+    tech: { name: 'Tech corporate', mood: 'Driving · 112 BPM', bpm: 112, key: 64, prog: [[0, 3, 7], [8, 12, 15], [3, 7, 10], [10, 14, 17]], drums: 'four', bass: true, keys: 'pluck', pad: 0.05 },
+  };
+  function reverb(c) { const len = Math.ceil(2.6 * RATE), b = c.createBuffer(2, len, RATE); for (let ch = 0; ch < 2; ch++) { const d = b.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); } const v = c.createConvolver(); v.buffer = b; return v; }
+  async function music(id, seconds) {
+    const st = STYLES[id], piece = Math.min(seconds, 240), c = new OfflineAudioContext(2, Math.ceil(piece * RATE), RATE);
+    const master = gain(c, 0.55), comp = c.createDynamicsCompressor(), wet = gain(c, 0.22), verb = reverb(c), N = noise(c, 2.5);
+    master.connect(comp).connect(c.destination); verb.connect(wet).connect(comp);
+    const send = (node, amt) => { const g = gain(c, amt); node.connect(g).connect(verb); };
+    const beat = 60 / st.bpm, bar = beat * 4, bars = Math.ceil(piece / bar);
+    const kick = (t, v = 1) => { const o = osc(c, 'sine', 140, t, 0.4), g = gain(c, 0); o.frequency.exponentialRampToValueAtTime(45, t + 0.12); env(g, t, 0.002, 0.32, 0.9 * v); o.connect(g).connect(master); };
+    const snare = (t, v = 1) => { const n = src(c, N, t, 0.2), hp = filt(c, 'highpass', 1500), g = gain(c, 0); env(g, t, 0.001, 0.16, 0.45 * v); n.connect(hp).connect(g).connect(master); send(g, 0.3); };
+    const hat = (t, v = 1) => { const n = src(c, N, t, 0.06), hp = filt(c, 'highpass', 7500), g = gain(c, 0); env(g, t, 0.001, 0.045, 0.16 * v); n.connect(hp).connect(g).connect(master); };
+    const bassN = (t, f, d) => { const o = osc(c, 'sawtooth', f, t, d), lp = filt(c, 'lowpass', 380), g = gain(c, 0); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.32, t + 0.01); g.gain.setValueAtTime(0.32, t + d * 0.7); g.gain.exponentialRampToValueAtTime(0.0001, t + d); o.connect(lp).connect(g).connect(master); };
+    const keyN = (t, f, d, v = 0.16) => { [['sine', 1], ['triangle', 2]].forEach(([ty, m], k) => { const o = osc(c, ty, f * m, t, d + 0.4), g = gain(c, 0); env(g, t, 0.006, d + 0.4, v * (k ? 0.25 : 1)); o.connect(g).connect(master); send(g, 0.6); }); };
+    const pluck = (t, f) => { const o = osc(c, 'square', f, t, 0.3), lp = filt(c, 'lowpass', 3200), g = gain(c, 0); lp.frequency.exponentialRampToValueAtTime(400, t + 0.25); env(g, t, 0.002, 0.25, 0.09); o.connect(lp).connect(g).connect(master); send(g, 0.4); };
+    const pad = (t, fs, d, v) => fs.forEach((f) => [-6, 6].forEach((det) => { const o = osc(c, 'sawtooth', f, t, d + 1), lp = filt(c, 'lowpass', 1100), g = gain(c, 0); o.detune.value = det; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v / fs.length, t + Math.min(1.2, d * 0.4)); g.gain.setValueAtTime(v / fs.length, t + d); g.gain.linearRampToValueAtTime(0, t + d + 0.9); o.connect(lp).connect(g).connect(master); send(g, 0.8); }));
+    for (let b = 0; b < bars; b++) {
+      const t0 = b * bar, ch = st.prog[b % st.prog.length], root = st.key + ch[0];
+      const notes = ch.map((n) => midi(st.key + n));
+      if (st.pad) pad(t0, notes, bar, st.pad);
+      if (st.keys === 'arp') [0, 1, 2, 1, 0, 1, 2, 1].forEach((k, i) => keyN(t0 + i * beat / 2, notes[k % notes.length] * (i > 3 ? 2 : 1), beat * 0.9, 0.12));
+      if (st.keys === 'chord') [0, 2.5].forEach((bt) => notes.forEach((f) => keyN(t0 + bt * beat, f, beat * 1.4, 0.07)));
+      if (st.keys === 'pluck') for (let i = 0; i < 16; i++) pluck(t0 + i * beat / 4, notes[i % notes.length] * 2);
+      if (st.stab) [0.5, 1.5, 2.5, 3.5].forEach((bt) => notes.forEach((f) => pluck(t0 + bt * beat, f * 2)));
+      if (st.bass === true) for (let i = 0; i < 8; i++) bassN(t0 + i * beat / 2, midi(root - 24), beat * 0.45);
+      if (st.bass === 'drone') bassN(t0, midi(root - 24), bar);
+      if (st.drums === 'four') for (let i = 0; i < 4; i++) { kick(t0 + i * beat); if (i % 2) snare(t0 + i * beat); hat(t0 + i * beat + beat / 2); hat(t0 + i * beat, 0.5); }
+      if (st.drums === 'lofi') { kick(t0, 0.8); kick(t0 + beat * 2.5, 0.7); snare(t0 + beat, 0.6); snare(t0 + beat * 3, 0.6); for (let i = 0; i < 8; i++) hat(t0 + i * beat / 2 + (i % 2 ? beat * 0.08 : 0), i % 2 ? 0.5 : 0.8); }
+      if (st.drums === 'boom' && b % 2 === 0) kick(t0, 1.2);
+    }
+    if (st.crackle) { const n = c.createBufferSource(); n.buffer = N; n.loop = true; const hp = filt(c, 'highpass', 3000), g = gain(c, 0.018); n.connect(hp).connect(g).connect(master); n.start(0); n.stop(piece); }
+    let buf = await c.startRendering();
+    // longer than four minutes: the piece repeats seamlessly to the full length
+    if (seconds > piece) { const total = Math.ceil(seconds * RATE), out = new OfflineAudioContext(2, 1, RATE).createBuffer(2, total, RATE); for (let ch = 0; ch < 2; ch++) { const d = out.getChannelData(ch), s0 = buf.getChannelData(ch); for (let i = 0; i < total; i += s0.length) d.set(s0.subarray(0, Math.min(s0.length, total - i)), i); } buf = out; }
+    // gentle fade in and out
+    for (let ch = 0; ch < 2; ch++) { const d = buf.getChannelData(ch), fi = Math.min(d.length, RATE * 0.4), fo = Math.min(d.length, RATE * 2.5); for (let i = 0; i < fi; i++) d[i] *= i / fi; for (let i = 0; i < fo; i++) d[d.length - 1 - i] *= i / fo; }
+    return buf;
+  }
+  return { FX, STYLES, effect, music };
+})();
+
+/* ---------- free stock media: only CC0 and public-domain results, so everything is free to use with no attribution required ----------
+   Photos, music and sound effects come from Openverse (WordPress.org), videos from Wikimedia Commons.
+   Searching sends your search words to those services. */
+const Stock = (() => {
+  const OV = 'https://api.openverse.org/v1';
+  const PD = /^(cc0|pdm|pd|public ?domain)/i;
+  let seq = 0, playing = null;
+  const cache = new Map();
+  const card = (thumb, title, meta, actions) => { const c = el('div', 'stk-card'); const th = el('div', 'stk-thumb'); if (thumb) th.append(thumb); c.append(th, el('b', 'stk-title', title || 'Untitled'), el('span', 'stk-meta', meta)); const row = el('div', 'stk-acts'); actions.forEach((a) => row.append(a)); c.append(row); return c; };
+  const B = (label, fn, cls = 'btn sm') => { const b = el('button', cls, label); b.type = 'button'; b.addEventListener('click', (e) => { e.stopPropagation(); fn(b); }); return b; };
+  const licName = (l) => (/^cc0$/i.test(l) ? 'CC0' : 'Public domain');
+  async function getJSON(url, ms = 15000) { if (cache.has(url)) return cache.get(url); const ac = new AbortController(), tm = setTimeout(() => ac.abort(), ms); let r; try { r = await fetch(url, { signal: ac.signal }); } catch (e) { throw new Error(e.name === 'AbortError' ? 'The stock library is taking too long to answer.' : 'Could not reach the stock library. Check your internet connection.'); } finally { clearTimeout(tm); } if (!r.ok) throw new Error(r.status === 429 ? 'Too many searches for now. Wait a minute and try again.' : `The stock library returned ${r.status}.`); const j = await r.json(); cache.set(url, j); return j; }
+  function stopPreview() { if (playing) { playing.pause(); playing = null; } }
+  function preview(url, btn) {
+    if (playing && playing.dataset.url === url) { stopPreview(); btn.textContent = '▶'; return; }
+    stopPreview(); const a = new Audio(url); a.dataset.url = url; a.volume = 0.8; a.play().catch(() => say('Could not play this preview.', 'err')); playing = a; btn.textContent = '■'; a.onended = () => { btn.textContent = '▶'; playing = null; };
+  }
+  function previewBuffer(buf, btn) {
+    stopPreview(); const a = new Audio(URL.createObjectURL(wavBlob(buf))); a.dataset.url = 'gen'; a.play(); playing = a; btn.textContent = '■'; a.onended = () => { btn.textContent = '▶'; playing = null; };
+  }
+  const safeName = (t, ext) => (String(t || 'stock').replace(/\.[a-z0-9]{2,4}$/i, '').replace(/[^\w\- ]+/g, '').trim().slice(0, 60) || 'stock') + ext;
+  // download, keep in this browser and drop at the playhead
+  async function addMedia(url, title, kind, credit) {
+    say(`Downloading "${title}"…`, '', 0);
+    let blob; try { const r = await fetch(url); if (!r.ok) throw new Error(); blob = await r.blob(); }
+    catch (e) { say(`This file's host does not allow direct downloads. Open the source, download it, then import it in Media.`, 'err', 9000); if (credit && credit.url) window.open(credit.url, '_blank', 'noopener'); return; }
+    if (kind === 'image') {
+      const ext = blob.type === 'image/png' ? '.png' : blob.type === 'image/webp' ? '.webp' : '.jpg';
+      const name = /^image\/(png|jpeg|webp)$/.test(blob.type) ? await AssetMgr.addData({ label: title, name: safeName(title, ext), type: blob.type, data: await blob.arrayBuffer() }) : await imageAsPng(new File([blob], safeName(title, '.img'), { type: blob.type }));
+      addMediaToTimeline(name, S.t); remember(credit); renderProjectMedia(); return;
+    }
+    const ext = /webm/.test(blob.type) ? '.webm' : /ogg/.test(blob.type) ? '.ogg' : /wav/.test(blob.type) ? '.wav' : /mp4|m4a|aac/.test(blob.type) ? (kind === 'video' ? '.mp4' : '.m4a') : kind === 'video' ? '.webm' : '.mp3';
+    const file = new File([blob], safeName(title, ext), { type: blob.type || (kind === 'video' ? 'video/webm' : 'audio/mpeg') });
+    await importMediaFiles([file], credit);
+    const m = [...PROJECT_MEDIA].reverse().find((x) => x.name === file.name); if (m) { addMediaToTimeline(m.id, S.t); remember(credit); }
+  }
+  // a credits list is kept anyway, though CC0 and public-domain files need none
+  function remember(credit) { if (!credit) return; try { const c = JSON.parse(localStorage.getItem('es3.credits') || '[]'); if (!c.some((x) => x.url === credit.url)) c.push(credit); localStorage.setItem('es3.credits', JSON.stringify(c.slice(-500))); } catch {} }
+  async function addGenerated(buf, name) {
+    await importMediaFiles([new File([wavBlob(buf)], name + '.wav', { type: 'audio/wav' })], { title: name, creator: 'Explainer Studio', license: 'No copyright', url: '', source: 'Made in the app' });
+    const m = [...PROJECT_MEDIA].reverse().find((x) => x.name === name + '.wav'); if (m) addMediaToTimeline(m.id, S.t);
+  }
+  // Wikimedia Commons: also used when Openverse is down. Only CC0 and public-domain files pass.
+  const isFree = (lic) => /(^|\s)(cc0|pd|pdm|public ?domain)/i.test(lic) && !/\bby\b/i.test(lic);
+  async function commons(kind, term) {
+    const api = `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=50&gsrsearch=${encodeURIComponent((kind === 'image' ? 'filetype:bitmap ' : 'filetype:audio ') + term)}&prop=imageinfo&iiprop=url|size|mime|extmetadata&iiurlwidth=330`;
+    const j = await getJSON(api);
+    return Object.values((j.query && j.query.pages) || {}).sort((a, b) => (a.index || 0) - (b.index || 0)).map((pg) => {
+      const ii = (pg.imageinfo || [])[0]; if (!ii) return null;
+      const md = ii.extmetadata || {}, lic = ((md.License && md.License.value) || '') + ' ' + ((md.LicenseShortName && md.LicenseShortName.value) || '');
+      if (!isFree(lic)) return null;
+      const title = pg.title.replace(/^File:/, '').replace(/\.[a-z0-9]+$/i, '');
+      // a 1920 px copy is plenty for video and far lighter than many originals
+      const full = ii.width > 1920 && ii.thumburl ? ii.thumburl.replace(/\/\d+px-/, '/1920px-') : ii.url;
+      return { title, thumb: ii.thumburl, full, url: ii.url, page: ii.descriptionurl, size: ii.size, mime: ii.mime, credit: { title, creator: md.Artist ? md.Artist.value.replace(/<[^>]+>/g, '').trim() : 'Wikimedia Commons', license: /cc0/i.test(lic) ? 'CC0' : 'Public domain', url: ii.descriptionurl, source: 'Wikimedia Commons' } };
+    }).filter(Boolean);
+  }
+  function header(list, text) { list.append(el('p', 'hint stk-note full', text)); }
+  async function render(list, cat, q) {
+    const my = ++seq; stopPreview(); list.innerHTML = ''; list.classList.add('stk-grid');
+    const done = () => my === seq;
+    if (cat === 'sfx' || cat === 'music') {
+      list.append(el('h4', 'sec stk-h full', cat === 'sfx' ? 'Made in the app · no copyright' : 'Composed in the app · no copyright'));
+      if (cat === 'sfx') Object.entries(SoundGen.FX).forEach(([id, fx]) => list.append(card(null, fx.name, `${fx.len.toFixed(1)} s`, [B('▶', async (b) => previewBuffer(await SoundGen.effect(id), b), 'btn sm ghost'), B('+ Add', async () => addGenerated(await SoundGen.effect(id), fx.name), 'btn sm primary')])));
+      else Object.entries(SoundGen.STYLES).forEach(([id, st]) => list.append(card(null, st.name, st.mood, [B('▶', async (b) => { b.textContent = '…'; previewBuffer(await SoundGen.music(id, 12), b); }, 'btn sm ghost'), B('+ Add', async () => { say(`Composing "${st.name}" for ${tc(S.comp.duration)}…`, '', 0); addGenerated(await SoundGen.music(id, Math.max(4, S.comp.duration - S.t)), st.name); }, 'btn sm primary')])));
+    }
+    const term = q || { photos: 'nature', videos: 'nature', music: 'ambient', sfx: 'whoosh' }[cat];
+    const head = el('h4', 'sec stk-h full', cat === 'videos' ? `Wikimedia Commons · public domain & CC0 · "${term}"` : `Openverse · public domain & CC0 · "${term}"`); list.append(head);
+    const loading = el('p', 'hint full', 'Searching…'); list.append(loading);
+    try {
+      if (cat === 'photos') {
+        let j; try { j = await getJSON(`${OV}/images/?q=${encodeURIComponent(term)}&license=cc0,pdm&page_size=20&mature=false`, 12000); } catch (e) {
+          if (!done()) return;
+          const rows = await commons('image', term); if (!done()) return; loading.remove();
+          head.textContent = `Wikimedia Commons · public domain & CC0 · "${term}"`;
+          rows.forEach((r) => { const img = el('img'); img.loading = 'lazy'; img.alt = r.title; img.src = r.thumb; list.append(card(img, r.title, `${r.credit.license} · ${r.credit.creator.slice(0, 40)}`, [B('+ Add', () => addMedia(r.full, r.title, 'image', r.credit), 'btn sm primary'), B('Source', () => window.open(r.page, '_blank', 'noopener'), 'btn sm ghost')])); });
+          if (!rows.length) list.append(el('p', 'hint full', 'No free photos for that search. Try another word.'));
+          return;
+        }
+        if (!done()) return; loading.remove();
+        (j.results || []).forEach((r) => { const img = el('img'); img.loading = 'lazy'; img.alt = r.title || ''; img.src = `${OV}/images/${r.id}/thumb/`;
+          const credit = { title: r.title, creator: r.creator, license: licName(r.license), url: r.foreign_landing_url, source: 'Openverse' };
+          list.append(card(img, r.title, `${licName(r.license)} · ${r.creator || r.source}`, [B('+ Add', () => addMedia(`${OV}/images/${r.id}/thumb/?full_size=true&compressed=false`, r.title, 'image', credit), 'btn sm primary'), B('Source', () => window.open(r.foreign_landing_url, '_blank', 'noopener'), 'btn sm ghost')])); });
+        if (!(j.results || []).length) list.append(el('p', 'hint full', 'No free photos for that search. Try another word.'));
+      } else if (cat === 'videos') {
+        const api = `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=40&gsrsearch=${encodeURIComponent('filetype:video ' + term)}&prop=videoinfo&viprop=url|size|mime|extmetadata|derivatives&viurlwidth=320`;
+        const j = await getJSON(api); if (!done()) return; loading.remove();
+        const pages = Object.values((j.query && j.query.pages) || {}).sort((a, b) => (a.index || 0) - (b.index || 0));
+        let shown = 0;
+        pages.forEach((pg) => {
+          const vi = (pg.videoinfo || [])[0]; if (!vi) return;
+          const md = vi.extmetadata || {}, lic = ((md.License && md.License.value) || '') + ' ' + ((md.LicenseShortName && md.LicenseShortName.value) || '');
+          if (!/(^|\s)(cc0|pd|pdm|public ?domain)/i.test(lic) || /\bby\b/i.test(lic)) return; // CC0 / public domain only
+          const der = (vi.derivatives || []).filter((d) => /webm/.test(d.type) && (d.height || 0) <= 1080).sort((a, b) => (b.height || 0) - (a.height || 0));
+          const pick = der.find((d) => (d.height || 0) <= 720) || der[0] || (/webm/.test(vi.mime) ? { src: vi.url } : null); if (!pick) return;
+          const title = pg.title.replace(/^File:/, '').replace(/\.[a-z0-9]+$/i, '');
+          const th = el('img'); th.loading = 'lazy'; th.alt = title; if (vi.thumburl) th.src = vi.thumburl;
+          const credit = { title, creator: md.Artist ? md.Artist.value.replace(/<[^>]+>/g, '').trim() : 'Wikimedia Commons', license: /cc0/i.test(lic) ? 'CC0' : 'Public domain', url: vi.descriptionurl, source: 'Wikimedia Commons' };
+          list.append(card(th, title, `${credit.license} · ${vi.size ? Math.round(vi.size / 1e6) + ' MB original' : 'video'}`, [B('+ Add', () => addMedia(pick.src, title, 'video', credit), 'btn sm primary'), B('Source', () => window.open(vi.descriptionurl, '_blank', 'noopener'), 'btn sm ghost')])); shown++;
+        });
+        if (!shown) list.append(el('p', 'hint full', 'No public-domain videos for that search. Try a broader word like "ocean", "city" or "space".'));
+      } else {
+        let j; try { j = await getJSON(`${OV}/audio/?q=${encodeURIComponent(term)}&license=cc0,pdm&page_size=20&category=${cat === 'sfx' ? 'sound_effect' : 'music'}`, 12000); } catch (e) {
+          if (!done()) return;
+          const rows = await commons('audio', term); if (!done()) return; loading.remove();
+          head.textContent = `Wikimedia Commons · public domain & CC0 · "${term}"`;
+          rows.forEach((r) => list.append(card(null, r.title, `${r.credit.license} · ${r.size ? Math.max(1, Math.round(r.size / 1e3)) + ' KB' : 'audio'}`, [B('▶', (b) => preview(r.url, b), 'btn sm ghost'), B('+ Add', () => addMedia(r.url, r.title, 'audio', r.credit), 'btn sm primary'), B('Source', () => window.open(r.page, '_blank', 'noopener'), 'btn sm ghost')])));
+          if (!rows.length) list.append(el('p', 'hint full', 'No free results for that search. Try another word.'));
+          return;
+        }
+        if (!done()) return; loading.remove();
+        (j.results || []).forEach((r) => { const credit = { title: r.title, creator: r.creator, license: licName(r.license), url: r.foreign_landing_url, source: 'Openverse' };
+          list.append(card(null, r.title, `${licName(r.license)} · ${r.duration ? fmtDur(r.duration / 1000) : ''} · ${r.creator || r.source}`, [B('▶', (b) => preview(r.url, b), 'btn sm ghost'), B('+ Add', () => addMedia(r.url, r.title, 'audio', credit), 'btn sm primary'), B('Source', () => window.open(r.foreign_landing_url, '_blank', 'noopener'), 'btn sm ghost')])); });
+        if (!(j.results || []).length) list.append(el('p', 'hint full', 'No free results for that search. Try another word.'));
+      }
+    } catch (e) { if (done()) { if (!loading.isConnected) list.append(loading); loading.textContent = (e.message && !/fetch/i.test(e.message) ? e.message : 'Could not reach the stock library. Check your internet connection.'); } }
+  }
+  return { render, stopPreview };
+})();
+
 function renderAssets() {
   if (!$('#assetList')) return;
   if (!assetCat) assetCat = AssetMgr.mine().length ? 'mine' : 'illustrations';
@@ -11210,13 +11830,14 @@ function renderAssets() {
       b.setAttribute('aria-pressed', String(k === assetCat));
       b.addEventListener('click', () => { 
         assetCat = k; 
-        if (k !== 'online') $('#assetSearch').value = '';
+        if (k !== 'online' && !STOCK_CATS.has(k)) $('#assetSearch').value = '';
         renderAssets(); 
       });
       cats.append(b);
     });
   }
 
+  if (STOCK_CATS.has(assetCat)) { Stock.render($('#assetList'), assetCat, q); return; }
   if (assetCat === 'online') {
     clearTimeout(onlineSearchTimer);
     onlineSearchTimer = setTimeout(() => fetchOnlineIcons(q), 150);
@@ -11224,9 +11845,9 @@ function renderAssets() {
   }
 
   const list = $('#assetList'); 
-  list.innerHTML = '';
+  list.innerHTML = ''; list.classList.remove('stk-grid');
   const items = q 
-    ? ASSET_CATS.filter(([k]) => k !== 'online').flatMap(([k]) => assetItems(k).map((x) => ({ ...x, cat: k }))).filter((x) => (x.label + ' ' + x.name).toLowerCase().includes(q)) 
+    ? ASSET_CATS.filter(([k]) => k !== 'online' && !STOCK_CATS.has(k)).flatMap(([k]) => assetItems(k).map((x) => ({ ...x, cat: k }))).filter((x) => (x.label + ' ' + x.name).toLowerCase().includes(q)) 
     : assetItems(assetCat).map((x) => ({ ...x, cat: assetCat }));
   
   const theme = compTheme(S.comp);
@@ -12454,7 +13075,7 @@ var Theme = (() => {
     const t = resolved();
     document.documentElement.dataset.theme = t;
     $$('.theme-btn').forEach((b) => { b.innerHTML = ICON[mode]; b.title = NAME[mode] + '. Click to change.'; b.setAttribute('aria-label', NAME[mode]); });
-    const mc = document.querySelector('meta[name="theme-color"]'); if (mc) mc.content = t === 'light' ? '#fbf7f6' : '#070404';
+    const mc = document.querySelector('meta[name="theme-color"]'); if (mc) mc.content = t === 'light' ? '#f6f7f9' : '#0b0c0f';
   }
   function cycle() { mode = mode === 'auto' ? 'light' : mode === 'light' ? 'dark' : 'auto'; try { localStorage.setItem(KEY, mode); } catch {} apply(); say(NAME[mode], 'ok', 1800); }
   // stage background behind transparent designs: auto is the opposite of the interface, or force light / dark
@@ -12488,12 +13109,12 @@ var Silk = (() => {
     const W = cv.width, H = cv.height;
     ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1; ctx.filter = 'none';
     const light = document.documentElement.dataset.theme === 'light';
-    ctx.fillStyle = light ? '#fbf5f4' : '#000'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = light ? '#f6f7f9' : '#07080a'; ctx.fillRect(0, 0, W, H);
     ctx.globalCompositeOperation = light ? 'multiply' : 'lighter';
     const k = Math.min(W, H) / 700;
     BUNDLES.forEach((b) => {
       const twist = Math.cos(t * 0.23 + b.ph), sway = Math.sin(t * 0.17 + b.ph);
-      ctx.strokeStyle = light ? `rgba(235,120,125,${(b.a * 0.5).toFixed(3)})` : `rgba(200,8,14,${(b.a * 0.55).toFixed(3)})`; ctx.lineWidth = Math.max(4, H * b.spread[2] * Math.abs(twist) * 0.9 + 18 * k);
+      ctx.strokeStyle = light ? `rgba(160,180,225,${(b.a * 0.35).toFixed(3)})` : `rgba(30,58,138,${(b.a * 0.4).toFixed(3)})`; ctx.lineWidth = Math.max(4, H * b.spread[2] * Math.abs(twist) * 0.9 + 18 * k);
       ctx.beginPath(); ctx.moveTo(-0.12 * W, H * (b.y[0] + 0.02 * sway));
       ctx.bezierCurveTo(W * (0.30 + 0.05 * Math.sin(t * 0.21 + b.ph)), H * b.y[1], W * (0.60 + 0.05 * Math.cos(t * 0.19 + b.ph)), H * b.y[2], 1.14 * W, H * (b.y[3] + 0.03 * sway)); ctx.stroke();
       for (let i = 0; i < b.n; i++) {
@@ -12504,7 +13125,7 @@ var Silk = (() => {
         const x3 = 1.14 * W, y3 = H * (b.y[3] + u * b.spread[3] + 0.03 * sway);
         // strands near the middle of a bundle carry the pink-white highlight, the edges stay deep red
         const g = Math.round(20 + 120 * core * core), bl = Math.round(28 + 110 * core * core);
-        ctx.strokeStyle = light ? `rgba(${Math.round(225 - 60 * core)},${Math.round(70 - 50 * core)},${Math.round(78 - 50 * core)},${(b.a * (0.5 + 0.7 * core)).toFixed(3)})` : `rgba(255,${g},${bl},${(b.a * (0.45 + 0.75 * core)).toFixed(3)})`;
+        ctx.strokeStyle = light ? `rgba(${Math.round(150 - 50 * core)},${Math.round(170 - 50 * core)},${Math.round(215 - 30 * core)},${(b.a * 0.45 * (0.5 + 0.7 * core)).toFixed(3)})` : `rgba(${Math.round(70 + 120 * core)},${Math.round(110 + 110 * core)},255,${(b.a * 0.5 * (0.45 + 0.75 * core)).toFixed(3)})`;
         ctx.lineWidth = b.w * k * (0.7 + 0.8 * core);
         ctx.beginPath(); ctx.moveTo(x0, y0); ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3); ctx.stroke();
       }
@@ -12629,7 +13250,7 @@ var Home = (() => {
     th.addEventListener('pointerleave', () => { th.classList.remove('scrubbing'); try { paint(src.poster); } catch (err) {} });
   }
   const compSrc = (comp) => ({ W: comp.width, H: comp.height, dur: comp.duration, poster: posterTime(comp), make: (w, h) => makeComp(noClips(comp), w, h) });
-  const tplSrc = (t) => ({ W: S.comp.width, H: S.comp.height, dur: t.duration, poster: t.duration * (t.hold || 0.9), make: (w, h) => tplRenderer(t.id, coerceFields(t, clone(t.defaults), true), S.comp.look, w, h, t.duration) });
+  const tplSrc = (t) => ({ W: S.comp.width, H: S.comp.height, dur: t.duration, poster: t.duration * (t.hold || 0.9), make: (w, h) => tplRenderer(t.id, coerceFields(t, clone(t.defaults), true), templateLook(t), w, h, t.duration) });
   function card({ title, meta, badge, src, icon, onOpen }) {
     const b = el('div', 'hm-card'); b.tabIndex = 0; b.setAttribute('role', 'button'); b.setAttribute('aria-label', `Open ${title}`);
     const th = el('div', 'hm-thumb');
@@ -12815,6 +13436,13 @@ function onKey(e) {
   if (typing) return;
   if (Tools.onKey(e)) return;
   const L = selLayer();
+  if (S.mode === 'edit' && mod && e.key.toLowerCase() === 'g') {
+    e.preventDefault();
+    if (e.shiftKey) { if (L && L.group) ungroup(L.group); else say('Select a layer that is in a group to ungroup it.', 'err'); }
+    else if (Tools.pickedIds().length > 1) Tools.groupPicks();
+    else { Tools.set('group'); }
+    return;
+  }
   if (e.code === 'Space') { e.preventDefault(); S.playing ? pause() : play(); return; }
   if (e.key === 'Escape') { if (!$('#settings').hidden) $('#settings').hidden = true; else if (!$('#help').hidden) $('#help').hidden = true; else if (S.mode === 'template') closeSetup(); else select(null); return; }
   if (e.key === ',' || e.key === '.') { e.preventDefault(); pause(); seek(S.t + (e.key === '.' ? 1 : -1) / S.comp.fps); return; }
@@ -12825,7 +13453,7 @@ function onKey(e) {
   if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); deleteLayer(L.id); return; }
   if (mod && e.key.toLowerCase() === 'd') { e.preventDefault(); duplicateLayer(L.id); return; }
   if (mod && e.key.toLowerCase() === 'c') { S.clipboard = clone(L); say(`Copied "${L.name}".`); return; }
-  if (mod && e.key.toLowerCase() === 'v' && S.clipboard) { const c = clone(S.clipboard); c.id = newLayerId(); moveLayer(c, 2, 2); addLayer(c); return; }
+  if (mod && e.key.toLowerCase() === 'v' && S.clipboard) { const c = clone(S.clipboard); c.id = newLayerId(); moveLayer(c, 2, 2); delete c.group; addLayer(c); return; }
   if (e.code === 'BracketLeft' || e.code === 'BracketRight') {
     e.preventDefault();
     if (e.shiftKey) restack(L.id, e.code === 'BracketRight' ? 1 : -1);
@@ -12891,7 +13519,7 @@ async function init() {
   refreshAll();
   let assetRefresh = 0;
   AssetMgr.onChange(() => { cancelAnimationFrame(assetRefresh); assetRefresh = requestAnimationFrame(() => { renderAssets(); if (R) draw(); }); });
-  $('#assetSearch').addEventListener('input', renderAssets);
+  let stockT = 0; $('#assetSearch').addEventListener('input', () => { if (STOCK_CATS.has(assetCat)) { clearTimeout(stockT); stockT = setTimeout(renderAssets, 400); } else renderAssets(); });
   $('#assetFiles').addEventListener('change', (e) => { const f = [...e.target.files]; e.target.value = ''; if (f.length) uploadAssets(f); });
   const libEl = $('#lib');
   libEl.addEventListener('dragover', (e) => { if ([...(e.dataTransfer.items || [])].some((i) => i.kind === 'file')) { e.preventDefault(); libEl.classList.add('drop'); } });
