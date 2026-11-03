@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="com.capitalstory.explainerstudio" ExtensionBundleVersion="3.0.0" ExtensionBundleName="Explainer Studio" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.capitalstory.explainerstudio" ExtensionBundleVersion="3.1.0" ExtensionBundleName="Wariya" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ExtensionList>
-    <Extension Id="com.capitalstory.explainerstudio.panel" Version="3.0.0"/>
+    <Extension Id="com.capitalstory.explainerstudio.panel" Version="3.1.0"/>
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
@@ -31,7 +31,7 @@
         </Lifecycle>
         <UI>
           <Type>Panel</Type>
-          <Menu>Explainer Studio</Menu>
+          <Menu>Wariya</Menu>
           <Geometry>
             <Size><Height>820</Height><Width>1280</Width></Size>
             <MinSize><Height>420</Height><Width>360</Width></MinSize>

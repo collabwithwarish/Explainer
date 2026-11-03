@@ -1,5 +1,5 @@
 /*
-  Explainer Studio — Premiere Pro host script (ExtendScript, ES3).
+  Wariya — Premiere Pro host script (ExtendScript, ES3).
   The panel calls these functions with evalScript. Every function returns a JSON string.
 */
 
@@ -35,7 +35,20 @@ function es_json(v) {
   for (var k in v) { if (v.hasOwnProperty(k)) parts.push(es_q(k) + ':' + es_json(v[k])); }
   return '{' + parts.join(',') + '}';
 }
-function es_parse(str) { return eval('(' + str + ')'); }
+function es_parse(str) {
+  if (typeof JSON !== 'undefined' && JSON && typeof JSON.parse === 'function') {
+    return JSON.parse(str);
+  }
+  // Validate that the string contains strictly valid JSON tokens before evaluating (RFC 4627)
+  var s = String(str)
+    .replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
+    .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+    .replace(/(?:^|:|,)(?:\s*\[)+/g, '');
+  if (/^[\],:{}\s]*$/.test(s)) {
+    return eval('(' + str + ')');
+  }
+  throw new Error('Invalid or unverified JSON passed to ExtendScript host');
+}
 function es_ok(o) { o = o || {}; o.ok = true; return es_json(o); }
 function es_err(msg) { return es_json({ ok: false, error: String(msg) }); }
 
@@ -157,7 +170,7 @@ function es_send(argsJSON) {
   try {
     var a = es_parse(argsJSON);
     if (!app.project) return es_err('Open a project in Premiere Pro first.');
-    var item = es_import(a.path, a.binName || 'Explainer Studio', a.name, a.fps, a.stills);
+    var item = es_import(a.path, a.binName || 'Wariya', a.name, a.fps, a.stills);
     if (!item) return es_err('Premiere could not import ' + a.path);
     if (a.mode !== 'timeline') return es_ok({ placed: false });
     var seq = app.project.activeSequence;

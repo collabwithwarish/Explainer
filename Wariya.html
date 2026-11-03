@@ -5,7 +5,7 @@
 <script>/* Inside a Premiere Pro panel, Node's module object would make bundled libraries hide from window. */ if (window.__adobe_cep__ && typeof module === 'object' && module) { window.__cepModule = module; window.module = undefined; }</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0c0f">
-<title>Explainer Studio</title>
+<title>Wariya</title>
 <style>
 @font-face {
   font-family: 'Bricolage Grotesque';
@@ -802,7 +802,7 @@
 </style>
 <style>
 /* =========================================================
-   EXPLAINER STUDIO - MINIMAL CREATIVE WORKBENCH
+   WARIYA - MINIMAL CREATIVE WORKBENCH
    Clean, minimal, high-contrast dark theme inspired by Linear & Figma.
    Zero visual clutter, crisp 1px borders, robust rock-solid layout.
    ========================================================= */
@@ -2400,7 +2400,7 @@ input[type=text], input[type=number], input[type=search], input[type=password], 
   <header class="bar">
     <button class="btn sm" id="libToggle" type="button" aria-controls="lib">Library</button>
     <button class="btn icon-btn ghost" id="homeBtn" type="button" title="Home" aria-label="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></button>
-    <span class="brand">Explainer Studio</span>
+    <span class="brand">Wariya</span>
     <input class="projname" id="projName" type="text" aria-label="Project name" spellcheck="false">
     <button class="btn icon-btn ghost" id="undoBtn" type="button" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 16 16"><path d="M5.5 3 1 7l4.5 4V8.3c3.6-.2 6.4.8 8.5 3.7-.6-4.2-3.4-7-8.5-7.3z"/></svg></button>
     <button class="btn icon-btn ghost" id="redoBtn" type="button" title="Redo (Ctrl+Shift+Z)" aria-label="Redo"><svg viewBox="0 0 16 16"><path d="M10.5 3 15 7l-4.5 4V8.3C6.9 8.1 4.1 9.1 2 12c.6-4.2 3.4-7 8.5-7.3z"/></svg></button>
@@ -2565,7 +2565,7 @@ input[type=text], input[type=number], input[type=search], input[type=password], 
   <canvas class="hm-silk" id="homeSilk" aria-hidden="true"></canvas>
   <div class="hm-veil" aria-hidden="true"></div>
   <header class="hm-top">
-    <div class="hm-brand"><span class="hm-logo" aria-hidden="true"><i></i><i></i><i></i></span>Explainer Studio</div>
+    <div class="hm-brand"><span class="hm-logo" aria-hidden="true"><i></i><i></i><i></i></span>Wariya</div>
     <div class="hm-cmd" id="homeCmd">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
       <input id="homeSearch" type="search" placeholder="Search projects and templates, or type an action like &quot;new reel&quot;" aria-label="Search projects, templates and actions" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="homePal">
@@ -2625,7 +2625,7 @@ input[type=text], input[type=number], input[type=search], input[type=password], 
         <li><b>Credentials → Create credentials → OAuth client ID → Web application</b>. Under <b>Authorized JavaScript origins</b> add the address you open this editor from, e.g. <code>http://localhost:8765</code>, and your website's <code>https://</code> address if you host it.</li>
         <li>Copy the client ID here. It is not a secret; no client secret is needed.</li>
       </ol>
-      <p>The editor only asks for access to files it creates (the <b>Explainer Studio</b> folder in your Drive), not the rest of your Drive. Sign-in needs the editor to be opened from a web address (http:// or https://), not by double-clicking the file.</p>
+      <p>The editor only asks for access to files it creates (the <b>Wariya</b> folder in your Drive), not the rest of your Drive. Sign-in needs the editor to be opened from a web address (http:// or https://), not by double-clicking the file.</p>
     </details>
     <div class="row" style="justify-content:flex-end"><button class="btn primary" id="closeSettings" type="button">Done</button></div>
   </div>
@@ -7043,8 +7043,8 @@ defTemplate({
     fSel('position', 'Position', [['bottom', 'Centre bottom'], ['left', 'Bottom left'], ['right', 'Bottom right']])
   ],
   defaults: {
-    name: 'Explainer Studio',
-    handle: '@explainerstudio',
+    name: 'Wariya',
+    handle: '@wariya',
     stat: '250K subscribers',
     icon: 'user',
     color: 'accent',
@@ -10237,7 +10237,7 @@ const Tools = (() => {
 </script>
 <script>
 /* =========================================================
-   Explainer Studio (web): layer editor with a timeline.
+   Wariya (web): layer editor with a timeline.
    studio.js  — state, history, stage, library, projects, export
    timeline.js — the timeline panel
    inspector.js — the properties panel
@@ -11746,7 +11746,7 @@ const Stock = (() => {
   // a credits list is kept anyway, though CC0 and public-domain files need none
   function remember(credit) { if (!credit) return; try { const c = JSON.parse(localStorage.getItem('es3.credits') || '[]'); if (!c.some((x) => x.url === credit.url)) c.push(credit); localStorage.setItem('es3.credits', JSON.stringify(c.slice(-500))); } catch {} }
   async function addGenerated(buf, name) {
-    await importMediaFiles([new File([wavBlob(buf)], name + '.wav', { type: 'audio/wav' })], { title: name, creator: 'Explainer Studio', license: 'No copyright', url: '', source: 'Made in the app' });
+    await importMediaFiles([new File([wavBlob(buf)], name + '.wav', { type: 'audio/wav' })], { title: name, creator: 'Wariya', license: 'No copyright', url: '', source: 'Made in the app' });
     const m = [...PROJECT_MEDIA].reverse().find((x) => x.name === name + '.wav'); if (m) addMediaToTimeline(m.id, S.t);
   }
   // Wikimedia Commons: also used when Openverse is down. Only CC0 and public-domain files pass.
@@ -11968,7 +11968,7 @@ var Premiere = (() => {
   let req = null; try { req = on ? (window.cep_node && window.cep_node.require) || window.require : null; } catch {}
   const fs = req ? req('fs') : null, npath = req ? req('path') : null, os = req ? req('os') : null;
   const ok = !!(on && fs && npath);
-  const BIN = 'Explainer Studio';
+  const BIN = 'Wariya';
   let mode = 'timeline'; try { mode = localStorage.getItem('es3.ppro.place') || 'timeline'; } catch {}
   function host(fn, args) {
     return new Promise((resolve) => {
@@ -11983,7 +11983,7 @@ var Premiere = (() => {
   // exports go next to the Premiere project, or into Documents when the project is not saved yet
   async function folder() {
     const r = await host('es_info');
-    const dir = r.ok && r.projectPath ? npath.join(npath.dirname(r.projectPath), 'Explainer Studio Exports') : npath.join(os.homedir(), 'Documents', 'Explainer Studio Exports');
+    const dir = r.ok && r.projectPath ? npath.join(npath.dirname(r.projectPath), 'Wariya Exports') : npath.join(os.homedir(), 'Documents', 'Wariya Exports');
     fs.mkdirSync(dir, { recursive: true });
     return dir;
   }
@@ -12123,7 +12123,7 @@ function exportProjectFile() {
 }
 async function openProjectFile(file) {
   try { await loadProjectData(JSON.parse(await file.text()), file.name); }
-  catch { say('That file is not an Explainer Studio project.', 'err'); }
+  catch { say('That file is not a Wariya project.', 'err'); }
 }
 function slug(s) { return String(s || 'animation').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'animation'; }
 
@@ -12747,7 +12747,7 @@ self.onmessage = async (e) => {
    The access token lives in memory only; just the name/email/photo URL are remembered to show who was signed in. */
 var Cloud = (() => {
   const SCOPES = 'openid email profile https://www.googleapis.com/auth/drive.file';
-  const FOLDER = 'Explainer Studio', MIME = 'application/json';
+  const FOLDER = 'Wariya', OLD_FOLDER = 'Explainer Studio', MIME = 'application/json';
   let token = '', expires = 0, client = null, gis = null, folderId = '', files = null, busy = false, state = '', syncTimer = 0, pending = false;
   let who = null; try { who = JSON.parse(localStorage.getItem('es3.cloud.user') || 'null'); } catch {}
   let auto = true; const autoPref = () => { try { auto = localStorage.getItem('es3.cloud.auto') !== '0'; } catch {} }; autoPref();
@@ -12769,7 +12769,7 @@ var Cloud = (() => {
   }
   // Must run from a click: Google opens a pop-up.
   async function signIn() {
-  if (Premiere.on) { say('Google sign-in only works in the browser version of Explainer Studio. Inside Premiere, projects are kept in this panel and exports are saved next to your Premiere project.', 'info', 10000); return; }
+  if (Premiere.on) { say('Google sign-in only works in the browser version of Wariya. Inside Premiere, projects are kept in this panel and exports are saved next to your Premiere project.', 'info', 10000); return; }
     if (!clientId()) { say('Add your Google OAuth client ID in Settings first (Settings → Google sign-in).', 'err', 7000); $('#settingsBtn').click(); return false; }
     if (!/^https?:$/.test(location.protocol)) { say('Google sign-in needs the editor opened from a web address (http://localhost or your site), not as a file.', 'err', 8000); return false; }
     await loadGis();
@@ -12812,8 +12812,13 @@ var Cloud = (() => {
   const q = (x) => encodeURIComponent(x);
   async function folder() {
     if (folderId) return folderId;
-    const j = await (await api(`files?q=${q(`name='${FOLDER}' and mimeType='application/vnd.google-apps.folder' and trashed=false`)}&fields=files(id)&spaces=drive`)).json();
-    if (j.files && j.files[0]) return (folderId = j.files[0].id);
+    const j = await (await api(`files?q=${q(`(name='${FOLDER}' or name='${OLD_FOLDER}') and mimeType='application/vnd.google-apps.folder' and trashed=false`)}&fields=files(id,name)&spaces=drive`)).json();
+    const f = j.files && (j.files.find((x) => x.name === FOLDER) || j.files[0]);
+    if (f) {
+      // made before the app was renamed: give it the new name, its projects stay in it
+      if (f.name !== FOLDER) { try { await api(`files/${f.id}?fields=id`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: FOLDER }) }); } catch {} }
+      return (folderId = f.id);
+    }
     const c = await (await api('files?fields=id', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: FOLDER, mimeType: 'application/vnd.google-apps.folder' }) })).json();
     return (folderId = c.id);
   }
@@ -12851,7 +12856,7 @@ var Cloud = (() => {
         : await (await api(`files?uploadType=multipart&fields=${fields}`, { method: 'POST', upload: true, ...multipart({ name, mimeType: MIME, parents: [await folder()], appProperties: { app: 'explainer-studio' } }, data) })).json();
       link(out.id, out.modifiedTime); files = null; savedSnap = snap; if (!quiet) autoPref(); // a deliberate save resolves a paused sync
       setState(`Synced ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
-      if (!quiet) say(`Saved "${S.comp.name}" to your Google Drive (Explainer Studio folder).`, 'ok');
+      if (!quiet) say(`Saved "${S.comp.name}" to your Google Drive (Wariya folder).`, 'ok');
     } catch (e) {
       setState(e.auth ? 'Not synced: reconnect' : 'Not synced');
       if (!quiet || e.auth) say(e.message || String(e), 'err', 8000);
@@ -12878,7 +12883,7 @@ var Cloud = (() => {
       await loadProjectData(j, `"${fileMeta.name.replace(/\.json$/, '')}" from Drive`, { cloudId: fileMeta.id, cloudMod: fileMeta.modifiedTime });
       link(fileMeta.id, fileMeta.modifiedTime); savedSnap = snapOf(); autoPref();
       setState('Synced');
-    } catch (e) { setState(''); say(e.message === 'bad' ? 'That Drive file is not an Explainer Studio project.' : e.message || String(e), 'err', 8000); }
+    } catch (e) { setState(''); say(e.message === 'bad' ? 'That Drive file is not a Wariya project.' : e.message || String(e), 'err', 8000); }
   }
   async function trash(fileMeta) {
     if (!confirm(`Move "${fileMeta.name}" to your Google Drive trash? You can restore it from Drive for 30 days.`)) return;

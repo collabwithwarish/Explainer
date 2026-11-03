@@ -1,4 +1,4 @@
-# Explainer Studio
+# Wariya
 
 A browser-based motion-graphics and video editor in a single HTML file: templates, keyframes, transitions, text animation, effects, subtitles, music, and exports to MOV (with transparency), MP4, WebM, PNG sequences and WAV.
 
@@ -10,7 +10,7 @@ Open it from a local web server (needed for Google sign-in and some browser feat
 python -m http.server 8765 --bind 127.0.0.1
 ```
 
-Then visit `http://localhost:8765/Explainer%20Studio%20master%20(1).html`.
+Then visit `http://localhost:8765/Wariya.html`.
 
 ## Use it inside Premiere Pro
 
@@ -20,14 +20,14 @@ The same app runs as a panel in Premiere Pro 2022 or newer (Windows). From the p
 powershell -ExecutionPolicy Bypass -File premiere\install.ps1
 ```
 
-Then open **Window > Extensions > Explainer Studio** (restart Premiere the first time). Run the installer again after changing the app, then close and reopen the panel.
+Then open **Window > Extensions > Wariya** (restart Premiere the first time). Run the installer again after changing the app, then close and reopen the panel.
 
 Inside Premiere:
 
-- **Export** writes the file straight to `Explainer Studio Exports` next to your Premiere project (or in Documents if the project is not saved yet), with no size limit. Under **In Premiere Pro** in the export dialog, choose to add it to the timeline at the playhead (on the first free track above V1), import it into the "Explainer Studio" bin, or only save it.
+- **Export** writes the file straight to `Wariya Exports` next to your Premiere project (or in Documents if the project is not saved yet), with no size limit. Under **In Premiere Pro** in the export dialog, choose to add it to the timeline at the playhead (on the first free track above V1), import it into the "Wariya" bin, or only save it.
 - Transparent MOV and PNG sequences keep their transparency over your footage.
 - **From Premiere** in Media brings in the clips selected in the Project panel or on the timeline.
 - **Match the Premiere sequence** in the Composition panel copies the active sequence's size and frame rate.
 - Google Drive sync is only available in the browser version.
 
-The installer moves any older Explainer Studio panel to `Documents\Explainer Studio\panel-backup-…`, and turns on Premiere's setting for loading panels that are not from Adobe Exchange (`PlayerDebugMode`) if it is off.
+The installer moves any older version of the panel to `Documents\Wariya\panel-backup-…`, and turns on Premiere's setting for loading panels that are not from Adobe Exchange (`PlayerDebugMode`) if it is off.
