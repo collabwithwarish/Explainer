@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>/* Inside a Premiere Pro panel, Node's module object would make bundled libraries hide from window. */ if (window.__adobe_cep__ && typeof module === 'object' && module) { window.__cepModule = module; window.module = undefined; }</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0c0f">
 <title>Explainer Studio</title>
@@ -2214,6 +2215,10 @@ h1, h2, h3, .brand, .hm-brand, .panel-head, .sheet .box h2, .hm-sec-head h2, .hm
   border: 1px solid var(--glass-line); box-shadow: var(--glass-shadow), var(--glass-hi); color: var(--fg);
 }
 .msg { background: var(--glass-solid); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); border-color: var(--glass-line); box-shadow: var(--glass-shadow); border-radius: 999px; padding: 8px 16px; }
+/* a notice to read rather than a quick confirmation: a card with a blue edge and an info mark */
+.msg.info { border: 1px solid rgba(59, 130, 246, 0.5); border-left: 3px solid #3b82f6; border-radius: 12px; padding: 10px 16px 10px 12px; line-height: 1.5; text-align: left; max-width: min(480px, calc(100vw - 32px)); }
+.msg.info:not([hidden]) { display: flex; gap: 10px; align-items: flex-start; }
+.msg.info::before { content: 'i'; flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: #3b82f6; color: #fff; font: 700 11px/18px var(--ui); text-align: center; }
 .sheet { background: rgba(0, 0, 0, 0.35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .sheet .box { background: var(--glass-solid); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); border: 1px solid var(--glass-line); border-radius: var(--radius); box-shadow: var(--glass-shadow), var(--glass-hi); }
 input[type=text], input[type=number], input[type=search], input[type=password], select, textarea { border-radius: 8px; }
@@ -9615,6 +9620,7 @@ const Inspector = (() => {
       kids.push(plainNum('Height (px)', C.height, (v) => setSize(C.width, v || C.height), { min: 16 }));
     }
     kids.push(sel('Frame rate', FPS_PRESETS.map((f) => [String(f), `${f} fps`]), () => String(C.fps), (v) => { C.fps = Number(v); refreshAll(); }));
+    if (Premiere.on) kids.push(btn('Match the Premiere sequence', () => Premiere.matchSequence(), 'btn sm full'));
     const hasVideo = C.layers.some((l) => l.type === 'video');
     kids.push(plainNum('Length (s)', +C.duration.toFixed(2), (v) => { if (autoLengthOn(C)) { C.autoLength = false; say('Length set by hand. Turn on "Fit length to the videos" to let it follow the media again.'); } setDuration(v); render(); }, { step: 0.5, min: 0.5 }));
     if (hasVideo) kids.push(bool('Fit length to the videos', () => C.autoLength !== false, (v) => { C.autoLength = v; commit(); refreshAll(); render(); }));
@@ -11952,7 +11958,141 @@ function fontsUsed(comp) {
 }
 function b64FromBuf(buf) { const u8 = new Uint8Array(buf); let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
 function bufFromB64(b64) { const bin = atob(b64); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); return u8.buffer; }
+/* =========================================================
+   Premiere Pro: when this page runs as a panel inside Premiere (CEP), exports are written straight
+   to disk next to the Premiere project and placed in it, and clips can be brought in from Premiere.
+   In a normal browser none of this is active.
+   ========================================================= */
+var Premiere = (() => {
+  const cep = window.__adobe_cep__, on = !!cep;
+  let req = null; try { req = on ? (window.cep_node && window.cep_node.require) || window.require : null; } catch {}
+  const fs = req ? req('fs') : null, npath = req ? req('path') : null, os = req ? req('os') : null;
+  const ok = !!(on && fs && npath);
+  const BIN = 'Explainer Studio';
+  let mode = 'timeline'; try { mode = localStorage.getItem('es3.ppro.place') || 'timeline'; } catch {}
+  function host(fn, args) {
+    return new Promise((resolve) => {
+      if (!on) return resolve({ ok: false, error: 'Not running inside Premiere Pro.' });
+      const call = args === undefined ? `${fn}()` : `${fn}(${JSON.stringify(JSON.stringify(args))})`;
+      cep.evalScript(call, (res) => {
+        if (res === 'EvalScript error.' || res == null) return resolve({ ok: false, error: `Premiere could not run ${fn}. Close and reopen the panel, or restart Premiere if this keeps happening.` });
+        try { resolve(JSON.parse(res)); } catch { resolve({ ok: false, error: String(res) }); }
+      });
+    });
+  }
+  // exports go next to the Premiere project, or into Documents when the project is not saved yet
+  async function folder() {
+    const r = await host('es_info');
+    const dir = r.ok && r.projectPath ? npath.join(npath.dirname(r.projectPath), 'Explainer Studio Exports') : npath.join(os.homedir(), 'Documents', 'Explainer Studio Exports');
+    fs.mkdirSync(dir, { recursive: true });
+    return dir;
+  }
+  function unique(dir, name) {
+    const ext = npath.extname(name), b = name.slice(0, name.length - ext.length);
+    let p = npath.join(dir, name), i = 2; while (fs.existsSync(p)) p = npath.join(dir, `${b} (${i++})${ext}`);
+    return p;
+  }
+  const toBuf = async (d) => (d instanceof Blob ? Buffer.from(await d.arrayBuffer()) : d instanceof ArrayBuffer ? Buffer.from(d) : ArrayBuffer.isView(d) ? Buffer.from(d.buffer, d.byteOffset, d.byteLength) : Buffer.from(String(d)));
+  // stands in for the browser's file handle: the same write/close/abort calls, written with Node
+  function diskFile(path) {
+    const fd = fs.openSync(path, 'w'); let pos = 0, closed = false;
+    async function write(x) {
+      let at = pos, data = x;
+      if (x && typeof x === 'object' && !(x instanceof Blob) && !ArrayBuffer.isView(x) && !(x instanceof ArrayBuffer) && x.type) {
+        if (x.type === 'seek') { pos = x.position; return; }
+        if (x.type === 'truncate') { fs.ftruncateSync(fd, x.size); return; }
+        data = x.data; if (x.position != null) at = x.position;
+      }
+      const b = await toBuf(data); fs.writeSync(fd, b, 0, b.length, at); pos = at + b.length;
+    }
+    const close = async () => { if (!closed) { closed = true; fs.closeSync(fd); } };
+    const abort = async () => { await close(); try { fs.unlinkSync(path); } catch {} };
+    return { path, write, close, abort, stream: new WritableStream({ write: (c) => write(c), close, abort }) };
+  }
+  async function file(name) { return diskFile(unique(await folder(), name)); }
+  async function dir(name) {
+    const d = unique(await folder(), name); fs.mkdirSync(d, { recursive: true });
+    return { path: d, name: npath.basename(d), getFileHandle: async (n) => ({ createWritable: async () => diskFile(npath.join(d, n)) }) };
+  }
+  function reveal(path) {
+    try { const cp = req('child_process'); if (process.platform === 'win32') cp.execFile('explorer.exe', [`/select,${path}`]); else cp.execFile('open', ['-R', path]); } catch {}
+  }
+  function savedNote(path, extra) {
+    const m = $('#msg'); m.className = 'msg ok'; m.hidden = false; m.textContent = `${extra || 'Saved'} ${npath.basename(path)}. `;
+    const a = el('a', null, 'Show in folder'); a.href = '#'; a.addEventListener('click', (e) => { e.preventDefault(); reveal(path); }); m.append(a);
+    clearTimeout(msgTimer); msgTimer = setTimeout(() => (m.hidden = true), 10000);
+  }
+  // after an export: import into the project and, if chosen, put it on the timeline at the playhead
+  async function deliver(path, o = {}) {
+    if (mode === 'file') { savedNote(path); return; }
+    const r = await host('es_send', { path, name: o.name || npath.basename(path), binName: BIN, mode, media: o.media || 'video', stills: !!o.stills, fps: o.fps || 0, seconds: o.seconds || S.comp.duration, hasAudio: !!o.hasAudio });
+    if (!r.ok) { say(`Saved ${npath.basename(path)}, but Premiere said: ${r.error}`, 'err', 10000); return; }
+    savedNote(path, r.placed ? `On the timeline at ${tc(r.start || 0)} (${r.trackName}) and in the "${BIN}" bin:` : r.note ? `${r.note} Imported` : `Imported into the "${BIN}" bin:`);
+  }
+  // small files the app saves (a still frame, subtitles, the project file) are written to the same folder
+  async function saveBlob(blob, name) {
+    const f = await file(name); await f.write(blob); await f.close();
+    if (/\.png$/i.test(name) && mode !== 'file') return deliver(f.path, { media: 'still', name: name.replace(/\.png$/i, ''), seconds: 5 });
+    savedNote(f.path);
+  }
+  const MIME = { mp4: 'video/mp4', m4v: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm', mkv: 'video/x-matroska', mp3: 'audio/mpeg', wav: 'audio/wav', aif: 'audio/aiff', aiff: 'audio/aiff', m4a: 'audio/mp4', aac: 'audio/aac', ogg: 'audio/ogg', flac: 'audio/flac', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp', svg: 'image/svg+xml', tif: 'image/tiff', tiff: 'image/tiff', psd: 'image/vnd.adobe.photoshop' };
+  // clips selected in Premiere's Project panel (or on its timeline) come into Media
+  async function bringIn() {
+    const r = await host('es_pick'); if (!r.ok) { say(r.error, 'err', 7000); return; }
+    const files = [], skipped = [];
+    for (const it of r.items) {
+      try {
+        const st = fs.statSync(it.path);
+        if (st.size > 2e9) { skipped.push(`${it.name} (over 2 GB)`); continue; }
+        const ext = npath.extname(it.path).slice(1).toLowerCase();
+        files.push(new File([fs.readFileSync(it.path)], npath.basename(it.path), { type: MIME[ext] || '' }));
+      } catch (e) { skipped.push(it.name); }
+    }
+    if (files.length) { selectLibTab('media'); await importMediaFiles(files); }
+    say(`${files.length ? `Brought in ${files.length} clip${files.length === 1 ? '' : 's'} from Premiere.` : 'Nothing was brought in.'}${skipped.length ? ` Skipped: ${skipped.join(', ')}. For very large clips, export a shorter part from Premiere first.` : ''}`, files.length ? 'ok' : 'err', 9000);
+  }
+  // make the animation the same size and frame rate as the sequence it is going into
+  async function matchSequence() {
+    const r = await host('es_info'); const q = r.ok && r.sequence;
+    if (!q) { say(r.ok ? 'Open a sequence in Premiere first.' : r.error, 'err'); return; }
+    S.comp.width = Math.max(16, Math.round(q.width / 2) * 2); S.comp.height = Math.max(16, Math.round(q.height / 2) * 2);
+    if (q.fps) S.comp.fps = Math.round(q.fps);
+    commit(); refreshAll(); if (typeof renderTemplates === 'function') renderTemplates();
+    say(`Matched "${q.name}": ${S.comp.width} × ${S.comp.height}, ${S.comp.fps} fps.`, 'ok');
+  }
+  // shortcuts typed in the panel stay in the panel instead of going to Premiere
+  function keepKeys() {
+    if (!/win/i.test(navigator.platform)) return;
+    const codes = [8, 9, 13, 27, 32, 33, 34, 35, 36, 37, 38, 39, 40, 46, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222];
+    for (let k = 48; k <= 57; k++) codes.push(k); for (let k = 65; k <= 90; k++) codes.push(k);
+    const list = []; codes.forEach((keyCode) => [[false, false], [true, false], [false, true], [true, true]].forEach(([ctrlKey, shiftKey]) => list.push({ keyCode, ctrlKey, shiftKey })));
+    try { cep.registerKeyEventsInterest(JSON.stringify(list)); } catch {}
+  }
+  function init() {
+    if (!on) return;
+    document.documentElement.classList.add('in-premiere');
+    // if Node's module object could not be cleared, the zip library registered itself there
+    const nm = window.__cepModule || (typeof module === 'object' ? module : null);
+    if (typeof window.JSZip === 'undefined' && nm && nm.exports && nm.exports.loadAsync) window.JSZip = nm.exports;
+    keepKeys();
+    // links open in the normal browser, not in a window inside Premiere
+    window.open = (url) => { try { if (window.cep && cep.util) window.cep.util.openURLInDefaultBrowser(String(url)); else cep.invokeSync && cep.invokeSync('openURLInDefaultBrowser', String(url)); } catch {} return null; };
+    if (!ok) { say('Premiere is running this panel without file access, so exports cannot be saved. Reinstall the panel with the installer.', 'err', 0); return; }
+    // export sheet: what happens to the file in Premiere
+    const row = el('label', 'f ex-ppro'); row.htmlFor = 'exPpro';
+    const sel = el('select'); sel.id = 'exPpro';
+    [['timeline', 'Add to the timeline at the playhead'], ['bin', 'Import into the project bin'], ['file', 'Only save the file']].forEach(([v, t]) => sel.append(new Option(t, v)));
+    sel.value = mode; sel.addEventListener('change', () => { mode = sel.value; try { localStorage.setItem('es3.ppro.place', mode); } catch {} });
+    row.append(document.createTextNode('In Premiere Pro'), sel);
+    const grid = $('#exportSheet .ex-grid'); if (grid) grid.append(row);
+    // media: bring clips over from Premiere
+    const acts = $('.media-actions');
+    if (acts) { const b = el('button', 'btn sm', 'From Premiere'); b.type = 'button'; b.title = 'Bring the clips selected in Premiere into Media'; b.addEventListener('click', bringIn); acts.append(b); }
+  }
+  return { on, ok, init, host, file, dir, deliver, saveBlob, bringIn, matchSequence, folder, join: (...a) => npath.join(...a) };
+})();
 function downloadBlob(blob, name) {
+  if (Premiere.ok) { Premiere.saveBlob(blob, name).catch((e) => say(`Could not save ${name}: ${e.message || e}`, 'err', 9000)); return; }
   const url = URL.createObjectURL(blob);
   const a = el('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove();
   const m = $('#msg'); m.className = 'msg ok'; m.hidden = false; m.textContent = `Saved ${name} (${(blob.size / 1048576).toFixed(1)} MB). `;
@@ -12193,8 +12333,9 @@ const ExportPanel = (() => {
 async function pngBlob(c) { return c.convertToBlob ? c.convertToBlob({ type: 'image/png' }) : new Promise((r) => c.toBlob(r, 'image/png')); }
 // Long or large exports go straight to a file (or folder) on disk while rendering, so they are limited
 // only by disk space. Browsers without the File System Access API keep the file in memory, as before.
-const canStreamToDisk = () => typeof window.showSaveFilePicker === 'function';
+const canStreamToDisk = () => Premiere.ok || typeof window.showSaveFilePicker === 'function';
 async function pickDiskFile(name, mime) {
+  if (Premiere.ok) return Premiere.file(name);
   const ext = name.slice(name.lastIndexOf('.'));
   try { return await (await window.showSaveFilePicker({ suggestedName: name, types: [{ description: 'Export', accept: { [mime]: [ext] } }] })).createWritable(); }
   catch (e) { if (e && e.name === 'AbortError') throw new Error('Cancelled.'); return null; }
@@ -12221,13 +12362,16 @@ async function doExport(kind, eo = {}) {
     let disk = null, dir = null;
     const names = { mov: `${base}-${xW}x${xH}-${xF}fps${alphaOK ? '-alpha' : ''}.mov`, mp4: `${base}-${xW}x${xH}-${xF}fps.mp4`, webm: `${base}-${xW}x${xH}-${xF}fps${alphaOK ? '-alpha' : ''}.webm`, wav: `${base}-audio.wav` };
     const mimes = { mov: 'video/quicktime', mp4: 'video/mp4', webm: 'video/webm', wav: 'audio/wav' };
-    if (big && names[kind] && canStreamToDisk()) disk = await pickDiskFile(names[kind], mimes[kind]);
-    if (big && kind === 'png' && typeof window.showDirectoryPicker === 'function') { try { dir = await window.showDirectoryPicker({ mode: 'readwrite' }); } catch (e) { if (e && e.name === 'AbortError') throw new Error('Cancelled.'); } }
-    const savedTo = (what) => say(`Saved ${what} to your computer.`, 'ok', 7000);
+    const toDisk = big || Premiere.ok;
+    if (toDisk && names[kind] && canStreamToDisk()) disk = await pickDiskFile(names[kind], mimes[kind]);
+    if (Premiere.ok && kind === 'png') dir = await Premiere.dir(`${base}-${xW}x${xH}-${xF}fps`);
+    else if (big && kind === 'png' && typeof window.showDirectoryPicker === 'function') { try { dir = await window.showDirectoryPicker({ mode: 'readwrite' }); } catch (e) { if (e && e.name === 'AbortError') throw new Error('Cancelled.'); } }
+    const hasSound = () => S.comp.layers.some((l) => l.type === 'audio' || (l.type === 'video' && !l.props.muted));
+    const savedTo = (what) => (disk && disk.path ? Premiere.deliver(disk.path, { media: kind === 'wav' ? 'audio' : 'video', name: S.comp.name, seconds: S.comp.duration, hasAudio: hasSound() }) : say(`Saved ${what} to your computer.`, 'ok', 7000));
     if (kind === 'wav') {
       progress(true, 0.3, 'Mixing the sound…');
       const mix = await mixAudio(); if (!mix) throw new Error('There is no sound to export. Add music or a video clip with sound first.');
-      if (disk) { await disk.write(wavBlob(mix)); await disk.close(); savedTo(names.wav); } else downloadBlob(wavBlob(mix), names.wav);
+      if (disk) { await disk.write(wavBlob(mix)); await disk.close(); await savedTo(names.wav); } else downloadBlob(wavBlob(mix), names.wav);
     } else if (kind === 'mov' && disk) {
       // stream: placeholder header, every frame as it is drawn, the sound, the index, then the real header
       let pos = 36; const sizes = [];
@@ -12239,7 +12383,7 @@ async function doExport(kind, eo = {}) {
         const mix = await mixAudio();
         if (mix) for (const chunk of pcmChunks(mix)) { await put(chunk, pos); pos += chunk.byteLength; }
         const { head, moov } = movBuild(sizes, info.W, info.H, info.fps, mix);
-        await put(moov, pos); await put(head, 0); await disk.close(); savedTo(names.mov);
+        await put(moov, pos); await put(head, 0); await disk.close(); await savedTo(names.mov);
       } catch (e) { try { await disk.abort(); } catch {} throw e; }
     } else if (kind === 'mov') {
       const frames = [];
@@ -12253,7 +12397,8 @@ async function doExport(kind, eo = {}) {
       const info = await renderAll(async (c, cx, i) => save(`${base}_${String(i).padStart(6, '0')}.png`, await pngBlob(c)), { W: eo.W, H: eo.H, fps: eo.fps, opaque: !alphaOK });
       progress(true, 1, 'Mixing the sound…'); const mix = await mixAudio(); if (mix) await save(`${base}_audio.wav`, wavBlob(mix));
       await save('project.json', new Blob([JSON.stringify({ app: 'explainer-studio-project', version: 3, comp: S.comp }, null, 1)], { type: 'application/json' }));
-      say(`Saved ${info.n} frames, the sound and the project file into the "${dir.name}" folder.`, 'ok', 7000);
+      if (dir.path) await Premiere.deliver(Premiere.join(dir.path, `${base}_000000.png`), { media: 'video', stills: true, fps: info.fps, name: S.comp.name, seconds: S.comp.duration });
+      else say(`Saved ${info.n} frames, the sound and the project file into the "${dir.name}" folder.`, 'ok', 7000);
     } else if (kind === 'png') {
       const zip = new JSZip(), folder = zip.folder(base);
       const info = await renderAll(async (c, cx, i) => folder.file(`${base}_${String(i).padStart(5, '0')}.png`, await pngBlob(c)), { W: eo.W, H: eo.H, fps: eo.fps, opaque: !alphaOK });
@@ -12270,7 +12415,7 @@ async function doExport(kind, eo = {}) {
       let codec = null;
       for (const cdc of kind === 'mp4' ? ['avc', 'hevc', 'vp9', 'av1'] : ['vp9', 'av1', 'vp8']) { try { if (await MB.canEncodeVideo(cdc, { width: W, height: H, bitrate, ...(alpha ? { alpha: 'keep' } : {}) })) { codec = cdc; break; } } catch {} }
       if (!codec) throw new Error(alpha ? 'This browser cannot encode transparent video. Export a PNG sequence instead.' : 'This browser cannot encode this format.');
-      const out = new MB.Output({ format: kind === 'mp4' ? new MB.Mp4OutputFormat({ fastStart: disk ? false : 'in-memory' }) : new MB.WebMOutputFormat(), target: disk ? new MB.StreamTarget(disk, { chunked: true }) : new MB.BufferTarget() });
+      const out = new MB.Output({ format: kind === 'mp4' ? new MB.Mp4OutputFormat({ fastStart: disk ? false : 'in-memory' }) : new MB.WebMOutputFormat(), target: disk ? new MB.StreamTarget(disk.stream || disk, { chunked: true }) : new MB.BufferTarget() });
       const c = typeof OffscreenCanvas !== 'undefined' ? new OffscreenCanvas(W, H) : Object.assign(document.createElement('canvas'), { width: W, height: H });
       const src = new MB.CanvasSource(c, { codec, bitrate, keyFrameInterval: 2, ...(alpha ? { alpha: 'keep' } : {}) });
       out.addVideoTrack(src, { frameRate: fps });
@@ -12295,7 +12440,7 @@ async function doExport(kind, eo = {}) {
         }
         src.close(); await out.finalize();
       } catch (e) { try { await out.cancel(); } catch {} throw e; }
-      if (disk) savedTo(names[kind]);
+      if (disk) await savedTo(names[kind]);
       else downloadBlob(new Blob([out.target.buffer], { type: kind === 'mp4' ? 'video/mp4' : 'video/webm' }), `${base}-${W}x${H}-${fps}fps${alpha ? '-alpha' : ''}.${kind === 'mp4' ? 'mp4' : 'webm'}`);
     }
   } catch (e) { say(e.message || String(e), 'err', 8000); }
@@ -12624,6 +12769,7 @@ var Cloud = (() => {
   }
   // Must run from a click: Google opens a pop-up.
   async function signIn() {
+  if (Premiere.on) { say('Google sign-in only works in the browser version of Explainer Studio. Inside Premiere, projects are kept in this panel and exports are saved next to your Premiere project.', 'info', 10000); return; }
     if (!clientId()) { say('Add your Google OAuth client ID in Settings first (Settings → Google sign-in).', 'err', 7000); $('#settingsBtn').click(); return false; }
     if (!/^https?:$/.test(location.protocol)) { say('Google sign-in needs the editor opened from a web address (http://localhost or your site), not as a file.', 'err', 8000); return false; }
     await loadGis();
@@ -13481,7 +13627,7 @@ function onKey(e) {
 function selectLibTab(name) {
   if (name === 'elements') name = 'templates';
   const wasAssets = !!$('[data-ltab="assets"][aria-selected="true"]');
-  if (name === 'assets' && !wasAssets) say('Stock assets come from outside sources we rely on, so they may not always be available. We recommend using your own media and assets where you can.', '', 8000);
+  if (name === 'assets' && !wasAssets) say('Stock assets come from outside sources we rely on, so they may not always be available. We recommend using your own media and assets where you can.', 'info', 8000);
   $$('[data-ltab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.ltab === name)));
   $$('[data-lpane]').forEach((p) => (p.hidden = p.dataset.lpane !== name));
   const tabBtn = $(`[data-ltab="${name}"]`); if (tabBtn) $('#panelTitle').textContent = tabBtn.textContent.trim();
@@ -13501,6 +13647,7 @@ async function init() {
   setFormNotice((text, kind) => say(text, kind, 7000));
   Timeline.init(); Tools.init();
   initDragAndDrop();
+  Premiere.init();
   const mediaInput = $('#mediaFileInput');
   if (mediaInput) mediaInput.addEventListener('change', () => { const f = [...(mediaInput.files || [])]; mediaInput.value = ''; if (f.length) importMediaFiles(f); });
   $$('[data-mfilter]').forEach((b) => b.addEventListener('click', () => {
