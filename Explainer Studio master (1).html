@@ -13480,6 +13480,8 @@ function onKey(e) {
 /* ---------- init ---------- */
 function selectLibTab(name) {
   if (name === 'elements') name = 'templates';
+  const wasAssets = !!$('[data-ltab="assets"][aria-selected="true"]');
+  if (name === 'assets' && !wasAssets) say('Stock assets come from outside sources we rely on, so they may not always be available. We recommend using your own media and assets where you can.', '', 8000);
   $$('[data-ltab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.ltab === name)));
   $$('[data-lpane]').forEach((p) => (p.hidden = p.dataset.lpane !== name));
   const tabBtn = $(`[data-ltab="${name}"]`); if (tabBtn) $('#panelTitle').textContent = tabBtn.textContent.trim();
