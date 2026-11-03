@@ -2442,7 +2442,6 @@ input[type=text], input[type=number], input[type=search], input[type=password], 
                 <span>+ Import media</span>
               </label>
               <input type="file" id="mediaFileInput" accept="video/*,audio/*,image/*,.mp4,.webm,.mov,.m4v,.mkv,.avi,.ogv,.3gp,.3g2,.mpg,.mpeg,.ts,.mts,.m2ts,.wmv,.flv,.mp3,.wav,.wave,.m4a,.aac,.ogg,.oga,.opus,.flac,.weba,.aif,.aiff,.caf,.wma,.amr,.mka,.png,.jpg,.jpeg,.jfif,.webp,.svg,.gif,.avif,.bmp,.ico,.heic,.heif,.tif,.tiff" multiple hidden>
-              <button class="btn sm" id="recordMediaBtn" type="button" title="Record your screen into the media bin">Record screen</button>
             </div>
             <div class="media-filter-row">
               <button class="chip on" data-mfilter="all" type="button">All</button>
@@ -8861,7 +8860,8 @@ const Timeline = (() => {
     const a0 = clone(L.anim), x0 = e.clientX, list = snapTimes(L.id), dur = S.comp.duration, k0 = L.keys ? clone(L.keys) : null;
     // a grouped bar takes the rest of its group along, as far as the whole group fits
     const mates = mode === 'move' ? groupMembers(L.group).filter((m) => m.id !== L.id && !m.locked).map((m) => [m, clone(m.anim)]) : [];
-    const lo = -Math.min(a0.start, ...mates.map(([, a]) => a.start)), hi = dur - Math.max(a0.end, ...mates.map(([, a]) => a.end));
+    const lim = mode === 'move' && autoLengthOn() && [L, ...mates.map(([m]) => m)].some((m) => m.type === 'video') ? 1e6 : dur;
+    const lo = -Math.min(a0.start, ...mates.map(([, a]) => a.start)), hi = lim - Math.max(a0.end, ...mates.map(([, a]) => a.end));
     let moved = false;
     barNow.style.cursor = mode === 'move' ? 'grabbing' : '';
     const mv = (ev) => {
@@ -9615,7 +9615,9 @@ const Inspector = (() => {
       kids.push(plainNum('Height (px)', C.height, (v) => setSize(C.width, v || C.height), { min: 16 }));
     }
     kids.push(sel('Frame rate', FPS_PRESETS.map((f) => [String(f), `${f} fps`]), () => String(C.fps), (v) => { C.fps = Number(v); refreshAll(); }));
-    kids.push(plainNum('Length (s)', C.duration, (v) => setDuration(v), { step: 0.5, min: 0.5 }));
+    const hasVideo = C.layers.some((l) => l.type === 'video');
+    kids.push(plainNum('Length (s)', +C.duration.toFixed(2), (v) => { if (autoLengthOn(C)) { C.autoLength = false; say('Length set by hand. Turn on "Fit length to the videos" to let it follow the media again.'); } setDuration(v); render(); }, { step: 0.5, min: 0.5 }));
+    if (hasVideo) kids.push(bool('Fit length to the videos', () => C.autoLength !== false, (v) => { C.autoLength = v; commit(); refreshAll(); render(); }));
     const out = [sec('Composition', kids)];
     out.push(sec('Background and colours',
       bool('Transparent background', () => C.look.transparent, (v) => { C.look.transparent = v; refreshAll(); renderTemplates(); }),
@@ -10255,7 +10257,33 @@ function uOut() { return Math.min(S.comp.width, S.comp.height) / 100; }
 
 /* ---------- history ---------- */
 let saveTimer = 0;
+// With a video in the project, the length follows the media: it grows to fit a longer clip and
+// shrinks when the end is trimmed away. Layers that ran to the old end keep running to the new one.
+const autoLengthOn = (C = S.comp) => !!C && C.autoLength !== false && C.layers.some((l) => l.type === 'video');
+function fitLength() {
+  const C = S.comp; if (!autoLengthOn(C)) return false;
+  const old = C.duration, eps = 1e-3, fps = C.fps || 30;
+  const follows = (l) => l.type !== 'video' && Math.abs(l.anim.end - old) < eps;
+  let end = 0; C.layers.forEach((l) => { if (!follows(l)) end = Math.max(end, l.anim.end); });
+  if (!(end > 0)) return false;
+  end = Math.max(0.5, Math.floor(end * fps + 0.01) / fps); // whole frames, never a blank one after the last clip
+  if (Math.abs(end - old) < eps) return false;
+  C.layers.forEach((L) => {
+    const a = L.anim;
+    if (follows(L)) {
+      a.end = end;
+      // music cannot run past the end of its file
+      if (L.type === 'audio') { const m = PROJECT_MEDIA.find((x) => x.id === L.props.mediaId); if (m && m.duration) a.end = Math.min(end, Math.max(old > end ? end : old, a.start + m.duration - (L.props.clipStart || 0))); }
+    }
+    if (a.end > end) a.end = end;
+    if (a.start > end - 0.1) a.start = Math.max(0, end - 0.1);
+    a.inDur = Math.min(a.inDur, a.end - a.start); a.outDur = Math.min(a.outDur, a.end - a.start - a.inDur);
+  });
+  C.duration = end; S.t = Math.min(S.t, end);
+  return true;
+}
 function commit() {
+  if (fitLength()) queueMicrotask(() => { refreshAll(); const i = $('#inspBody input[data-len]'); if (i) i.value = S.comp.duration; });
   const snap = JSON.stringify(S.comp);
   if (S.hist[S.hi] === snap) return;
   S.hist = S.hist.slice(0, S.hi + 1); S.hist.push(snap);
@@ -10936,28 +10964,6 @@ function addMediaToTimeline(mediaId, atTime = 0) {
   L.anim.end = Math.min(L.anim.end, S.comp.duration);
   S.comp.layers.unshift(L); S.sel = L.id; commit(); refreshAll(); Timeline.fit();
   say(`Added "${media.name}" at ${atTime.toFixed(1)} s, behind the graphics. Exports include its picture and sound.`, 'ok', 7000);
-}
-
-/* Screen recording into the media bin. */
-let recorder = null;
-async function toggleRecording() {
-  const btn = $('#recordMediaBtn');
-  if (recorder) { recorder.stop(); return; }
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia || typeof MediaRecorder === 'undefined') { say('This browser cannot record the screen.', 'err'); return; }
-  let stream;
-  try { stream = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: true }); } catch (e) { say('Recording was cancelled.'); return; }
-  const type = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find((t) => MediaRecorder.isTypeSupported(t)) || '';
-  const chunks = []; recorder = new MediaRecorder(stream, type ? { mimeType: type } : undefined);
-  recorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
-  recorder.onstop = async () => {
-    stream.getTracks().forEach((t) => t.stop()); recorder = null; btn.textContent = 'Record screen'; btn.classList.remove('danger');
-    if (!chunks.length) return;
-    const stamp = new Date().toTimeString().slice(0, 8).replace(/:/g, '-');
-    await importMediaFiles([new File(chunks, `Screen recording ${stamp}.webm`, { type: 'video/webm' })]);
-  };
-  stream.getVideoTracks()[0].addEventListener('ended', () => { if (recorder && recorder.state !== 'inactive') recorder.stop(); });
-  recorder.start(500); btn.textContent = '■ Stop recording'; btn.classList.add('danger');
-  say('Recording. Press Stop recording (or stop sharing) to finish.', '', 0);
 }
 
 /* ---------- Drag & Drop Templates & Media into Timeline / Stage ---------- */
@@ -13493,7 +13499,6 @@ async function init() {
   setFormNotice((text, kind) => say(text, kind, 7000));
   Timeline.init(); Tools.init();
   initDragAndDrop();
-  $('#recordMediaBtn')?.addEventListener('click', toggleRecording);
   const mediaInput = $('#mediaFileInput');
   if (mediaInput) mediaInput.addEventListener('change', () => { const f = [...(mediaInput.files || [])]; mediaInput.value = ''; if (f.length) importMediaFiles(f); });
   $$('[data-mfilter]').forEach((b) => b.addEventListener('click', () => {
