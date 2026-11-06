@@ -5336,15 +5336,21 @@ const FontMgr = (() => {
   async function register(family) {
     (faces.get(family) || []).forEach((f) => { try { document.fonts.delete(f); } catch {} });
     const list = uploaded.get(family) || [];
-    const made = [];
+    const made = [], bad = [];
     const single = list.filter((r) => !r.italic).length <= 1;
     for (const r of list) {
       try {
         const face = new FontFace(family, r.data, { weight: single && !r.italic ? '1 1000' : String(r.weight), style: r.italic ? 'italic' : 'normal' });
         await face.load(); document.fonts.add(face); made.push(face);
-      } catch (e) { console.warn('Font failed to load', r.fileName, e); }
+      } catch (e) { console.warn('Font failed to load', r.fileName, e); bad.push(r); }
     }
     faces.set(family, made);
+    // a file the browser cannot read would only draw the default font, so it does not stay in the lists
+    if (bad.length) {
+      const left = list.filter((r) => !bad.includes(r));
+      if (left.length) uploaded.set(family, left); else { uploaded.delete(family); faces.delete(family); }
+      for (const r of bad) { try { await tx('readwrite', (st) => st.delete(r.id)); } catch {} }
+    }
     return made.length > 0;
   }
   async function addRecord(rec, persist = true) {
@@ -5373,7 +5379,7 @@ const FontMgr = (() => {
         const data = await file.arrayBuffer(); const u8 = new Uint8Array(data);
         const info = (await sfntInfo(async (p, l) => u8.subarray(p, p + l))) || guessFromName(file.name);
         const fam = await addRecord({ family: info.family, weight: info.weight, italic: info.italic, fileName: file.name, data });
-        if ((faces.get(fam) || []).length) added.push(fam); else failed.push(file.name);
+        if ((uploaded.get(fam) || []).some((r) => r.fileName === file.name)) added.push(fam); else failed.push(file.name);
       } catch (e) { failed.push(file.name); }
     }
     return { added: [...new Set(added)], failed };
@@ -5474,6 +5480,25 @@ const FontMgr = (() => {
   }
   return { init, addFiles, addData, removeFamily, addSystem, kind, groups, filesFor, mine, ensureLoaded, scanInstalled, installed, sfntInfo, guessFromName, clean };
 })();
+const isFontFile = (f) => /\.(ttf|otf|woff2?|ttc|dfont|eot|pfb|pfm|fon)$/i.test(f.name) || /^(font\/|application\/(x-)?font)/.test(f.type || '');
+// adds font files and says what happened; returns the families that are ready to use
+async function uploadFonts(files) {
+  const r = await FontMgr.addFiles([...files]);
+  const parts = [];
+  if (r.added.length) parts.push(`Added ${r.added.join(', ')}. Pick it in any Font list.`);
+  if (r.failed.length) parts.push(`Could not use ${r.failed.join(', ')}: the file is damaged or not a web-readable font. Use a TTF, OTF, WOFF or WOFF2 file.`);
+  if (parts.length) say(parts.join(' '), r.failed.length ? 'err' : 'ok', 9000);
+  Inspector.render();
+  return r.added;
+}
+// opens the file picker; call it straight from a click or a menu choice
+function pickFonts() {
+  return new Promise((resolve) => {
+    const i = document.createElement('input'); i.type = 'file'; i.accept = '.ttf,.otf,.woff,.woff2'; i.multiple = true; i.hidden = true;
+    i.addEventListener('change', async () => { const f = [...i.files]; i.remove(); resolve(f.length ? await uploadFonts(f) : []); });
+    document.body.append(i); i.click();
+  });
+}
 
 </script>
 <script>
@@ -8372,7 +8397,7 @@ function pixelCanvas(w, h) {
 
 /* ---------- compositions ---------- */
 /* ---------- subtitles ---------- */
-const SUB_STYLE = { size: 4.6, pos: 'bottom', color: '#FFFFFF', bg: true, bgOpacity: 0.6, weight: 700 };
+const SUB_STYLE = { size: 4.6, pos: 'bottom', color: '#FFFFFF', bg: true, bgOpacity: 0.6, weight: 700, font: 'body' };
 function subStyle(comp) { return { ...SUB_STYLE, ...(((comp.subtitles || {}).style) || {}) }; }
 function activeCue(comp, t) {
   const sb = comp.subtitles; if (!sb || sb.on === false || !Array.isArray(sb.cues)) return null;
@@ -8382,7 +8407,7 @@ function drawSubtitles(lib, ctx, comp, t) {
   const c = activeCue(comp, t); if (!c || !String(c.text || '').trim()) return;
   const st = subStyle(comp), u = lib.u, W = lib.W, H = lib.H, size = st.size * u;
   ctx.save();
-  ctx.font = lib.fontStr(size, st.weight, 'body');
+  ctx.font = lib.fontStr(size, st.weight, resolveFont(st.font, lib));
   const lines = String(c.text).split('\n').flatMap((ln) => lib.wrap(ctx, ln.trim(), W * 0.82)).filter(Boolean).slice(0, 4);
   const lh = size * 1.3, padX = size * 0.45, margin = H * 0.07, blockH = lines.length * lh;
   const y0 = st.pos === 'top' ? margin : st.pos === 'middle' ? (H - blockH) / 2 : H - margin - blockH;
@@ -9065,7 +9090,7 @@ const Inspector = (() => {
   }
   function cellSelect(options, get, set, label) { const s = el('select'); s.setAttribute('aria-label', label); options.forEach(([v, l]) => s.append(new Option(l, v))); s.value = get(); s.addEventListener('change', () => { set(s.value); live(); commit(); }); return s; }
   const fontAndWeight = (P, def = 'display', w = 800) => [
-    sel('Font', fontOptions(true), () => P.font || def, (v) => { P.font = v; FontMgr.ensureLoaded([v]).then(draw); }, { full: true }),
+    layerFont(P, def),
     sel('Weight', WEIGHTS.map(([x, l]) => [String(x), `${x} · ${l}`]), () => String(P.weight || w), (v) => (P.weight = Number(v))),
   ];
   const palette = (label, P, k, noneLabel = 'Palette default') => color(label, () => P[k] || null, (v) => (P[k] = v || undefined), { none: true, noneLabel, full: true });
@@ -9079,6 +9104,18 @@ const Inspector = (() => {
     FontMgr.groups().forEach((g) => groups.push({ group: g.label, items: g.items.map((x) => [x, x]) }));
     return groups;
   }
+  // a Font list that also takes a new file, which is then used straight away
+  function fontSel(label, options, get, apply) {
+    const cur = get(), opts = options.slice();
+    if (cur && !['display', 'body', 'mono'].includes(cur) && FontMgr.kind(cur) === 'missing') opts.unshift({ group: 'Not on this computer', items: [[cur, `${cur} (not on this computer: upload it)`]] });
+    opts.push({ group: 'Your own font', items: [['__upload', 'Upload a font…']] });
+    return sel(label, opts, get, (v) => {
+      if (v !== '__upload') { apply(v); return; }
+      pickFonts().then((added) => { if (added.length) { apply(added[0]); commit(); refreshAll(); } });
+      setTimeout(render); // shows the current font again while the picker is open
+    }, { full: true });
+  }
+  const layerFont = (P, def) => fontSel('Font', fontOptions(true), () => P.font || def, (v) => { P.font = v; FontMgr.ensureLoaded([v]).then(draw); });
   function deriveName(L) { return layerName(L.type, L.props, S.comp.width / uOut(), S.comp.height / uOut()); }
   function contentSection(L) {
     const P = L.props, kids = [];
@@ -9087,7 +9124,7 @@ const Inspector = (() => {
       case 'text': {
         let old = L.name;
         kids.push(txt('Text', () => P.text, (v) => { P.text = v; syncName(old); old = L.name; }, { area: true, rows: 3, id: 'layerText', after: () => render() }));
-        kids.push(sel('Font', fontOptions(true), () => P.font || 'body', (v) => { P.font = v; FontMgr.ensureLoaded([v]).then(draw); }, { full: true }));
+        kids.push(layerFont(P, 'body'));
         kids.push(sel('Weight', WEIGHTS.map(([w, l]) => [String(w), `${w} · ${l}`]), () => String(P.weight || 600), (v) => (P.weight = Number(v))));
         kids.push(pxNum('Size', () => P.size == null ? 5 : P.size, (v) => (P.size = Math.max(0.3, v))));
         kids.push(color('Colour', () => P.color || 'fg', (v) => (P.color = v), { full: true }));
@@ -9105,7 +9142,7 @@ const Inspector = (() => {
         kids.push(sel('Weight', WEIGHTS.map(([w, l]) => [String(w), `${w} · ${l}`]), () => String(P.weight || 700), (v) => (P.weight = Number(v))));
         kids.push(color('Fill', () => P.fill || 'accent', (v) => (P.fill = v), { full: true }));
         kids.push(color('Text colour', () => P.color, (v) => (P.color = v || undefined), { none: true, full: true }));
-        kids.push(sel('Font', fontOptions(true), () => P.font || 'body', (v) => { P.font = v; FontMgr.ensureLoaded([v]).then(draw); }, { full: true }));
+        kids.push(layerFont(P, 'body'));
         break;
       }
       case 'box':
@@ -9655,8 +9692,8 @@ const Inspector = (() => {
     const groups = FontMgr.groups().map((g) => ({ group: g.label, items: g.items.map((x) => [x, x]) }));
     const setF = async (k, v) => { C.look.fonts = { ...f(), [k]: v }; await FontMgr.ensureLoaded([v]); rebuild(); draw(); renderTemplates(); };
     const s = sec('Fonts',
-      sel('Headlines and big numbers', groups, () => f().display, (v) => setF('display', v), { full: true }),
-      sel('Labels and body text', groups, () => f().body, (v) => setF('body', v), { full: true }),
+      fontSel('Headlines and big numbers', groups, () => f().display, (v) => setF('display', v)),
+      fontSel('Labels and body text', groups, () => f().body, (v) => setF('body', v)),
     );
     const missing = [f().display, f().body].filter((x, i, a) => a.indexOf(x) === i && FontMgr.kind(x) === 'missing');
     if (missing.length) s.querySelector('.igrid').append(el('p', 'hint warn full', `${missing.join(' and ')} is not on this computer, so a default font is drawn instead.`));
@@ -9664,12 +9701,12 @@ const Inspector = (() => {
     const inner = el('div', 'pane'); inner.style.padding = '8px 0 0';
     const up = el('input'); up.type = 'file'; up.accept = '.ttf,.otf,.woff,.woff2'; up.multiple = true; up.hidden = true; up.id = 'fontFiles';
     const upl = el('label', 'btn sm', 'Upload font files'); upl.htmlFor = 'fontFiles';
-    up.addEventListener('change', async () => { const r = await FontMgr.addFiles([...up.files]); up.value = ''; render(); if (r.added.length) say(`Added ${r.added.join(', ')}. Pick it above, or for a single text layer.`, 'ok'); if (r.failed.length) say(`Could not read ${r.failed.join(', ')}.`, 'err'); });
+    up.addEventListener('change', async () => { const f = [...up.files]; up.value = ''; if (f.length) await uploadFonts(f); });
     const sys = el('input'); sys.type = 'text'; sys.placeholder = 'Installed font name, for example Gotham'; sys.setAttribute('list', 'sysFontList'); sys.setAttribute('aria-label', 'Installed font name');
     const dl = el('datalist'); dl.id = 'sysFontList';
     const addSys = () => { const r = FontMgr.addSystem(sys.value); if (!r.ok) { say(r.error, 'err'); return; } say(`Added ${r.family}.`, 'ok'); render(); };
     sys.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addSys(); } });
-    const scan = btn('List installed fonts', async () => { try { const list = await FontMgr.scanInstalled(null, null, null); if (!list) { say('This browser cannot list installed fonts. Type the font name instead.', 'err'); return; } dl.innerHTML = ''; list.forEach((x) => dl.append(new Option(x, x))); say(`Found ${list.length} installed font families.`, 'ok'); sys.focus(); } catch (e) { say('Could not list installed fonts. Type the name instead.', 'err'); } }, 'btn sm ghost');
+    const scan = btn('List installed fonts', async () => { try { const list = await FontMgr.scanInstalled(...Premiere.nodeFonts()); if (!list) { say('This browser cannot list installed fonts. Type the font name instead.', 'err'); return; } dl.innerHTML = ''; list.forEach((x) => dl.append(new Option(x, x))); say(`Found ${list.length} installed font families.`, 'ok'); sys.focus(); } catch (e) { say('Could not list installed fonts. Type the name instead.', 'err'); } }, 'btn sm ghost');
     const mine = el('div', 'myfonts');
     const m = FontMgr.mine();
     [...m.uploaded.map((u) => [u.family, `uploaded · ${u.weights.join(', ')}`]), ...m.system.map((x) => [x, 'installed'])].forEach(([fam, note]) => {
@@ -10855,7 +10892,10 @@ async function imageAsPng(f) {
   return AssetMgr.addData({ label: f.name.replace(/\.[^.]+$/, ''), name: f.name.replace(/\.[^.]+$/, '') + '.png', type: 'image/png', data: await blob.arrayBuffer() });
 }
 async function importMediaFiles(files, credit) {
-  const list = Array.from(files || []), added = [], skipped = [];
+  const all = Array.from(files || []), fontFiles = all.filter(isFontFile), added = [], skipped = [];
+  if (fontFiles.length) await uploadFonts(fontFiles);
+  const list = all.filter((f) => !isFontFile(f));
+  if (!list.length) return;
   const newId = () => 'media_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   const keep = async (rec, f, url) => {
     if (credit) rec.credit = credit;
@@ -11954,6 +11994,7 @@ function saveProject() {
 function fontsUsed(comp) {
   const fams = new Set([comp.look.fonts && comp.look.fonts.display, comp.look.fonts && comp.look.fonts.body]);
   comp.layers.forEach((L) => { if (L.props && L.props.font && !['display', 'body', 'mono'].includes(L.props.font)) fams.add(L.props.font); });
+  const sf = subStyle(comp).font; if (!['display', 'body', 'mono'].includes(sf)) fams.add(sf);
   return [...fams].filter((f) => f && FontMgr.kind(f) === 'uploaded');
 }
 function b64FromBuf(buf) { const u8 = new Uint8Array(buf); let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
@@ -12089,7 +12130,8 @@ var Premiere = (() => {
     const acts = $('.media-actions');
     if (acts) { const b = el('button', 'btn sm', 'From Premiere'); b.type = 'button'; b.title = 'Bring the clips selected in Premiere into Media'; b.addEventListener('click', bringIn); acts.append(b); }
   }
-  return { on, ok, init, host, file, dir, deliver, saveBlob, bringIn, matchSequence, folder, join: (...a) => npath.join(...a) };
+  const nodeFonts = () => (ok ? [fs.promises, npath, os] : [null, null, null]);
+  return { on, ok, init, host, file, dir, deliver, saveBlob, bringIn, matchSequence, folder, nodeFonts, join: (...a) => npath.join(...a) };
 })();
 function downloadBlob(blob, name) {
   if (Premiere.ok) { Premiere.saveBlob(blob, name).catch((e) => say(`Could not save ${name}: ${e.message || e}`, 'err', 9000)); return; }
@@ -12132,6 +12174,7 @@ async function fontsReady() {
   const f = S.comp.look.fonts || {};
   const fams = new Set([f.display, f.body, 'DM Sans', 'Inter', 'Bricolage Grotesque', 'IBM Plex Sans', 'Noto Sans Devanagari', ...(S.comp.layers.some((L) => L.type === 'textMatchCut') ? TMC_FONTS : [])]);
   S.comp.layers.forEach((L) => { if (L.props.font && !['display', 'body', 'mono'].includes(L.props.font)) fams.add(L.props.font); });
+  const sf = subStyle(S.comp).font; if (!['display', 'body', 'mono'].includes(sf)) fams.add(sf);
   await FontMgr.ensureLoaded([...fams]);
 }
 // Renders every frame at the export size and frame rate. `opaque` paints the background under transparent designs.
@@ -12735,7 +12778,15 @@ self.onmessage = async (e) => {
     const op = el('input'); op.type = 'range'; op.min = '0.2'; op.max = '1'; op.step = '0.05'; op.value = st.bgOpacity; op.addEventListener('input', () => setS('bgOpacity', +op.value)); op.addEventListener('change', commit);
     const pos = select([['bottom', 'Bottom'], ['middle', 'Middle'], ['top', 'Top']], st.pos, (v) => { setS('pos', v); commit(); });
     const grid = el('div', 'subs-style'); grid.append(field('Position', pos), field('Text colour', col));
-    body.append(sec('Style', field('Size', size), grid, bgOn, field('Box opacity', op)));
+    const fonts = [['body', 'Body font'], ['display', 'Headline font'], ...FontMgr.groups().flatMap((g) => g.items.map((x) => [x, x]))];
+    if (![...fonts.map((x) => x[0])].includes(st.font)) fonts.unshift([st.font, `${st.font} (not on this computer)`]);
+    const useFont = (v) => { setS('font', v); FontMgr.ensureLoaded(['body', 'display'].includes(v) ? [] : [v]).then(draw); commit(); };
+    const fontPick = select([...fonts, ['__upload', 'Upload a font…']], st.font, (v) => {
+      if (v !== '__upload') { useFont(v); return; }
+      pickFonts().then((a) => { if (a.length) useFont(a[0]); render(false); });
+      fontPick.value = st.font;
+    });
+    body.append(sec('Style', field('Font', fontPick), field('Size', size), grid, bgOn, field('Box opacity', op)));
   }
   function refresh() { const pane = document.querySelector('[data-lpane="subs"]'); if (pane && !pane.hidden) render(false); }
   return { render, refresh, parseSubs, toSrt };
@@ -13685,7 +13736,9 @@ async function init() {
   libEl.addEventListener('dragleave', () => libEl.classList.remove('drop'));
   libEl.addEventListener('drop', (e) => {
     libEl.classList.remove('drop');
-    const all = [...e.dataTransfer.files]; if (!all.length) return; e.preventDefault();
+    const dropped = [...e.dataTransfer.files]; if (!dropped.length) return; e.preventDefault();
+    const fontFiles = dropped.filter(isFontFile); if (fontFiles.length) uploadFonts(fontFiles);
+    const all = dropped.filter((x) => !isFontFile(x)); if (!all.length) return;
     const vids = all.filter((x) => /^video\//.test(x.type) || /\.(mp4|webm|mov|m4v)$/i.test(x.name));
     if (vids.length) { selectLibTab('media'); importMediaFiles(all); return; }
     const f = all.filter((x) => AssetMgr.mimeOf(x.name, x.type)); if (!f.length) return;
